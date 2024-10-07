@@ -1,0 +1,16 @@
+.drop {
+  font-size: calc(1rem * 1.25);
+  padding: calc(5% + 2px);
+  position: relative; /* Questo è necessario per l'animazione del posizionamento */
+  animation: moveToCenter 2s forwards; /* Animazione che si esegue una volta */
+}
+
+@keyframes moveToCenter {
+  from {
+    top: 0; /* Partenza dalla posizione iniziale */
+  }
+  to {
+    top: 50vh; /* Movimento verso il 50% della viewport verticale (metà pagina) */
+    transform: translateY(-50%); /* Centratura precisa a metà pagina */
+  }
+}
