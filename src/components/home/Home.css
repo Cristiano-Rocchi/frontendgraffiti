@@ -1,13 +1,48 @@
+/* CAMBIARE I CERCHI IN QUADRATI?
+CAMBIARE IL COLORE DEL HOVER SUI TEXTSVG
+*/
+/* OVERRIDE DEL BACKGROUND COLOR IN SASS*/
+
+@font-face {
+  font-family: "StayDrips";
+  src: url("./assets/fonts/StayDrips-Regular.otf") format("opentype");
+}
+
 .bg-dark {
   height: 100vh; /* Imposta l'altezza del div a tutta la pagina */
   background-color: #343a40; /* Colore di sfondo scuro */
 }
 .drop h4 {
-  color: #f0f0f0;
+  color: #bab4b4;
+  font-family: "StayDrips", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 100;
+  letter-spacing: 3px;
+  rotate: -8deg;
 }
 .drop img {
-  border: solid 2px #f0f0f0;
+  border: solid 1px #f0f0f0;
+  box-shadow: 0 0 15px 5px rgba(240, 240, 240, 0.5);
 }
+
+/* .drop::before {
+  content: "";
+  position: absolute;
+  top: 50px; 
+  left: 130px; 
+  width: 10px;
+  height: 10px;
+  opacity: 70%;
+  background: rgba(
+    255,
+    255,
+    255,
+    0.8
+  );  
+  border-radius: 50%;
+  box-shadow: 0 0 8px 4px rgba(255, 255, 255, 0.7); 
+}*/
+
 .drop {
   font-size: calc(1rem * 1.25);
   padding: calc(5% + 2px);
@@ -20,7 +55,23 @@
     top: 0; /* Partenza dalla posizione iniziale */
   }
   to {
-    top: 50vh; /* Movimento verso il 50% della viewport verticale (metà pagina) */
+    top: 60vh; /* Movimento verso il 50% della viewport verticale (metà pagina) */
     transform: translateY(-50%); /* Centratura precisa a metà pagina */
   }
+}
+.imgTag {
+  width: 70%;
+  border: none;
+  rotate: -10deg;
+}
+.underlineSvg {
+  rotate: -8deg;
+}
+
+.textsvg:hover .scelte svg path {
+  fill: red; /* Cambia il colore delle SVG a rosso */
+}
+
+.nav-link:hover h4 {
+  color: red; /* Cambia il colore del testo a rosso */
 }
