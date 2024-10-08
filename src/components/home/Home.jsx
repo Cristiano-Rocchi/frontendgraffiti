@@ -1,12 +1,12 @@
 import { Col, Container, Row } from "react-bootstrap";
-import ImgGraffiti from "../home/assets/img/graffito_phase2.jpg";
-import ImgStreetAtrt from "../home/assets/img/streetartalicepasquini.jpg";
-import imgTag from "../home/assets/img/tagtaki.jpg";
+import ImgGraffiti from "../../assets/home/img/graffito_phase2.jpg";
+import ImgStreetAtrt from "../../assets/home/img/streetartalicepasquini.jpg";
+import imgTag from "../../assets/home/img/tagtaki.jpg";
 import { Link } from "react-router-dom";
-
+import "../home/Home.css";
 function Home() {
   return (
-    <div className="bg-dark">
+    <div className="homeBody">
       <Container>
         <Row className="">
           <Col>
@@ -42,11 +42,13 @@ function Home() {
                 </div>
               </Link>
 
-              <img
-                className="rounded-circle w-50 h-50"
-                src={ImgGraffiti}
-                alt="graffito treno phase 2"
-              />
+              <Link to={"/"}>
+                <img
+                  className="rounded-circle w-50 h-50 imgLink"
+                  src={ImgGraffiti}
+                  alt="graffito treno phase 2"
+                />
+              </Link>
             </div>
           </Col>
           <Col>
@@ -80,11 +82,13 @@ function Home() {
                   </svg>
                 </div>
               </Link>
-              <img
-                className="rounded-circle w-50 h-50"
-                src={ImgStreetAtrt}
-                alt="stencil bambina alice pasquini"
-              />
+              <Link to={"/"}>
+                <img
+                  className="rounded-circle w-50 h-50 imgLink"
+                  src={ImgStreetAtrt}
+                  alt="stencil bambina alice pasquini"
+                />
+              </Link>
             </div>
           </Col>
           <Col>
@@ -118,12 +122,13 @@ function Home() {
                   </svg>
                 </div>
               </Link>
-
-              <img
-                className="rounded-circle h-50 w-50"
-                src={imgTag}
-                alt="immagine con tag"
-              />
+              <Link to={"/"}>
+                <img
+                  className="rounded-circle h-50 w-50 imgLink"
+                  src={imgTag}
+                  alt="immagine con tag"
+                />
+              </Link>
             </div>
           </Col>
         </Row>

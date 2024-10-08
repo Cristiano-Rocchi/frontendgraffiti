@@ -1,28 +1,29 @@
 /* CAMBIARE I CERCHI IN QUADRATI?
 CAMBIARE IL COLORE DEL HOVER SUI TEXTSVG
+INVECE DELLA SFUMATURA BIANCA INTORNO ALLE IMG PROVARE OMBRA NERA
 */
 /* OVERRIDE DEL BACKGROUND COLOR IN SASS*/
 
 @font-face {
-  font-family: "StayDrips";
-  src: url("./assets/fonts/StayDrips-Regular.otf") format("opentype");
+  font-family: "SpriteGraffiti";
+  src: url("../../assets/fonts/SpriteGraffiti-Regular.otf") format("opentype");
 }
 
-.bg-dark {
+.homeBody {
   height: 100vh; /* Imposta l'altezza del div a tutta la pagina */
-  background-color: #343a40; /* Colore di sfondo scuro */
+  background-color: #181a1c; /* Colore di sfondo scuro */
 }
 .drop h4 {
-  color: #bab4b4;
-  font-family: "StayDrips", sans-serif;
-  font-size: 1.5rem;
+  color: #c0c0c0;
+  font-family: "SpriteGraffiti", sans-serif;
+  font-size: 1.8rem;
   font-weight: 100;
   letter-spacing: 3px;
   rotate: -8deg;
 }
 .drop img {
   border: solid 1px #f0f0f0;
-  box-shadow: 0 0 15px 5px rgba(240, 240, 240, 0.5);
+  box-shadow: -9px 7px 18px 2px rgba(0, 0, 0, 0.77);
 }
 
 /* .drop::before {
@@ -74,4 +75,7 @@ CAMBIARE IL COLORE DEL HOVER SUI TEXTSVG
 
 .nav-link:hover h4 {
   color: red; /* Cambia il colore del testo a rosso */
+}
+.imgLink:hover {
+  cursor: url("../../assets/icons/spray-paint.png"), auto; /* Icona personalizzata */
 }

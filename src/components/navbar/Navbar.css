@@ -1,0 +1,17 @@
+@font-face {
+  font-family: "SpriteGraffiti";
+  src: url("../../assets/fonts/SpriteGraffiti-Regular.otf") format("opentype");
+}
+
+.navbarBody {
+  background-color: #181a1c;
+  border-bottom: solid 1px #c0c0c0;
+}
+.logoImg {
+  width: 200px;
+}
+.nav-link {
+  color: #c0c0c0;
+  font-family: "SpriteGraffiti", sans-serif;
+  letter-spacing: 2px;
+}
