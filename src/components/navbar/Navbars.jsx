@@ -1,15 +1,9 @@
 import { useState } from "react";
-import {
-  Button,
-  Container,
-  Modal,
-  Nav,
-  Navbar,
-  NavDropdown,
-} from "react-bootstrap";
+import { Container, Modal, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import "../navbar/Navbar.css";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/navbar/img/Logo_scritta_bianca.png";
+import CloseIcon from "../../assets/icons/delete.png";
 
 function Navbars() {
   const [showInfoModal, setShowInfoModal] = useState(false);
@@ -55,20 +49,39 @@ function Navbars() {
         </Container>
       </Navbar>
 
-      <Modal show={showInfoModal} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Informazioi</Modal.Title>
+      <Modal
+        show={showInfoModal}
+        onHide={handleClose}
+        className="custom-modal text-center"
+      >
+        <Modal.Header
+          closeButton={false}
+          className="d-flex justify-content-center"
+        >
+          {" "}
+          <img src={Logo} alt="logo" className="logo-modal" />
         </Modal.Header>
         <Modal.Body>
+          <Modal.Title>Informazioni</Modal.Title>
           <p>
-            Questo è il testo informativo che desideri mostrare. Puoi
-            personalizzarlo come preferisci.
+            Questo sito nasce per gli artisti e per appassionati di arte di
+            strada. questo è un sito dedicato alla conservazione e alla
+            documentazione di Graffiti, Tag e opere Street-Art, attraverso foto
+            caricate da voi. Gli Artisti o gli appassionati che caricheranno le
+            proprie opere rimarrano sempre in forma anonima e le immagini
+            caricate saranno conservate nel migliore dei modi nel tempo. <br />{" "}
+            BUON VIAGGIO
           </p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Chiudi
-          </Button>
+          <h3>Contatti</h3>
+          {/* Immagine PNG come pulsante di chiusura */}
+          <img
+            src={CloseIcon}
+            alt="Chiudi"
+            onClick={handleClose}
+            style={{ width: "24px", height: "24px", cursor: "pointer" }}
+          />
         </Modal.Footer>
       </Modal>
     </>

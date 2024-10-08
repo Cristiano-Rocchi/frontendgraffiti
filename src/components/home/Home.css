@@ -24,6 +24,7 @@ INVECE DELLA SFUMATURA BIANCA INTORNO ALLE IMG PROVARE OMBRA NERA
 .drop img {
   border: solid 1px #f0f0f0;
   box-shadow: -9px 7px 18px 2px rgba(0, 0, 0, 0.77);
+  filter: brightness(85%);
 }
 
 /* .drop::before {

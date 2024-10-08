@@ -15,3 +15,35 @@
   font-family: "SpriteGraffiti", sans-serif;
   letter-spacing: 2px;
 }
+
+.nav-link:hover {
+  color: red !important;
+}
+
+.nav-link:active {
+  color: red; /* Colore grigio quando il link è attivo (durante il clic) */
+}
+
+.nav-link:focus {
+  color: #c0c0c0; /* Colore grigio quando il link ha il focus */
+}
+
+/* MODALE*/
+.custom-modal .modal-dialog {
+  display: flex;
+  align-items: center;
+  min-height: 60vh; /* Regolo a che altezza compare il modale */
+}
+
+.custom-modal .modal-content {
+  background-color: #181a1c; /* Sfondo nero */
+  color: white; /* Testo bianco */
+  margin-top: auto;
+  margin-bottom: auto;
+  border: 1px solid #c0c0c0;
+}
+
+.logo-modal {
+  width: 17em;
+  text-align: center;
+}
