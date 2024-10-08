@@ -15,7 +15,7 @@ function Home() {
               <Link className="nav-link textsvg" to={"/"}>
                 <div className="mb-5 scelte">
                   <svg
-                    className="underlineSvg"
+                    className="boxSvgUp"
                     width="180.5px"
                     height="21.5px"
                     viewBox="0 0 445.5 21.5"
@@ -41,12 +41,11 @@ function Home() {
                   </svg>
                 </div>
               </Link>
-
               <Link to={"/"}>
                 <img
                   className="rounded-circle w-50 h-50 imgLink"
                   src={ImgGraffiti}
-                  alt="graffito treno phase 2"
+                  alt="graffito phase 2"
                 />
               </Link>
             </div>
@@ -56,7 +55,7 @@ function Home() {
               <Link className="nav-link textsvg" to={"/"}>
                 <div className="mb-5 scelte">
                   <svg
-                    className="underlineSvg"
+                    className="boxSvgUp"
                     width="180.5px"
                     height="21.5px"
                     viewBox="0 0 445.5 21.5"
@@ -96,7 +95,7 @@ function Home() {
               <Link className="nav-link textsvg" to={"/"}>
                 <div className="mb-5 scelte">
                   <svg
-                    className="underlineSvg"
+                    className="boxSvgUp"
                     width="180.5px"
                     height="21.5px"
                     viewBox="0 0 445.5 21.5"
@@ -124,9 +123,9 @@ function Home() {
               </Link>
               <Link to={"/"}>
                 <img
-                  className="rounded-circle h-50 w-50 imgLink"
+                  className="rounded-circle w-50 h-50 imgLink"
                   src={imgTag}
-                  alt="immagine con tag"
+                  alt="stencil bambina alice pasquini"
                 />
               </Link>
             </div>

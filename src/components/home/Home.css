@@ -27,23 +27,21 @@ INVECE DELLA SFUMATURA BIANCA INTORNO ALLE IMG PROVARE OMBRA NERA
   filter: brightness(85%);
 }
 
-/* .drop::before {
-  content: "";
+.boxSvgLeft {
+  left: 17%;
   position: absolute;
-  top: 50px; 
-  left: 130px; 
-  width: 10px;
-  height: 10px;
-  opacity: 70%;
-  background: rgba(
-    255,
-    255,
-    255,
-    0.8
-  );  
-  border-radius: 50%;
-  box-shadow: 0 0 8px 4px rgba(255, 255, 255, 0.7); 
-}*/
+  rotate: 94deg;
+  top: 22%;
+}
+.boxSvgRight {
+  left: 52%;
+  position: absolute;
+  rotate: -86deg;
+  top: 17%;
+}
+.boxSvgUp {
+  rotate: 173deg;
+}
 
 .drop {
   font-size: calc(1rem * 1.25);

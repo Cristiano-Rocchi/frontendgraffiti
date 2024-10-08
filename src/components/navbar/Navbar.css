@@ -47,3 +47,30 @@
   width: 17em;
   text-align: center;
 }
+
+/* Posiziona Contatti all'inizio della riga e aggiungi gli stili */
+.contatti-link {
+  margin-right: auto; /* Allinea a sinistra */
+  color: #c0c0c0; /* Colore grigio come gli altri link */
+  cursor: pointer; /* Cambia il cursore per indicare che è cliccabile */
+  font-size: 1.25rem; /* Regola la dimensione del testo se necessario */
+}
+
+.contatti-link:hover {
+  color: red; /* Cambia colore in rosso all'hover */
+}
+
+/* Modale dei contatti: riduci dimensioni e posizionalo sotto il titolo "Contatti" */
+.custom-modal-contact .modal-dialog {
+  max-width: 300px; /* Imposta la larghezza massima del modal */
+  position: absolute;
+  top: 50%; /* Posiziona il modal sotto la scritta "Contatti" */
+  left: 30%; /* Allinea il modal a sinistra */
+  transform: translateY(10px); /* Aggiungi un po' di margine sotto la scritta */
+}
+
+.custom-modal-contact .modal-content {
+  background-color: #181a1c; /* Mantieni lo stile del modale */
+  color: white;
+  border: 1px solid #c0c0c0;
+}
