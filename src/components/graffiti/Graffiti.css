@@ -3,7 +3,9 @@
 }
 
 /* CAROSELLO */
-
+.imgCarousel {
+  box-shadow: -6px 7px 18px -9px rgba(0, 0, 0, 0.77);
+}
 .containerCarousel h4 {
   font-family: "SpriteGraffiti", sans-serif;
 }

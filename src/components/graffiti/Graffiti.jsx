@@ -46,13 +46,14 @@ const Graffiti = () => {
             pauseOnMouseEnter: false,
           }}
           speed={3000}
-          modules={[Autoplay]} //inserire qua il pagination e importarlo sopras
-          className="mySwiper"
+          modules={[Autoplay]} //inserire dentro il modules il pagination e importarlo sopras
+          className="mySwiper pb-3 pt-3"
         >
           {images.map((image, index) => (
             <SwiperSlide key={index}>
               <div className="image-container">
                 <img
+                  className="imgCarousel"
                   src={image}
                   alt={`Immagine ${index + 1}`}
                   style={{
