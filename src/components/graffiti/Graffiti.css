@@ -1,9 +1,24 @@
+.graffMonth {
+  width: 14em;
+}
+
+/* CAROSELLO */
+
+.containerCarousel h4 {
+  font-family: "SpriteGraffiti", sans-serif;
+}
+
+.containerCarousel h4 span {
+  font-family: "SpriteGraffiti-extras", sans-serif;
+}
 .containerCarousel {
   margin: 0 auto;
   padding: 50px 0;
+  text-align: center;
 }
 
 .mySwiper .image-container {
+  position: relative;
   text-align: center;
 }
 
@@ -11,11 +26,11 @@
   border-radius: 10px;
 }
 
-.swiper-button-next,
-.swiper-button-prev {
-  color: #007bff;
-}
-
-.swiper-pagination-bullet {
-  background: #007bff;
+.artist-info {
+  position: absolute;
+  bottom: 15px;
+  left: 15px;
+  background-color: rgba(0, 0, 0, 0.6); /* Sfondo semi-trasparente */
+  color: white;
+  padding: 5px 10px;
 }

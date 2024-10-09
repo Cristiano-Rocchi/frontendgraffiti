@@ -5,6 +5,7 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
+import GraffMonth from "../../assets/graffiti/img/graffiti_of_the_month.png";
 
 const Graffiti = () => {
   const images = [
@@ -23,43 +24,54 @@ const Graffiti = () => {
   ];
 
   return (
-    <div className="containerCarousel">
-      <Swiper
-        slidesPerView={7}
-        spaceBetween={100}
-        loop={true}
-        autoplay={{
-          delay: 0,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: false,
-        }}
-        speed={2000}
-        /* pagination={{
-          clickable: true,
-        }}*/
-        modules={[Autoplay]} //inserire qua il pagination e importarlo sopras
-        className="mySwiper"
-      >
-        {images.map((image, index) => (
-          <SwiperSlide key={index}>
-            <div className="image-container">
-              <img
-                src={image}
-                alt={`Immagine ${index + 1}`}
-                style={{
-                  width: "200px",
-                  height: "200px",
-                  objectFit: "cover",
-                  borderRadius: "10px",
-                }}
-              />
-              <h6>Persona {index + 1}</h6>
-              <small>Ruolo designer</small>
-            </div>
-          </SwiperSlide>
-        ))}
-      </Swiper>
-    </div>
+    <>
+      <div></div>
+      <div className="containerCarousel">
+        <img
+          src={GraffMonth}
+          alt="graffiti of the month"
+          className="graffMonth"
+        />
+        {/* <h4 className="mb-3">
+          <span>a</span>GRAFFITI OF THE MONTH <span>a</span>
+        </h4> */}
+
+        <Swiper
+          slidesPerView={6}
+          spaceBetween={100}
+          loop={true}
+          autoplay={{
+            delay: 0,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: false,
+          }}
+          speed={3000}
+          modules={[Autoplay]} //inserire qua il pagination e importarlo sopras
+          className="mySwiper"
+        >
+          {images.map((image, index) => (
+            <SwiperSlide key={index}>
+              <div className="image-container">
+                <img
+                  src={image}
+                  alt={`Immagine ${index + 1}`}
+                  style={{
+                    width: "250px",
+                    height: "350px",
+                    objectFit: "cover",
+                    borderRadius: "30px",
+                  }}
+                />
+                {/* Sezione per il nome artista */}
+                <div className="artist-info rounded-pill">
+                  <span>Artista {index + 1}</span>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+    </>
   );
 };
 

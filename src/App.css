@@ -1,3 +1,17 @@
+@font-face {
+  font-family: "SpriteGraffiti-Extras";
+  src: url("../src/assets/fonts/SpriteGraffiti-Extras.otf") format("opentype");
+}
+@font-face {
+  font-family: "SpriteGraffiti";
+  src: url("../src/assets/fonts/SpriteGraffiti-Regular.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "SpriteGraffiti-Bombing";
+  src: url("../src/assets/fonts/SpriteGraffiti-Shadow.otf") format("opentype");
+}
+
 .App {
   text-align: center;
 }

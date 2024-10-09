@@ -4,11 +4,6 @@ INVECE DELLA SFUMATURA BIANCA INTORNO ALLE IMG PROVARE OMBRA NERA
 */
 /* OVERRIDE DEL BACKGROUND COLOR IN SASS*/
 
-@font-face {
-  font-family: "SpriteGraffiti";
-  src: url("../../assets/fonts/SpriteGraffiti-Regular.otf") format("opentype");
-}
-
 .homeBody {
   height: 100vh; /* Imposta l'altezza del div a tutta la pagina */
   background-color: #181a1c; /* Colore di sfondo scuro */
