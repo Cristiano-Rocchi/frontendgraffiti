@@ -12,7 +12,7 @@ function Home() {
           <Col>
             {" "}
             <div className="drop text-center">
-              <Link className="nav-link textsvg" to={"/"}>
+              <Link className="nav-link textsvg" to={"/graffiti"}>
                 <div className="mb-5 scelte">
                   <svg
                     className="boxSvgUp"
@@ -41,7 +41,7 @@ function Home() {
                   </svg>
                 </div>
               </Link>
-              <Link to={"/"}>
+              <Link to={"/graffiti"}>
                 <img
                   className="rounded-circle w-50 h-50 imgLink"
                   src={ImgGraffiti}

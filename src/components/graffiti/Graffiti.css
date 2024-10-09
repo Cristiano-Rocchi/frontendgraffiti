@@ -1,0 +1,21 @@
+.containerCarousel {
+  margin: 0 auto;
+  padding: 50px 0;
+}
+
+.mySwiper .image-container {
+  text-align: center;
+}
+
+.mySwiper img {
+  border-radius: 10px;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #007bff;
+}
+
+.swiper-pagination-bullet {
+  background: #007bff;
+}
