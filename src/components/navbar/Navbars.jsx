@@ -35,18 +35,12 @@ function Navbars() {
               <Link to={"/"} className="nav-link">
                 Registrati
               </Link>
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+              <NavDropdown title="ESPLORA" id="basic-nav-dropdown">
+                <NavDropdown.Item href="/graffiti">Graffiti</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">
-                  Another action
+                  Street-Art
                 </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">Tags</NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>

@@ -6,7 +6,8 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import GraffMonth from "../../assets/graffiti/img/graffiti_of_the_month.png";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col, Button, Modal } from "react-bootstrap";
+import CloseIcon from "../../assets/icons/delete.png"; // Importa l'icona
 
 const Graffiti = () => {
   const images = [
@@ -54,6 +55,12 @@ const Graffiti = () => {
 
   const [loadedImages, setLoadedImages] = useState([]);
   const [visibleCount, setVisibleCount] = useState(20);
+  const [showModal, setShowModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedArtist, setSelectedArtist] = useState("");
+  const [selectedStatoOpera, setSelectedStatoOpera] = useState(""); // Stato dell'opera
+  const [selectedAnno, setSelectedAnno] = useState(""); // Anno dell'opera
+  const [selectedLuogo, setSelectedLuogo] = useState(""); // Luogo dell'opera
 
   useEffect(() => {
     setLoadedImages(images.slice(0, visibleCount));
@@ -61,6 +68,16 @@ const Graffiti = () => {
 
   const loadMoreImages = () => {
     setVisibleCount((prevCount) => prevCount + 20);
+  };
+
+  const handleImageClick = (image, artist) => {
+    setSelectedImage(image);
+    setSelectedArtist(artist);
+    setShowModal(true);
+  };
+
+  const handleClose = () => {
+    setShowModal(false);
   };
 
   return (
@@ -108,18 +125,23 @@ const Graffiti = () => {
         </Swiper>
       </div>
 
-      <Container className="containerBody">
+      <Container className="containerBody p-4">
         <Row>
           {loadedImages.map((image, index) => (
             <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
-              <div className="card-container">
+              <div
+                className="card-container"
+                onClick={() => handleImageClick(image, `Artista ${index + 1}`)}
+              >
                 <img
                   className="card-img"
                   src={image}
                   alt={`Immagine ${index + 1}`}
                 />
-                <div className="card-info">
-                  <span>Immagine {index + 1}</span>
+                <div className="card-info fs-5">
+                  <p>
+                    <span>a</span>Nome Artista {index + 1}
+                  </p>
                 </div>
               </div>
             </Col>
@@ -133,6 +155,45 @@ const Graffiti = () => {
           </div>
         )}
       </Container>
+
+      {/* Modale per mostrare l'immagine ingrandita */}
+      <Modal show={showModal} onHide={handleClose} centered>
+        <Modal.Body className="text-center">
+          {selectedImage && (
+            <>
+              <img
+                src={selectedImage}
+                alt={selectedArtist}
+                className="modal-image"
+              />
+              <div className="d-flex justify-content-between">
+                {" "}
+                <div className="artist-info-modal mt-2 fs-3">
+                  <span>{selectedArtist}</span>
+                </div>
+                <div className="stato-opera-modal mt-2">
+                  <span>Stato: {selectedStatoOpera}</span>
+                </div>
+                <div className="anno-opera-modal mt-2">
+                  <span>Anno: {selectedAnno}</span>
+                </div>
+                <div className="luogo-opera-modal mt-2">
+                  <span>Luogo: {selectedLuogo}</span>
+                </div>
+              </div>
+            </>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <img
+            src={CloseIcon}
+            alt="Close"
+            onClick={handleClose}
+            className="close-modal-icon"
+            style={{ cursor: "pointer", width: "30px", height: "30px" }}
+          />
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
