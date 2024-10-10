@@ -1,11 +1,12 @@
 import "../graffiti/Graffiti.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import GraffMonth from "../../assets/graffiti/img/graffiti_of_the_month.png";
+import { Container, Row, Col, Button } from "react-bootstrap";
 
 const Graffiti = () => {
   const images = [
@@ -21,20 +22,55 @@ const Graffiti = () => {
     "https://via.placeholder.com/300x300.png?text=Immagine+10",
     "https://via.placeholder.com/300x300.png?text=Immagine+11",
     "https://via.placeholder.com/300x300.png?text=Immagine+12",
+    "https://via.placeholder.com/300x300.png?text=Immagine+13",
+    "https://via.placeholder.com/300x300.png?text=Immagine+14",
+    "https://via.placeholder.com/300x300.png?text=Immagine+15",
+    "https://via.placeholder.com/300x300.png?text=Immagine+16",
+    "https://via.placeholder.com/300x300.png?text=Immagine+17",
+    "https://via.placeholder.com/300x300.png?text=Immagine+18",
+    "https://via.placeholder.com/300x300.png?text=Immagine+19",
+    "https://via.placeholder.com/300x300.png?text=Immagine+20",
+    "https://via.placeholder.com/300x300.png?text=Immagine+21",
+    "https://via.placeholder.com/300x300.png?text=Immagine+22",
+    "https://via.placeholder.com/300x300.png?text=Immagine+23",
+    "https://via.placeholder.com/300x300.png?text=Immagine+24",
+    "https://via.placeholder.com/300x300.png?text=Immagine+25",
+    "https://via.placeholder.com/300x300.png?text=Immagine+26",
+    "https://via.placeholder.com/300x300.png?text=Immagine+27",
+    "https://via.placeholder.com/300x300.png?text=Immagine+28",
+    "https://via.placeholder.com/300x300.png?text=Immagine+29",
+    "https://via.placeholder.com/300x300.png?text=Immagine+30",
+    "https://via.placeholder.com/300x300.png?text=Immagine+31",
+    "https://via.placeholder.com/300x300.png?text=Immagine+32",
+    "https://via.placeholder.com/300x300.png?text=Immagine+33",
+    "https://via.placeholder.com/300x300.png?text=Immagine+34",
+    "https://via.placeholder.com/300x300.png?text=Immagine+35",
+    "https://via.placeholder.com/300x300.png?text=Immagine+36",
+    "https://via.placeholder.com/300x300.png?text=Immagine+37",
+    "https://via.placeholder.com/300x300.png?text=Immagine+38",
+    "https://via.placeholder.com/300x300.png?text=Immagine+39",
+    "https://via.placeholder.com/300x300.png?text=Immagine+40",
   ];
+
+  const [loadedImages, setLoadedImages] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(20);
+
+  useEffect(() => {
+    setLoadedImages(images.slice(0, visibleCount));
+  }, [visibleCount]);
+
+  const loadMoreImages = () => {
+    setVisibleCount((prevCount) => prevCount + 20);
+  };
 
   return (
     <>
-      <div></div>
       <div className="containerCarousel">
         <img
           src={GraffMonth}
           alt="graffiti of the month"
           className="graffMonth"
         />
-        {/* <h4 className="mb-3">
-          <span>a</span>GRAFFITI OF THE MONTH <span>a</span>
-        </h4> */}
 
         <Swiper
           slidesPerView={6}
@@ -46,10 +82,10 @@ const Graffiti = () => {
             pauseOnMouseEnter: false,
           }}
           speed={3000}
-          modules={[Autoplay]} //inserire dentro il modules il pagination e importarlo sopras
+          modules={[Autoplay]}
           className="mySwiper pb-3 pt-3"
         >
-          {images.map((image, index) => (
+          {images.slice(0, 12).map((image, index) => (
             <SwiperSlide key={index}>
               <div className="image-container">
                 <img
@@ -63,7 +99,6 @@ const Graffiti = () => {
                     borderRadius: "30px",
                   }}
                 />
-                {/* Sezione per il nome artista */}
                 <div className="artist-info rounded-pill">
                   <span>Artista {index + 1}</span>
                 </div>
@@ -72,6 +107,32 @@ const Graffiti = () => {
           ))}
         </Swiper>
       </div>
+
+      <Container className="containerBody">
+        <Row>
+          {loadedImages.map((image, index) => (
+            <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
+              <div className="card-container">
+                <img
+                  className="card-img"
+                  src={image}
+                  alt={`Immagine ${index + 1}`}
+                />
+                <div className="card-info">
+                  <span>Immagine {index + 1}</span>
+                </div>
+              </div>
+            </Col>
+          ))}
+        </Row>
+        {visibleCount < images.length && (
+          <div className="text-center">
+            <Button onClick={loadMoreImages} className="load-more-btn">
+              Carica altre immagini
+            </Button>
+          </div>
+        )}
+      </Container>
     </>
   );
 };
