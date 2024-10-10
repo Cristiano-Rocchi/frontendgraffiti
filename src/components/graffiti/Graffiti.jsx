@@ -6,8 +6,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import GraffMonth from "../../assets/graffiti/img/graffiti_of_the_month.png";
+import GraffSection from "../../assets/graffiti/img/graffitiSection.png";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
-import CloseIcon from "../../assets/icons/delete.png"; // Importa l'icona
+import CloseIcon from "../../assets/icons/delete.png";
 
 const Graffiti = () => {
   const images = [
@@ -82,6 +83,25 @@ const Graffiti = () => {
 
   return (
     <>
+      <div className="headerGraffiti text-center">
+        <h1>
+          The right destination <br /> for your graffiti
+        </h1>
+        <h3 className="mt-5">Upload a photo or get inspired</h3>
+        <div
+          style={{
+            gap: "9rem",
+          }}
+          className="d-flex justify-content-center mt-5"
+        >
+          <button className="rounded-pill px-4 py-2 btn-style">
+            <span>UPLOAD</span>{" "}
+          </button>
+          <button className="rounded-pill px-4 py-2 btn-style">
+            <span>GET INSPIRED</span>
+          </button>
+        </div>
+      </div>
       <div className="containerCarousel">
         <img
           src={GraffMonth}
@@ -125,7 +145,12 @@ const Graffiti = () => {
         </Swiper>
       </div>
 
-      <Container className="containerBody p-4">
+      <Container className="containerBody p-4 text-center">
+        <img
+          src={GraffSection}
+          alt="graffiti section"
+          className="graffSection"
+        />
         <Row>
           {loadedImages.map((image, index) => (
             <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">

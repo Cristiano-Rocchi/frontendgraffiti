@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Modal, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import "../navbar/Navbar.css";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/navbar/img/Logo_scritta_bianca.png";
 import CloseIcon from "../../assets/icons/delete.png";
+import { useLocation } from "react-router-dom";
 
 function Navbars() {
+  //MODALE
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
 
@@ -14,9 +16,50 @@ function Navbars() {
   const handleShowContact = () => setShowContactModal(true);
   const handleCloseContact = () => setShowContactModal(false);
 
+  // SCROLLBAR CON FIXED CON DISSOLVENZA
+  const location = useLocation();
+  const [opacity, setOpacity] = useState(1);
+
+  const isGraffitiPage = location.pathname === "/graffiti";
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      const startDissolve = 100; // Dove inizia la dissolvenza
+      const endDissolve = 1000; // Dove termina la dissolvenza
+
+      if (scrollY < startDissolve) {
+        setOpacity(1);
+      } else if (scrollY >= startDissolve && scrollY <= endDissolve) {
+        const newOpacity =
+          1 - (scrollY - startDissolve) / (endDissolve - startDissolve);
+        setOpacity(newOpacity);
+      } else {
+        setOpacity(0);
+      }
+    };
+
+    if (isGraffitiPage) {
+      window.addEventListener("scroll", handleScroll);
+    }
+
+    return () => {
+      if (isGraffitiPage) {
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
+  }, [isGraffitiPage]);
+
   return (
     <>
-      <Navbar expand="lg" className="navbarBody">
+      <Navbar
+        expand="lg"
+        className={`navbarBody ${isGraffitiPage ? "sticky-navbar" : ""}`}
+        style={{
+          opacity: isGraffitiPage ? opacity : 1,
+          transition: "opacity 0.5s ease",
+        }}
+      >
         <Container>
           <Link to={"/"}>
             <img src={Logo} alt="logo" className="logoImg" />

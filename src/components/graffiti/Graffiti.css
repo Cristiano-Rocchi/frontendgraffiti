@@ -1,3 +1,26 @@
+/* IMPORTANTE FARE OVERRYDE DEI GAP IN SASS E LEVARE LO STYLE INLINE SUI BUTTON */
+
+/* HEADER */
+.headerGraffiti {
+  padding: 3em;
+}
+
+.btn-style {
+  background-color: #ff6666;
+  font-family: "SpriteGraffiti", sans-serif;
+
+  border: none;
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.btn-style span {
+  display: inline-block;
+  transform: scale(2.3); /* Aumenta la dimensione del testo */
+  position: relative;
+  font-size: 1.3em;
+  rotate: -5deg;
+}
+
 .graffMonth {
   width: 14em;
   animation: danceEffect 2s infinite ease-in-out; /* cambiare i secondi per regolare la velocita */
@@ -59,6 +82,10 @@
 }
 
 /* CONTAINER */
+
+.graffSection {
+  width: 14em;
+}
 .containerBody {
   box-shadow: -6px 7px 18px -9px rgba(0, 0, 0, 0.77);
   border-radius: 10px;
