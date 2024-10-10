@@ -1,5 +1,24 @@
 .graffMonth {
   width: 14em;
+  animation: danceEffect 2s infinite ease-in-out; /* cambiare i secondi per regolare la velocita*/
+}
+
+@keyframes danceEffect {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(3deg) scale(1.05);
+  }
+  50% {
+    transform: rotate(0deg) scale(1);
+  }
+  75% {
+    transform: rotate(-3deg) scale(1.05);
+  }
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
 }
 
 /* CAROSELLO */
