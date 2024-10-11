@@ -1,5 +1,5 @@
 import "../graffiti/Graffiti.css";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -65,6 +65,8 @@ const Graffiti = () => {
   const [selectedAnno, setSelectedAnno] = useState(""); // Anno dell'opera
   const [selectedLuogo, setSelectedLuogo] = useState(""); // Luogo dell'opera
 
+  const containerRef = useRef(null);
+
   useEffect(() => {
     setLoadedImages(images.slice(0, visibleCount));
   }, [visibleCount]);
@@ -83,6 +85,12 @@ const Graffiti = () => {
     setShowModal(false);
   };
 
+  const handleGetInspiredClick = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <>
       <div className="headerGraffiti text-center">
@@ -99,7 +107,10 @@ const Graffiti = () => {
           <button className="rounded-pill px-4 py-2 btn-style">
             <span>UPLOAD</span>{" "}
           </button>
-          <button className="rounded-pill px-4 py-2 btn-style">
+          <button
+            className="rounded-pill px-4 py-2 btn-style"
+            onClick={handleGetInspiredClick}
+          >
             <span>GET INSPIRED</span>
           </button>
         </div>
@@ -154,7 +165,7 @@ const Graffiti = () => {
         </Swiper>
       </div>
 
-      <Container className="containerBody p-4 text-center">
+      <Container ref={containerRef} className="containerBody p-4 text-center">
         <img
           src={GraffSection}
           alt="graffiti section"
