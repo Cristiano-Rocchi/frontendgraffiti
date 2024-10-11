@@ -9,6 +9,8 @@ import GraffMonth from "../../assets/graffiti/img/graffiti_of_the_month.png";
 import GraffSection from "../../assets/graffiti/img/graffitiSection.png";
 import { Container, Row, Col, Button, Modal } from "react-bootstrap";
 import CloseIcon from "../../assets/icons/delete.png";
+import ArrowDown from "../../assets/icons/grunge-graffiti-arrow-down-3081.svg";
+import videoGraff from "../../assets/graffiti/vid/videowebsite.mp4";
 
 const Graffiti = () => {
   const images = [
@@ -102,6 +104,13 @@ const Graffiti = () => {
           </button>
         </div>
       </div>
+
+      <div className="video-container">
+        <video autoPlay muted loop playsInline className="background-video">
+          <source src={videoGraff} type="video/mp4" />
+          Il tuo browser non supporta il formato video.
+        </video>
+      </div>
       <div className="containerCarousel">
         <img
           src={GraffMonth}
@@ -174,9 +183,13 @@ const Graffiti = () => {
         </Row>
         {visibleCount < images.length && (
           <div className="text-center">
-            <Button onClick={loadMoreImages} className="load-more-btn">
-              Carica altre immagini
-            </Button>
+            <div onClick={loadMoreImages}>
+              <img
+                src={ArrowDown}
+                className="arrow-svg"
+                alt="Carica altre immagini"
+              />
+            </div>
           </div>
         )}
       </Container>
