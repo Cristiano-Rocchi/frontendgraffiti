@@ -7,9 +7,9 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import GraffMonth from "../../assets/graffiti/img/graffiti_of_the_month.png";
 import GraffSection from "../../assets/graffiti/img/graffitiSection.png";
-import { Container, Row, Col, Button, Modal } from "react-bootstrap";
+import { Container, Row, Col, Modal } from "react-bootstrap";
 import CloseIcon from "../../assets/icons/delete.png";
-import ArrowDown from "../../assets/icons/grunge-graffiti-arrow-down-3081.svg";
+import ArrowDown from "../../assets/icons/graffitiarrowsvg.svg";
 import videoGraff from "../../assets/graffiti/vid/videowebsite.mp4";
 
 const Graffiti = () => {
@@ -71,6 +71,14 @@ const Graffiti = () => {
     setLoadedImages(images.slice(0, visibleCount));
   }, [visibleCount]);
 
+  useEffect(() => {
+    if (showModal) {
+      document.body.classList.add("modal-open");
+    } else {
+      document.body.classList.remove("modal-open");
+    }
+    return () => document.body.classList.remove("modal-open");
+  }, [showModal]);
   const loadMoreImages = () => {
     setVisibleCount((prevCount) => prevCount + 20);
   };

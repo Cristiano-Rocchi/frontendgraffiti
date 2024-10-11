@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
-import { Container, Modal, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import {
+  Container,
+  Modal,
+  Nav,
+  Navbar,
+  NavDropdown,
+  Button,
+  Form,
+} from "react-bootstrap";
 import "../navbar/Navbar.css";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/navbar/img/Logo_scritta_bianca.png";
@@ -7,16 +15,19 @@ import CloseIcon from "../../assets/icons/delete.png";
 import { useLocation } from "react-router-dom";
 
 function Navbars() {
-  //MODALE
+  //MODALS
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false); // Add login modal state
 
   const handleShowInfo = () => setShowInfoModal(true);
   const handleCloseInfo = () => setShowInfoModal(false);
   const handleShowContact = () => setShowContactModal(true);
   const handleCloseContact = () => setShowContactModal(false);
+  const handleShowLogin = () => setShowLoginModal(true); // Show login modal
+  const handleCloseLogin = () => setShowLoginModal(false); // Close login modal
 
-  // SCROLLBAR CON FIXED CON DISSOLVENZA
+  // SCROLLBAR WITH DISSOLVE EFFECT
   const location = useLocation();
   const [opacity, setOpacity] = useState(1);
 
@@ -25,8 +36,8 @@ function Navbars() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const startDissolve = 100; // Dove inizia la dissolvenza
-      const endDissolve = 1000; // Dove termina la dissolvenza
+      const startDissolve = 100;
+      const endDissolve = 1000;
 
       if (scrollY < startDissolve) {
         setOpacity(1);
@@ -72,9 +83,8 @@ function Navbars() {
                 Home
               </Link>
               <Nav.Link onClick={handleShowInfo}>Info</Nav.Link>
-              <Link to={"/"} className="nav-link">
-                Login
-              </Link>
+              <Nav.Link onClick={handleShowLogin}>Login</Nav.Link>{" "}
+              {/* Updated */}
               <Link to={"/"} className="nav-link">
                 Registrati
               </Link>
@@ -90,7 +100,7 @@ function Navbars() {
         </Container>
       </Navbar>
 
-      {/* Modale principale */}
+      {/* Info Modal */}
       <Modal
         show={showInfoModal}
         onHide={handleCloseInfo}
@@ -108,10 +118,8 @@ function Navbars() {
             Questo sito nasce per gli artisti e per appassionati di arte di
             strada. Questo è un sito dedicato alla conservazione e alla
             documentazione di Graffiti, Tag e opere Street-Art, attraverso foto
-            caricate da voi. Gli artisti o gli appassionati che caricheranno le
-            proprie opere rimarranno sempre in forma anonima e le immagini
-            caricate saranno conservate nel migliore dei modi nel tempo. <br />{" "}
-            BUON VIAGGIO
+            caricate da voi.
+            <br /> BUON VIAGGIO
           </p>
         </Modal.Body>
         <Modal.Footer>
@@ -127,7 +135,46 @@ function Navbars() {
         </Modal.Footer>
       </Modal>
 
-      {/* Modale dei contatti */}
+      {/* Login Modal */}
+      <Modal
+        show={showLoginModal}
+        onHide={handleCloseLogin}
+        className="custom-modal text-center"
+      >
+        <Modal.Header
+          closeButton={false}
+          className="d-flex justify-content-center"
+        >
+          <img src={Logo} alt="logo" className="logo-modal" />
+        </Modal.Header>
+        <Modal.Body>
+          <Modal.Title>Login</Modal.Title>
+          <Form>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" placeholder="Enter email" />
+            </Form.Group>
+
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" placeholder="Password" />
+            </Form.Group>
+            <Button variant="primary" type="submit" className="mt-3">
+              Login
+            </Button>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <img
+            src={CloseIcon}
+            alt="Chiudi"
+            onClick={handleCloseLogin}
+            style={{ width: "24px", height: "24px", cursor: "pointer" }}
+          />
+        </Modal.Footer>
+      </Modal>
+
+      {/* Contact Modal */}
       <Modal
         show={showContactModal}
         onHide={handleCloseContact}

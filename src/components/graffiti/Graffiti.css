@@ -47,7 +47,7 @@
 .video-container {
   position: relative;
   width: 100%;
-  height: 90vh; /* Altezza della finestra che preferisci */
+  height: 90vh;
   overflow: hidden;
 }
 
@@ -55,10 +55,9 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 100vw; /* Larghezza completa della finestra */
-  height: auto; /* Mantiene le proporzioni */
-  transform: translate(-50%, -50%); /* Centra il video */
-  z-index: -1;
+  width: 100vw;
+  height: auto;
+  transform: translate(-50%, -50%);
 }
 
 /* CAROSELLO */
@@ -139,6 +138,26 @@
 .card-info span {
   font-family: "SpriteGraffiti-Extras", sans-serif;
 }
+
+.arrow-svg {
+  cursor: pointer;
+  max-width: 40px;
+  animation: moveArrowHorizontal 1s infinite ease-in-out;
+  rotate: -82deg;
+}
+
+@keyframes moveArrowHorizontal {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
 /* Modale */
 .modal-image {
   width: 100%;
@@ -172,8 +191,18 @@
   border: solid 1px black;
 }
 
-.arrow-svg {
-  cursor: pointer;
-  max-width: 40px;
-  rotate: 45deg;
+/* sfondo Modale */
+.modal-open {
+  overflow: hidden;
+}
+
+.modal-open::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 999;
 }
