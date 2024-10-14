@@ -57,7 +57,7 @@ INVECE DELLA SFUMATURA BIANCA INTORNO ALLE IMG PROVARE OMBRA NERA
 .nav-link:hover h4 {
   color: red; /* Cambia il colore del testo a rosso */
 }
-.card:hover {
+.cardHome:hover {
   cursor: url("../../assets/icons/spray-paint.png"), auto; /* Icona personalizzata */
 }
 
@@ -84,7 +84,7 @@ INVECE DELLA SFUMATURA BIANCA INTORNO ALLE IMG PROVARE OMBRA NERA
 .cardTag {
   background-image: url("../../assets/home/img/tagTaki.png");
 }
-.card {
+.cardHome {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -94,6 +94,6 @@ INVECE DELLA SFUMATURA BIANCA INTORNO ALLE IMG PROVARE OMBRA NERA
   border-radius: 10px;
   box-shadow: 0 10px 10px;
 }
-.containerCard:hover .card {
+.containerCard:hover .cardHome {
   transform: perspective(20px) rotateX(2deg) translateY(-50px);
 }

@@ -18,7 +18,7 @@ function Home() {
               <Link to={"/graffiti"}>
                 <div className="cardBody">
                   <div className="containerCard">
-                    <div className="card cardGraffiti"></div>
+                    <div className="cardHome cardGraffiti"></div>
                   </div>
                 </div>
               </Link>
@@ -32,7 +32,7 @@ function Home() {
               <Link to={"/graffiti"}>
                 <div className="cardBody">
                   <div className="containerCard">
-                    <div className="card cardStreetart"></div>
+                    <div className="cardHome cardStreetart"></div>
                   </div>
                 </div>
               </Link>
@@ -46,7 +46,7 @@ function Home() {
               <Link to={"/graffiti"}>
                 <div className="cardBody">
                   <div className="containerCard">
-                    <div className="card cardTag"></div>
+                    <div className="cardHome cardTag"></div>
                   </div>
                 </div>
               </Link>

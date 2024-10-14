@@ -15,19 +15,19 @@ import CloseIcon from "../../assets/icons/delete.png";
 import { useLocation } from "react-router-dom";
 
 function Navbars() {
-  //MODALS
+  //MODALE
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false); // Add login modal state
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   const handleShowInfo = () => setShowInfoModal(true);
   const handleCloseInfo = () => setShowInfoModal(false);
   const handleShowContact = () => setShowContactModal(true);
   const handleCloseContact = () => setShowContactModal(false);
-  const handleShowLogin = () => setShowLoginModal(true); // Show login modal
-  const handleCloseLogin = () => setShowLoginModal(false); // Close login modal
+  const handleShowLogin = () => setShowLoginModal(true);
+  const handleCloseLogin = () => setShowLoginModal(false);
 
-  // SCROLLBAR WITH DISSOLVE EFFECT
+  // SCROLLBAR
   const location = useLocation();
   const [opacity, setOpacity] = useState(1);
 
