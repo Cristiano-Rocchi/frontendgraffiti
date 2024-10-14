@@ -1,3 +1,5 @@
+import "../Register/Register.css";
+
 import React, { useState } from "react";
 import {
   Container,
@@ -7,7 +9,9 @@ import {
   Form,
   Button,
   Alert,
+  Modal,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -18,6 +22,7 @@ function Register() {
   });
 
   const [error, setError] = useState("");
+  const [showSuccessModal, setShowSuccessModal] = useState(false); // Stato per mostrare il modale
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -27,7 +32,7 @@ function Register() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Controllo se le password coincidono
@@ -37,27 +42,47 @@ function Register() {
     }
 
     setError("");
-    // Qui potrai gestire l'invio del form al backend
-    console.log(formData);
+
+    try {
+      const response = await fetch("http://localhost:3001/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log("Utente registrato con successo:", data);
+        setShowSuccessModal(true); // Mostra il modale di successo
+      } else {
+        const errorData = await response.json();
+        setError(errorData.message || "Errore durante la registrazione");
+      }
+    } catch (error) {
+      console.error("Errore di rete:", error);
+      setError("Errore di connessione al server.");
+    }
   };
 
   return (
-    <Container
-      className="d-flex justify-content-center align-items-center"
-      style={{ minHeight: "100vh" }}
-    >
+    <Container className="register-page d-flex justify-content-center align-items-center">
       <Row className="w-100">
         <Col xs={12} md={6} lg={4} className="mx-auto">
-          <Card className="p-4">
+          <Card className="register-card p-4">
             <Card.Body>
               <div className="text-center mb-4">
                 <img
                   src="/path-to-your-logo.png"
                   alt="Logo"
-                  className="mb-3"
-                  style={{ width: "150px" }}
+                  className="register-logo"
                 />
-                <h3>Register</h3>
+                <h3 className="register-title">Register</h3>
               </div>
               {error && <Alert variant="danger">{error}</Alert>}
               <Form onSubmit={handleSubmit}>
@@ -119,6 +144,22 @@ function Register() {
           </Card>
         </Col>
       </Row>
+
+      <Modal
+        show={showSuccessModal}
+        onHide={() => setShowSuccessModal(false)}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Registrazione completata</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Registrazione avvenuta con successo!</p>
+          <Link to="/" className="btn btn-primary">
+            Torna alla Home
+          </Link>
+        </Modal.Body>
+      </Modal>
     </Container>
   );
 }

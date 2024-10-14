@@ -1,0 +1,14 @@
+/* Sfondo nero applicato solo alla pagina di registrazione */
+.register-page {
+  min-height: 100vh;
+}
+
+.register-card {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.register-logo {
+  width: 150px;
+  margin-bottom: 15px;
+}

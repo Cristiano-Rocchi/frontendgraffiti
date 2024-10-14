@@ -85,11 +85,13 @@ function Navbars() {
               <Nav.Link onClick={handleShowInfo}>Info</Nav.Link>
               <Nav.Link onClick={handleShowLogin}>Login</Nav.Link>{" "}
               {/* Updated */}
-              <Link to={"/"} className="nav-link">
+              <Link to={"/register"} className="nav-link">
                 Registrati
               </Link>
               <NavDropdown title="ESPLORA" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/graffiti">Graffiti</NavDropdown.Item>
+                <Link className="nav-link" to={"/graffiti"}>
+                  Graffiti
+                </Link>
                 <NavDropdown.Item href="#action/3.2">
                   Street-Art
                 </NavDropdown.Item>
