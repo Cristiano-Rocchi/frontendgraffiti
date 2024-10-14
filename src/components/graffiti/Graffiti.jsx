@@ -11,6 +11,7 @@ import { Container, Row, Col, Modal } from "react-bootstrap";
 import CloseIcon from "../../assets/icons/delete.png";
 import ArrowDown from "../../assets/icons/graffitiarrowsvg.svg";
 import videoGraff from "../../assets/graffiti/vid/videowebsite.mp4";
+import { Link } from "react-router-dom";
 
 const Graffiti = () => {
   const images = [
@@ -113,7 +114,14 @@ const Graffiti = () => {
           className="d-flex justify-content-center mt-5"
         >
           <button className="rounded-pill px-4 py-2 btn-style">
-            <span>UPLOAD</span>{" "}
+            <span>
+              <Link
+                style={{ color: "black", textDecoration: "none" }}
+                to={"/upload"}
+              >
+                UPLOAD
+              </Link>
+            </span>
           </button>
           <button
             className="rounded-pill px-4 py-2 btn-style"

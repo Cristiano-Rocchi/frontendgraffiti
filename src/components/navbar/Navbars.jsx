@@ -7,18 +7,33 @@ import {
   NavDropdown,
   Button,
   Form,
+  Alert,
 } from "react-bootstrap";
 import "../navbar/Navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/navbar/img/Logo_scritta_bianca.png";
 import CloseIcon from "../../assets/icons/delete.png";
 import { useLocation } from "react-router-dom";
 
 function Navbars() {
-  //MODALE
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
+  const [username, setUsername] = useState(null); // Stato per memorizzare lo username
+  const navigate = useNavigate();
+
+  // Controlla se l'utente è loggato leggendo il token JWT e lo username
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const storedUsername = localStorage.getItem("username");
+
+    if (token && storedUsername) {
+      setUsername(storedUsername); // Imposta lo username se l'utente è loggato
+    }
+  }, []);
 
   const handleShowInfo = () => setShowInfoModal(true);
   const handleCloseInfo = () => setShowInfoModal(false);
@@ -27,10 +42,52 @@ function Navbars() {
   const handleShowLogin = () => setShowLoginModal(true);
   const handleCloseLogin = () => setShowLoginModal(false);
 
-  // SCROLLBAR
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleLoginSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3001/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("token", data.token); // Salva il token JWT
+        localStorage.setItem("username", data.username); // Salva lo username
+        setUsername(data.username); // Imposta lo username nello stato
+        setError("");
+        handleCloseLogin(); // Chiudi il modale
+        navigate("/"); // Reindirizza alla home
+      } else {
+        const errorData = await response.json();
+        setError(errorData.message || "Errore durante il login.");
+      }
+    } catch (error) {
+      console.error("Errore di rete:", error);
+      setError("Errore di connessione al server.");
+    }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Rimuovi il token dal localStorage
+    localStorage.removeItem("username"); // Rimuovi lo username dal localStorage
+    setUsername(null); // Resetta lo stato dello username
+    navigate("/"); // Reindirizza alla home
+  };
+
   const location = useLocation();
   const [opacity, setOpacity] = useState(1);
-
   const isGraffitiPage = location.pathname === "/graffiti";
 
   useEffect(() => {
@@ -83,11 +140,21 @@ function Navbars() {
                 Home
               </Link>
               <Nav.Link onClick={handleShowInfo}>Info</Nav.Link>
-              <Nav.Link onClick={handleShowLogin}>Login</Nav.Link>{" "}
-              {/* Updated */}
-              <Link to={"/register"} className="nav-link">
-                Registrati
-              </Link>
+
+              {!username ? (
+                <>
+                  <Nav.Link onClick={handleShowLogin}>Login</Nav.Link>
+                  <Link to={"/register"} className="nav-link">
+                    Registrati
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Nav.Link>Benvenuto, {username}</Nav.Link>
+                  <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                </>
+              )}
+
               <NavDropdown title="ESPLORA" id="basic-nav-dropdown">
                 <Link className="nav-link" to={"/graffiti"}>
                   Graffiti
@@ -151,15 +218,30 @@ function Navbars() {
         </Modal.Header>
         <Modal.Body>
           <Modal.Title>Login</Modal.Title>
-          <Form>
+          {error && <Alert variant="danger">{error}</Alert>}
+          <Form onSubmit={handleLoginSubmit}>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                required
+              />
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+                required
+              />
             </Form.Group>
             <Button variant="primary" type="submit" className="mt-3">
               Login

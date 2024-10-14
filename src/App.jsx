@@ -7,6 +7,7 @@ import Home from "./components/home/Home";
 import Graffiti from "./components/graffiti/Graffiti";
 import Register from "./components/Register/Register";
 import Profile from "./components/profile/Profile";
+import Upload from "./components/upload/Upload";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/graffiti" element={<Graffiti />} />
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/upload" element={<Upload />} />
         </Routes>
       </>
     </BrowserRouter>
