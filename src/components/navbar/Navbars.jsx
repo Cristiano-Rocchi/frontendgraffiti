@@ -135,12 +135,12 @@ function Navbars() {
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
+            {/* Prima del login tutti gli elementi allineati a sinistra */}
             <Nav className="me-auto">
               <Link to={"/"} className="nav-link">
                 Home
               </Link>
               <Nav.Link onClick={handleShowInfo}>Info</Nav.Link>
-
               {!username ? (
                 <>
                   <Nav.Link onClick={handleShowLogin}>Login</Nav.Link>
@@ -150,11 +150,12 @@ function Navbars() {
                 </>
               ) : (
                 <>
-                  <Nav.Link>Benvenuto, {username}</Nav.Link>
+                  <Link to={"/profile"} className="nav-link">
+                    Profilo
+                  </Link>
                   <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
                 </>
               )}
-
               <NavDropdown title="ESPLORA" id="basic-nav-dropdown">
                 <Link className="nav-link" to={"/graffiti"}>
                   Graffiti
@@ -165,6 +166,12 @@ function Navbars() {
                 <NavDropdown.Item href="#action/3.3">Tags</NavDropdown.Item>
               </NavDropdown>
             </Nav>
+            {/* Dopo il login "Benvenuto" allineato a destra */}
+            {username && (
+              <Nav className="ms-auto">
+                <Nav.Link>Benvenuto, {username}</Nav.Link>
+              </Nav>
+            )}
           </Navbar.Collapse>
         </Container>
       </Navbar>
