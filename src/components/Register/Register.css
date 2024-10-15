@@ -41,3 +41,62 @@
     transform: rotate(0deg) scale(1);
   }
 }
+
+.animated-text {
+  position: absolute;
+  right: -100%; /* Il testo arriva da destra */
+  top: 50%;
+  transform: translateY(-100%);
+  font-family: "SpriteGraffiti", sans-serif;
+  font-size: 1.5rem;
+  color: white;
+  opacity: 0;
+  animation: slideInFromRight 2s forwards;
+}
+
+.animated-text.second {
+  left: -100%; /* Cambia da right a left per far arrivare la seconda da sinistra */
+  top: auto; /* Rimuovi il top */
+  bottom: 10%; /* Posiziona la seconda sezione in basso */
+  animation: slideInFromLeft 2s forwards;
+  animation-delay: 2s;
+  margin-top: 65px;
+}
+
+/* Animazione per far scorrere il testo da destra */
+@keyframes slideInFromRight {
+  0% {
+    right: -100%;
+    opacity: 0;
+  }
+  100% {
+    right: 10px;
+    opacity: 1;
+  }
+}
+
+/* Animazione per far scorrere il testo da sinistra */
+@keyframes slideInFromLeft {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+  100% {
+    left: 10px;
+    opacity: 1;
+  }
+}
+
+.arrow-right {
+  width: 110px;
+
+  rotate: -24deg;
+}
+.arrow-left {
+  width: 110px;
+
+  rotate: -24deg;
+}
+.left-sect {
+  margin-top: -130px;
+}

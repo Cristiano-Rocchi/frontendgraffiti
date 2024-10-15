@@ -1,6 +1,6 @@
 import "../Register/Register.css";
 import LogoNero from "../../assets/register/LOGONERO.png";
-import CloseIcon from "../../assets/icons/delete.png"; // Import dell'icona di chiusura
+import CloseIcon from "../../assets/icons/delete.png";
 import React, { useState } from "react";
 import {
   Container,
@@ -12,7 +12,9 @@ import {
   Alert,
   Modal,
 } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom"; // Aggiunto useNavigate per reindirizzare
+import { Link, useNavigate } from "react-router-dom";
+import ArrowStyle from "../../assets/icons/arrowStyle.png";
+import ArrowWhite from "../../assets/icons/white-line.png";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -80,6 +82,26 @@ function Register() {
   return (
     <>
       <Container className="register-page d-flex justify-content-center align-items-center custom-container">
+        {/* Sezioni di testo animate */}
+        <div className="animated-text">
+          UNISCITI A NOI E CARICA I TUOI GRAFFITI <br /> O QUELLI CHE TROVI
+          NELLA TUA CITTA. <br /> NOI LI CONSERVEREMO PER TE.
+          <div className="">
+            <img
+              src={ArrowStyle}
+              className="arrow-right "
+              alt="icona freccia"
+            />
+          </div>
+        </div>
+        <div className="animated-text second">
+          <div className="d-block left-sect">
+            <img src={ArrowWhite} className="arrow-left " alt="icona freccia" />
+          </div>
+          PRENDI ISPIRAZIONE DALLE OPERE DEGLI ALTRI. <br /> OPPURE DIMOSTRA IL
+          TUO STILE.
+        </div>
+
         <Row className="w-100">
           <Col xs={12} md={6} lg={4} className="mx-auto">
             <Card className="register-card p-4">
