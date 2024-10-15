@@ -160,13 +160,15 @@ function Navbars() {
                 <Link className="nav-link" to={"/graffiti"}>
                   Graffiti
                 </Link>
-                <NavDropdown.Item href="#action/3.2">
-                  Street-Art
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">Tags</NavDropdown.Item>
+                <Link className="nav-link" to={"/graffiti"}>
+                  STREET-ART
+                </Link>
+                <Link className="nav-link" to={"/graffiti"}>
+                  TAGS
+                </Link>
               </NavDropdown>
             </Nav>
-            {/* Dopo il login "Benvenuto" allineato a destra */}
+
             {username && (
               <Nav className="ms-auto">
                 <Nav.Link>Benvenuto, {username}</Nav.Link>

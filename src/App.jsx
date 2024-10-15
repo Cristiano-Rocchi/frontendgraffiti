@@ -8,6 +8,7 @@ import Graffiti from "./components/graffiti/Graffiti";
 import Register from "./components/Register/Register";
 import Profile from "./components/profile/Profile";
 import Upload from "./components/upload/Upload";
+import Prova from "./components/prova";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/upload" element={<Upload />} />
+          <Route path="/prova" element={<Prova />} />
         </Routes>
       </>
     </BrowserRouter>

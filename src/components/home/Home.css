@@ -28,17 +28,17 @@ INVECE DELLA SFUMATURA BIANCA INTORNO ALLE IMG PROVARE OMBRA NERA
 .drop {
   font-size: calc(1rem * 1.25);
   padding: calc(5% + 2px);
-  position: relative; /* Questo è necessario per l'animazione del posizionamento */
+  position: relative;
   animation: moveToCenter 2s forwards; /* Animazione che si esegue una volta */
 }
 
 @keyframes moveToCenter {
   from {
-    top: 0; /* Partenza dalla posizione iniziale */
+    top: 0;
   }
   to {
-    top: 55vh; /* Movimento verso il 50% della viewport verticale (metà pagina) */
-    transform: translateY(-50%); /* Centratura precisa a metà pagina */
+    top: 55vh;
+    transform: translateY(-50%);
   }
 }
 .imgTag {
@@ -51,14 +51,14 @@ INVECE DELLA SFUMATURA BIANCA INTORNO ALLE IMG PROVARE OMBRA NERA
 }
 
 .textsvg:hover .scelte svg path {
-  fill: red; /* Cambia il colore delle SVG a rosso */
+  fill: red;
 }
 
 .nav-link:hover h4 {
-  color: red; /* Cambia il colore del testo a rosso */
+  color: red;
 }
 .cardHome:hover {
-  cursor: url("../../assets/icons/spray-paint.png"), auto; /* Icona personalizzata */
+  cursor: url("../../assets/icons/spray-paint.png"), auto;
 }
 
 .cardBody {
