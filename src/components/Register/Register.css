@@ -100,3 +100,9 @@
 .left-sect {
   margin-top: -130px;
 }
+
+.input-gradient-border {
+  border: 2px solid transparent;
+  border-image: linear-gradient(to right, red, black) 1;
+  padding: 10px;
+}

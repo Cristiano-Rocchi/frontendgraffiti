@@ -130,6 +130,7 @@ function Register() {
                   <Form.Group controlId="formUsername" className="mb-3">
                     <Form.Label>Username</Form.Label>
                     <Form.Control
+                      className="input-gradient-border"
                       type="text"
                       placeholder="Inserisci username"
                       name="username"
@@ -142,6 +143,7 @@ function Register() {
                   <Form.Group controlId="formEmail" className="mb-3">
                     <Form.Label>Email</Form.Label>
                     <Form.Control
+                      className="input-gradient-border"
                       type="email"
                       placeholder="Inserisci email"
                       name="email"
@@ -154,6 +156,7 @@ function Register() {
                   <Form.Group controlId="formPassword" className="mb-3">
                     <Form.Label>Password</Form.Label>
                     <Form.Control
+                      className="input-gradient-border"
                       type="password"
                       placeholder="Password"
                       name="password"
@@ -166,6 +169,7 @@ function Register() {
                   <Form.Group controlId="formConfirmPassword" className="mb-3">
                     <Form.Label>Conferma Password</Form.Label>
                     <Form.Control
+                      className="input-gradient-border"
                       type="password"
                       placeholder="Conferma password"
                       name="confirmPassword"
@@ -177,7 +181,7 @@ function Register() {
 
                   <div className="text-center">
                     <Button variant="primary" type="submit">
-                      Register
+                      Lets'Go
                     </Button>
                   </div>
                 </Form>

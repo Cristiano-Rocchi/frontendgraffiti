@@ -11,10 +11,14 @@ import {
 } from "react-bootstrap";
 import "../upload/Upload.css";
 import { useNavigate } from "react-router-dom";
+import LogoNero from "../../assets/register/LOGONERO.png";
+import ArrowStyle from "../../assets/icons/arrowStyle.png";
+import ArrowWhite from "../../assets/icons/white-line.png";
+import CloseIcon from "../../assets/icons/delete.png"; // Import dell'icona di chiusura
 
 function Upload() {
   const [formData, setFormData] = useState({
-    tipo: "", // Nuovo campo per scegliere il tipo
+    tipo: "",
     luogo: "",
     artista: "",
     annoCreazione: "",
@@ -80,7 +84,6 @@ function Upload() {
           endpoint = "graffiti";
       }
 
-      // Prima chiamata: crea l'oggetto
       const response = await fetch(`http://localhost:3001/api/${endpoint}`, {
         method: "POST",
         headers: {
@@ -155,145 +158,211 @@ function Upload() {
     });
   };
 
+  const handleCloseCard = () => {
+    navigate("/"); // Reindirizza alla home page quando l'icona viene cliccata
+  };
+
   return (
-    <Container className="d-flex justify-content-center align-items-center custom-container">
-      <Row className="w-100">
-        <Col xs={12} md={6} lg={4} className="mx-auto">
-          <Card className="p-4">
-            <Card.Body>
-              <div className="text-center mb-4">
-                <h3>Carica Nuovo Graffito/Street Art/Tag</h3>
-              </div>
+    <>
+      <Container className="upload-page d-flex justify-content-center align-items-center custom-container">
+        {/* Sezioni di testo animate */}
+        <div className="animated-text">
+          UNISCITI A NOI E CARICA I TUOI GRAFFITI <br /> O QUELLI CHE TROVI
+          NELLA TUA CITTA. <br /> NOI LI CONSERVEREMO PER TE.
+          <div className="">
+            <img
+              src={ArrowStyle}
+              className="arrow-right "
+              alt="icona freccia"
+            />
+          </div>
+        </div>
+        <div className="animated-text second">
+          <div className="d-block left-sect">
+            <img src={ArrowWhite} className="arrow-left " alt="icona freccia" />
+          </div>
+          PRENDI ISPIRAZIONE DALLE OPERE DEGLI ALTRI. <br /> OPPURE DIMOSTRA IL
+          TUO STILE.
+        </div>
 
-              {loading && (
-                <div className="text-center">
-                  <Spinner animation="border" role="status">
-                    <span className="visually-hidden">Caricamento...</span>
-                  </Spinner>
+        <Row className="w-100">
+          <Col xs={12} md={6} lg={4} className="mx-auto">
+            <Card className="p-4 mt-4 position-relative">
+              <img
+                src={CloseIcon}
+                alt="Chiudi"
+                onClick={handleCloseCard}
+                style={{
+                  width: "24px",
+                  height: "24px",
+                  cursor: "pointer",
+                  position: "absolute",
+                  top: "10px",
+                  right: "10px",
+                }}
+              />
+              <Card.Body>
+                <div className="text-center mb-4">
+                  <img src={LogoNero} alt="Logo" className="register-logo" />
+                  <h3 className="register-title">UPLOAD</h3>
                 </div>
-              )}
 
-              {!loading && (
-                <Form onSubmit={handleSubmit} encType="multipart/form-data">
-                  {/* Selezione tipo */}
-                  <Form.Group controlId="formTipo" className="mb-3">
-                    <Form.Label>Tipo di contenuto</Form.Label>
-                    <Form.Control
-                      as="select"
-                      name="tipo"
-                      value={formData.tipo}
-                      onChange={handleInputChange}
-                      required
-                    >
-                      <option value="">Seleziona il tipo</option>
-                      <option value="graffito">Graffito</option>
-                      <option value="streetart">Street Art</option>
-                      <option value="tag">Tag</option>
-                    </Form.Control>
-                  </Form.Group>
-
-                  <Form.Group controlId="formLuogo" className="mb-3">
-                    <Form.Label>Luogo</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Inserisci il luogo"
-                      name="luogo"
-                      value={formData.luogo}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </Form.Group>
-
-                  <Form.Group controlId="formArtista" className="mb-3">
-                    <Form.Label>Artista (opzionale)</Form.Label>
-                    <Form.Control
-                      type="text"
-                      placeholder="Inserisci l'artista"
-                      name="artista"
-                      value={formData.artista}
-                      onChange={handleInputChange}
-                    />
-                  </Form.Group>
-
-                  <Form.Group controlId="formAnno" className="mb-3">
-                    <Form.Label>Anno di Creazione</Form.Label>
-                    <Form.Control
-                      type="number"
-                      placeholder="Inserisci l'anno"
-                      name="annoCreazione"
-                      value={formData.annoCreazione}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </Form.Group>
-
-                  <Form.Group controlId="formStato" className="mb-3">
-                    <Form.Label>Stato</Form.Label>
-                    <Form.Control
-                      as="select"
-                      name="stato"
-                      value={formData.stato}
-                      onChange={handleInputChange}
-                      required
-                    >
-                      <option value="">Seleziona lo stato</option>
-                      <option value="CONSERVATO">Conservato</option>
-                      <option value="DANNEGGIATO">Danneggiato</option>
-                      <option value="RIMOSSO">Rimosso</option>
-                    </Form.Control>
-                  </Form.Group>
-
-                  <Form.Group controlId="formFile" className="mb-3">
-                    <Form.Label>Immagine</Form.Label>
-                    <Form.Control
-                      type="file"
-                      name="img"
-                      onChange={handleFileChange}
-                      required
-                    />
-                  </Form.Group>
-
+                {loading && (
                   <div className="text-center">
-                    <Button variant="primary" type="submit">
-                      Carica
-                    </Button>
+                    <Spinner animation="border" role="status">
+                      <span className="visually-hidden">Caricamento...</span>
+                    </Spinner>
                   </div>
-                </Form>
-              )}
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
+                )}
 
-      {/* Modale di successo o errore */}
-      <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>{modalContent.title}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{modalContent.message}</Modal.Body>
-        <Modal.Footer>
-          {modalContent.title === "Errore" ? (
-            <>
-              <Button variant="secondary" onClick={handleRetry}>
-                Riprova
-              </Button>
-              <Button variant="primary" onClick={() => navigate("/")}>
-                Torna alla Home
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button variant="primary" onClick={() => navigate("/")}>
-                Torna alla Home
-              </Button>
-              <Button variant="secondary" onClick={handleNewUpload}>
-                Carica un'altra immagine
-              </Button>
-            </>
-          )}
-        </Modal.Footer>
-      </Modal>
-    </Container>
+                {!loading && (
+                  <Form onSubmit={handleSubmit} encType="multipart/form-data">
+                    {/* Selezione tipo */}
+                    <Form.Group controlId="formTipo" className="mb-3">
+                      <Form.Label>Tipo</Form.Label>
+                      <Form.Control
+                        as="select"
+                        name="tipo"
+                        value={formData.tipo}
+                        onChange={handleInputChange}
+                        required
+                      >
+                        <option value="">Seleziona il tipo</option>
+                        <option value="graffito">Graffito</option>
+                        <option value="streetart">Street Art</option>
+                        <option value="tag">Tag</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId="formLuogo" className="mb-3">
+                      <Form.Label>Luogo</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Inserisci il luogo"
+                        name="luogo"
+                        value={formData.luogo}
+                        onChange={handleInputChange}
+                        required
+                      />
+                    </Form.Group>
+
+                    <Form.Group controlId="formArtista" className="mb-3">
+                      <Form.Label>Artista (opzionale)</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Inserisci l'artista"
+                        name="artista"
+                        value={formData.artista}
+                        onChange={handleInputChange}
+                      />
+                    </Form.Group>
+
+                    <Form.Group controlId="formAnno" className="mb-3">
+                      <Form.Label>Anno di Creazione</Form.Label>
+                      <Form.Control
+                        type="number"
+                        placeholder="Inserisci l'anno"
+                        name="annoCreazione"
+                        value={formData.annoCreazione}
+                        onChange={handleInputChange}
+                        required
+                      />
+                    </Form.Group>
+
+                    <Form.Group controlId="formStato" className="mb-3">
+                      <Form.Label>Stato</Form.Label>
+                      <Form.Control
+                        as="select"
+                        name="stato"
+                        value={formData.stato}
+                        onChange={handleInputChange}
+                        required
+                      >
+                        <option value="">Seleziona lo stato</option>
+                        <option value="CONSERVATO">Conservato</option>
+                        <option value="DANNEGGIATO">Danneggiato</option>
+                        <option value="RIMOSSO">Rimosso</option>
+                      </Form.Control>
+                    </Form.Group>
+
+                    <Form.Group controlId="formFile" className="mb-3">
+                      <Form.Label>Immagine</Form.Label>
+                      <Form.Control
+                        type="file"
+                        name="img"
+                        onChange={handleFileChange}
+                        required
+                      />
+                    </Form.Group>
+
+                    <div className="text-center">
+                      <Button variant="primary" type="submit">
+                        Carica
+                      </Button>
+                    </div>
+                  </Form>
+                )}
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+
+        {/* Modale di successo o errore */}
+        <Modal show={showModal} onHide={handleCloseModal}>
+          <Modal.Header className="flex-column text-center">
+            {/* Usa flex-column per impilare l'immagine e il titolo */}
+            <img src={LogoNero} alt="Logo" className="register-logo mb-2" />
+            {/* Immagine centrata sopra il titolo */}
+            <Modal.Title className="w-100">{modalContent.title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {modalContent.title === "Errore" ? (
+              <p>
+                Errore durante la creazione dell'oggetto. <br /> Iscriviti per
+                poter caricare un'immagine. <br /> Oppure torna alla Home per il
+                Login.
+              </p>
+            ) : (
+              <p className="text-center">
+                L'immagine è stata caricata correttamente. <br /> Grazie per la
+                condivisione.
+              </p>
+            )}
+          </Modal.Body>
+          <Modal.Footer className="w-100 d-flex justify-content-between">
+            {modalContent.title === "Errore" ? (
+              <div className="w-100 d-flex justify-content-between">
+                <Button variant="primary" onClick={() => navigate("/register")}>
+                  Iscriviti
+                </Button>
+                {/* Pulsante "Iscriviti" a sinistra */}
+                <div>
+                  <Button
+                    variant="secondary"
+                    onClick={handleRetry}
+                    className="me-2"
+                  >
+                    Riprova
+                  </Button>
+                  <Button variant="primary" onClick={() => navigate("/")}>
+                    Torna alla Home
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <>
+                <Button variant="primary" onClick={() => navigate("/")}>
+                  Torna alla Home
+                </Button>
+                <Button variant="secondary" onClick={handleNewUpload}>
+                  Carica un'altra immagine
+                </Button>
+              </>
+            )}
+          </Modal.Footer>
+        </Modal>
+      </Container>
+    </>
   );
 }
 

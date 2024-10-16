@@ -5,3 +5,7 @@
   min-height: 100vh;
   background-color: #181a1c;
 }
+.register-title {
+  animation: danceEffect 2s infinite ease-in-out;
+  font-family: "SpriteGraffiti", sans-serif;
+}
