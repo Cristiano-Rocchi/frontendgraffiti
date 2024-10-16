@@ -1,0 +1,83 @@
+.username-div {
+  height: 430px;
+  background-color: #181a1c;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: 50px 0;
+  position: relative;
+  clip-path: polygon(100% 0, 100% 77%, 50% 100%, 0 77%, 0 0);
+}
+
+.username-text {
+  position: absolute;
+  bottom: 53%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 50px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  font-family: "SpriteGraffiti", sans-serif;
+}
+
+.img-hello {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 27px;
+  box-shadow: 0px 0px 50px 10px rgba(255, 13, 13, 0.76);
+}
+
+/* Profile specific animation classes */
+.profile-left-sect {
+  margin-top: 50px;
+  position: relative;
+  left: -100vw;
+  opacity: 1;
+}
+
+.profile-right-sect {
+  position: relative;
+  right: -100vw;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-right: 50px;
+  margin-top: 30px;
+}
+
+.profile-slide-in-left {
+  animation: profileSlideInFromLeft 2s forwards;
+}
+
+.profile-slide-in-right {
+  animation: profileSlideInFromRight 2s forwards;
+}
+
+/* Animazione scorrimento da sinistra */
+@keyframes profileSlideInFromLeft {
+  0% {
+    left: -100vw;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+/* Animazione scorrimento da destra */
+@keyframes profileSlideInFromRight {
+  0% {
+    right: -100vw;
+  }
+  100% {
+    right: 0;
+  }
+}
+
+/* Bottoni */
+.btn {
+  font-family: "SpriteGraffiti", sans-serif;
+  border: none;
+  padding: 10px 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px; /* Distanza tra i bottoni */
+}
