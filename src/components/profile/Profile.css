@@ -1,4 +1,5 @@
-.username-div {
+/* Contenitore principale per la pagina profilo */
+.profile-page .username-div {
   height: 430px;
   background-color: #181a1c;
   width: 100vw;
@@ -8,7 +9,7 @@
   clip-path: polygon(100% 0, 100% 77%, 50% 100%, 0 77%, 0 0);
 }
 
-.username-text {
+.profile-page .username-text {
   position: absolute;
   bottom: 53%;
   left: 50%;
@@ -17,16 +18,17 @@
   letter-spacing: 2px;
   font-weight: 600;
   font-family: "SpriteGraffiti", sans-serif;
+  text-transform: uppercase;
 }
 
-.img-hello {
+.profile-page .img-hello {
   width: 100%;
   max-width: 300px;
   border-radius: 27px;
   box-shadow: 0px 0px 50px 10px rgba(255, 13, 13, 0.76);
 }
 
-/* Profile specific animation classes */
+/* Effetto di comparsa per la parte sinistra e destra */
 .profile-left-sect {
   margin-top: 50px;
   position: relative;
@@ -53,7 +55,6 @@
   animation: profileSlideInFromRight 2s forwards;
 }
 
-/* Animazione scorrimento da sinistra */
 @keyframes profileSlideInFromLeft {
   0% {
     left: -100vw;
@@ -63,7 +64,6 @@
   }
 }
 
-/* Animazione scorrimento da destra */
 @keyframes profileSlideInFromRight {
   0% {
     right: -100vw;
@@ -73,11 +73,134 @@
   }
 }
 
-/* Bottoni */
-.btn {
+/* Bottoni custom trasparenti */
+.custom-btn-profile {
   font-family: "SpriteGraffiti", sans-serif;
+  background-color: rgba(0, 123, 255, 0.5); /* Azzurro trasparente */
+  color: white;
   border: none;
   padding: 10px 20px;
+  width: 100%; /* Assicura che i bottoni siano uno sotto l'altro */
+  margin-bottom: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-bottom: 10px; /* Distanza tra i bottoni */
+  transition: background-color 0.3s ease;
+  border-radius: 50px; /* Rounded pill */
+}
+
+.custom-btn-profile:hover {
+  background-color: rgba(0, 86, 179, 0.7);
+}
+
+/* Griglia per le immagini */
+.profile-page .image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Stile per le card delle immagini */
+.profile-page .card {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+/* Stile per l'immagine nella card */
+.profile-page .card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+
+/* Allineamento delle informazioni e del bottone su una singola linea */
+.profile-page .card-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+/* Stile per le informazioni */
+.profile-page .card-body .info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-grow: 1;
+}
+
+/* Mostra le informazioni e il bottone solo quando passi sopra la singola card */
+.profile-page .card:hover .card-body {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Aggiungi un leggero zoom all'immagine al passaggio del mouse */
+.profile-page .card:hover {
+  transform: scale(1.05);
+}
+
+/* Bottone delete */
+.profile-page .delete-btn {
+  background-color: rgba(255, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  font-family: "SpriteGraffiti", sans-serif;
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+.profile-page .delete-btn:hover {
+  background-color: rgba(139, 0, 0, 0.7);
+}
+
+/* Modal container */
+.modal-image-container {
+  position: relative;
+}
+
+.modal-image-container img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Media query per schermi più piccoli */
+@media (max-width: 768px) {
+  .profile-page .image-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+
+  .profile-page .profile-left-sect,
+  .profile-page .profile-right-sect {
+    text-align: center;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-page .card {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
 }
