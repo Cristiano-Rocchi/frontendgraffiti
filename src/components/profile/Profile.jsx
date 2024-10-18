@@ -189,6 +189,13 @@ function Profile() {
     }
   };
 
+  // Aggiunta: gestione del tasto Enter per attivare la ricerca
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
+
   // Fetch per le immagini personali di graffiti, street art e tag
   const fetchGraffitiImages = async () => {
     try {
@@ -372,6 +379,7 @@ function Profile() {
                       placeholder="Cerca per nome artista"
                       value={searchArtista}
                       onChange={(e) => setSearchArtista(e.target.value)}
+                      onKeyDown={handleKeyDown} // Aggiunta per gestire Enter
                     />
                   </Col>
                   <Col xs={6}>
@@ -380,6 +388,7 @@ function Profile() {
                       placeholder="Cerca per anno"
                       value={searchAnno}
                       onChange={(e) => setSearchAnno(e.target.value)}
+                      onKeyDown={handleKeyDown} // Aggiunta per gestire Enter
                     />
                   </Col>
                 </Row>
