@@ -225,10 +225,34 @@
 .custom-profile-modal .img-hello {
   width: 150px;
 }
-input:focus {
-  outline: none !important;
-  border-color: black !important;
-  box-shadow: 0 0 5px black !important;
+
+/* Stile per il pulsante di selezione del dropdown */
+.custom-dropdown-toggle {
+  background-color: #181a1c;
+  color: red;
+  font-family: "SpriteGraffiti", sans-serif;
+  border-radius: 0;
+  font-size: 1.5em;
+}
+
+/* Stile per il menu del dropdown */
+.profile-page .dropdown-menu {
+  background-color: #181a1c;
+  border: none;
+  box-shadow: none;
+  font-size: 1.3em;
+  padding-inline: 50px;
+}
+
+.profile-page .dropdown-item {
+  color: white;
+  font-family: "SpriteGraffiti", sans-serif;
+  letter-spacing: 2px;
+}
+
+.profile-page .dropdown-item:hover {
+  color: red;
+  background-color: transparent;
 }
 
 /* Media query per schermi più piccoli */

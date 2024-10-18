@@ -6,6 +6,7 @@ import {
   Dropdown,
   Modal,
   Form,
+  Card,
 } from "react-bootstrap";
 import { useState, useEffect, useRef } from "react";
 import "../profile/Profile.css";
@@ -31,6 +32,11 @@ function Profile() {
   const imageCardRef = useRef(null); // Crea un ref per la card delle immagini
   const [categoryImage, setCategoryImage] = useState(GraffImg); // Immagine di default
 
+  // Stati per il conteggio delle immagini caricate
+  const [graffitiCount, setGraffitiCount] = useState(0); // Conteggio graffiti
+  const [streetArtCount, setStreetArtCount] = useState(0); // Conteggio street art
+  const [tagCount, setTagCount] = useState(0); // Conteggio tag
+
   useEffect(() => {
     const leftElement = document.querySelector(".profile-left-sect");
     const rightElement = document.querySelector(".profile-right-sect");
@@ -43,7 +49,33 @@ function Profile() {
     const storedEmail = localStorage.getItem("email"); // Recupera l'email dal localStorage
     setUsername(storedUsername); // Imposta lo username nello stato
     setEmail(storedEmail); // Imposta l'email nello stato
+
+    // Fetch dei conteggi delle immagini
+    fetchImageCounts();
   }, []);
+
+  const fetchImageCounts = async () => {
+    try {
+      const response = await fetch("http://localhost:3001/api/users/me/stats", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setGraffitiCount(data.graffitiCount);
+        setStreetArtCount(data.streetArtCount);
+        setTagCount(data.tagCount);
+      } else {
+        console.error("Errore nel recupero dei conteggi delle immagini");
+      }
+    } catch (error) {
+      console.error(
+        "Errore nella richiesta del conteggio delle immagini:",
+        error
+      );
+    }
+  };
 
   // Scrolla automaticamente quando showImages diventa true
   useEffect(() => {
@@ -383,7 +415,7 @@ function Profile() {
                   <Dropdown onSelect={handleCategoryChange}>
                     <Dropdown.Toggle
                       variant="secondary"
-                      className="rounded-pill"
+                      className=" custom-dropdown-toggle"
                       id="dropdown-basic"
                     >
                       Seleziona Categoria
@@ -511,7 +543,6 @@ function Profile() {
       >
         <Modal.Header closeButton>
           <Modal.Title>
-            {" "}
             <img
               className="img-hello"
               src={InfoProfileImg}
@@ -519,9 +550,16 @@ function Profile() {
             />
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <p>Username: {username}</p>
-          <p>Email: {email}</p> {/* Visualizza l'email */}
+        <Modal.Body className="d-flex justify-content-around">
+          <Card className="p-5">
+            <p>USERNAME: {username}</p>
+            <p>EMAIL: {email}</p>
+          </Card>
+
+          <Card className="p-5">
+            <p>GRAFFITI: {graffitiCount}</p> <p>STREET-ART: {streetArtCount}</p>
+            <p>TAG: {tagCount}</p>{" "}
+          </Card>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary">Modifica</Button>
