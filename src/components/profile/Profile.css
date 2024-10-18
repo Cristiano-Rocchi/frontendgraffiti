@@ -185,6 +185,31 @@
   object-fit: cover;
 }
 
+.custom-profile-modal .modal-dialog {
+  display: flex;
+  align-items: center;
+  min-height: 60vh; /* Altezza minima del modale */
+}
+
+.custom-profile-modal .modal-content {
+  background-color: #181a1c; /* Sfondo scuro */
+  color: white; /* Testo bianco */
+  border: 1px solid #c0c0c0; /* Bordo chiaro */
+}
+
+.custom-profile-modal .modal-header {
+  border-bottom: none; /* Rimuovi il bordo inferiore */
+  justify-content: center; /* Centra il contenuto dell'intestazione */
+}
+
+.custom-profile-modal .modal-title {
+  display: flex;
+  align-items: center; /* Allinea verticalmente */
+}
+.custom-profile-modal .img-hello {
+  width: 150px;
+}
+
 /* Media query per schermi più piccoli */
 @media (max-width: 768px) {
   .profile-page .image-grid {

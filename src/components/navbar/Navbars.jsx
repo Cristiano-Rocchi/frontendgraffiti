@@ -65,6 +65,7 @@ function Navbars() {
         const data = await response.json();
         localStorage.setItem("token", data.token); // Salva il token JWT
         localStorage.setItem("username", data.username); // Salva lo username
+        localStorage.setItem("email", data.email); // Salva l'email nel localStorage
         setUsername(data.username); // Imposta lo username nello stato
         setError("");
         handleCloseLogin(); // Chiudi il modale
@@ -82,6 +83,7 @@ function Navbars() {
   const handleLogout = () => {
     localStorage.removeItem("token"); // Rimuovi il token dal localStorage
     localStorage.removeItem("username"); // Rimuovi lo username dal localStorage
+    localStorage.removeItem("email"); // Rimuovi l'email dal localStorage
     setUsername(null); // Resetta lo stato dello username
     navigate("/"); // Reindirizza alla home
   };

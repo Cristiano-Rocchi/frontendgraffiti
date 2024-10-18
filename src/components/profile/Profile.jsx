@@ -8,18 +8,21 @@ import {
   Form,
 } from "react-bootstrap";
 import { useState, useEffect, useRef } from "react";
-import "../profile/Profile.css"; // Il CSS aggiornato con classi personalizzate
+import "../profile/Profile.css";
+import InfoProfileImg from "../../assets/profile/img/info-profilo.png";
 import HelloImg from "../../assets/profile/img/Hello.jpg";
 import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const navigate = useNavigate();
-  const [username, setUsername] = useState(null); // Stato per gestire lo username
+  const [username, setUsername] = useState(null); // Stato per memorizzare lo username
+  const [email, setEmail] = useState(null); // Stato per memorizzare l'email
   const [images, setImages] = useState([]); // Stato per le immagini
   const [showImages, setShowImages] = useState(false); // Stato per mostrare le immagini
   const [category, setCategory] = useState("graffiti"); // Stato per gestire la categoria selezionata
   const [selectedImage, setSelectedImage] = useState(null); // Stato per l'immagine selezionata
-  const [showModal, setShowModal] = useState(false); // Stato per la modal
+  const [showModal, setShowModal] = useState(false); // Stato per la modal delle immagini
+  const [showProfileModal, setShowProfileModal] = useState(false); // Stato per la modal del profilo
   const [searchArtista, setSearchArtista] = useState(""); // Stato per ricerca artista
   const [searchAnno, setSearchAnno] = useState(""); // Stato per ricerca anno
   const imageCardRef = useRef(null); // Crea un ref per la card delle immagini
@@ -31,9 +34,11 @@ function Profile() {
     leftElement.classList.add("profile-slide-in-left");
     rightElement.classList.add("profile-slide-in-right");
 
-    // Recupera lo username dal localStorage, esattamente come nella navbar
+    // Recupera lo username e l'email dal localStorage
     const storedUsername = localStorage.getItem("username");
-    setUsername(storedUsername); // Imposta lo username dallo stato
+    const storedEmail = localStorage.getItem("email"); // Recupera l'email dal localStorage
+    setUsername(storedUsername); // Imposta lo username nello stato
+    setEmail(storedEmail); // Imposta l'email nello stato
   }, []);
 
   // Scrolla automaticamente quando showImages diventa true
@@ -306,6 +311,16 @@ function Profile() {
     }
   };
 
+  // Funzione per aprire la modale del profilo
+  const handleProfileModal = () => {
+    setShowProfileModal(true);
+  };
+
+  // Funzione per chiudere la modale del profilo
+  const handleCloseProfileModal = () => {
+    setShowProfileModal(false);
+  };
+
   return (
     <div className="profile-page">
       <div className="username-div text-center pt-5 pb-5 position-relative">
@@ -330,7 +345,7 @@ function Profile() {
             </Button>
             <Button
               className="custom-btn-profile rounded-pill"
-              onClick={() => navigate("/profile")}
+              onClick={handleProfileModal} // Apre la modale del profilo
             >
               Profilo
             </Button>
@@ -470,6 +485,33 @@ function Profile() {
             </div>
           )}
         </Modal.Body>
+      </Modal>
+
+      {/* Modal per il profilo */}
+      <Modal
+        show={showProfileModal}
+        onHide={handleCloseProfileModal}
+        centered
+        size="lg"
+        className="custom-profile-modal" // Aggiungi la classe personalizzata
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            {" "}
+            <img
+              className="img-hello"
+              src={InfoProfileImg}
+              alt="Info Profilo"
+            />
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Username: {username}</p>
+          <p>Email: {email}</p> {/* Visualizza l'email */}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary">Modifica</Button>
+        </Modal.Footer>
       </Modal>
     </div>
   );
