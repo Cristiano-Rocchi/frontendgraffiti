@@ -1,4 +1,12 @@
-import { Col, Container, Row, Button, Dropdown, Modal } from "react-bootstrap";
+import {
+  Col,
+  Container,
+  Row,
+  Button,
+  Dropdown,
+  Modal,
+  Form,
+} from "react-bootstrap";
 import { useState, useEffect, useRef } from "react";
 import "../profile/Profile.css"; // Il CSS aggiornato con classi personalizzate
 import HelloImg from "../../assets/profile/img/Hello.jpg";
@@ -12,6 +20,8 @@ function Profile() {
   const [category, setCategory] = useState("graffiti"); // Stato per gestire la categoria selezionata
   const [selectedImage, setSelectedImage] = useState(null); // Stato per l'immagine selezionata
   const [showModal, setShowModal] = useState(false); // Stato per la modal
+  const [searchArtista, setSearchArtista] = useState(""); // Stato per ricerca artista
+  const [searchAnno, setSearchAnno] = useState(""); // Stato per ricerca anno
   const imageCardRef = useRef(null); // Crea un ref per la card delle immagini
 
   useEffect(() => {
@@ -33,7 +43,153 @@ function Profile() {
     }
   }, [showImages]);
 
-  // Fetch per graffiti
+  // Funzione per aprire la modal con l'immagine selezionata
+  const handleImageClick = (img) => {
+    setSelectedImage(img);
+    setShowModal(true);
+  };
+
+  // Funzione per chiudere la modal
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedImage(null);
+  };
+
+  // Funzione di ricerca singola per graffiti
+  const searchGraffitiImages = async () => {
+    try {
+      let url = "http://localhost:3001/api/graffiti/user-images";
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (response.ok) {
+        let allImages = await response.json();
+
+        // Filtro per nome artista
+        if (searchArtista) {
+          allImages = allImages.filter((img) =>
+            img.artista.toLowerCase().includes(searchArtista.toLowerCase())
+          );
+        }
+
+        // Filtro per anno
+        if (searchAnno) {
+          const annoInt = parseInt(searchAnno);
+          allImages = allImages.filter(
+            (img) => parseInt(img.annoCreazione) === annoInt
+          );
+        }
+
+        setImages(allImages); // Aggiorna le immagini
+      } else {
+        console.error("Errore durante la ricerca delle immagini graffiti.");
+      }
+    } catch (error) {
+      console.error("Errore durante la ricerca:", error);
+    }
+  };
+
+  // Funzione per street art
+  const searchStreetArtImages = async () => {
+    try {
+      let url = "http://localhost:3001/api/streetart/user-images";
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (response.ok) {
+        let allImages = await response.json();
+
+        // Filtro per nome artista
+        if (searchArtista) {
+          allImages = allImages.filter((img) =>
+            img.artista.toLowerCase().includes(searchArtista.toLowerCase())
+          );
+        }
+
+        // Filtro per anno
+        if (searchAnno) {
+          const annoInt = parseInt(searchAnno);
+          allImages = allImages.filter(
+            (img) => parseInt(img.annoCreazione) === annoInt
+          );
+        }
+
+        setImages(allImages); // Aggiorna le immagini
+      } else {
+        console.error("Errore durante la ricerca delle immagini street art.");
+      }
+    } catch (error) {
+      console.error("Errore durante la ricerca:", error);
+    }
+  };
+
+  // Funzione per tag
+  const searchTagImages = async () => {
+    try {
+      let url = "http://localhost:3001/api/tags/user-images";
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (response.ok) {
+        let allImages = await response.json();
+
+        // Filtro per nome artista
+        if (searchArtista) {
+          allImages = allImages.filter((img) =>
+            img.artista.toLowerCase().includes(searchArtista.toLowerCase())
+          );
+        }
+
+        // Filtro per anno
+        if (searchAnno) {
+          const annoInt = parseInt(searchAnno);
+          allImages = allImages.filter(
+            (img) => parseInt(img.annoCreazione) === annoInt
+          );
+        }
+
+        setImages(allImages); // Aggiorna le immagini
+      } else {
+        console.error("Errore durante la ricerca delle immagini tag.");
+      }
+    } catch (error) {
+      console.error("Errore durante la ricerca:", error);
+    }
+  };
+
+  // Funzione per gestire la ricerca basata sulla categoria
+  const handleSearch = () => {
+    if (category === "graffiti") {
+      searchGraffitiImages();
+    } else if (category === "street-art") {
+      searchStreetArtImages();
+    } else if (category === "tag") {
+      searchTagImages();
+    }
+  };
+
+  // Gestisci il cambio di categoria
+  const handleCategoryChange = (selectedCategory) => {
+    setCategory(selectedCategory);
+    if (selectedCategory === "graffiti") {
+      fetchGraffitiImages();
+    } else if (selectedCategory === "street-art") {
+      fetchStreetArtImages();
+    } else if (selectedCategory === "tag") {
+      fetchTagImages();
+    }
+  };
+
+  // Fetch per le immagini personali di graffiti, street art e tag
   const fetchGraffitiImages = async () => {
     try {
       const response = await fetch(
@@ -47,33 +203,15 @@ function Profile() {
       if (response.ok) {
         const userImages = await response.json();
         setImages(userImages);
-        setShowImages(true); // Imposta true per mostrare le immagini e attivare lo scroll
+        setShowImages(true);
       } else {
-        console.error(
-          "Errore durante il caricamento delle immagini dei graffiti"
-        );
+        console.error("Errore durante il caricamento delle immagini graffiti.");
       }
     } catch (error) {
-      console.error(
-        "Errore nel caricamento delle immagini dei graffiti",
-        error
-      );
+      console.error("Errore nel caricamento delle immagini graffiti", error);
     }
   };
 
-  // Funzione per aprire la modal con l'immagine selezionata
-  const handleImageClick = (img) => {
-    setSelectedImage(img);
-    setShowModal(true);
-  };
-
-  // Funzione per chiudere la modal
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setSelectedImage(null);
-  };
-
-  // Fetch per street art
   const fetchStreetArtImages = async () => {
     try {
       const response = await fetch(
@@ -87,21 +225,17 @@ function Profile() {
       if (response.ok) {
         const userImages = await response.json();
         setImages(userImages);
-        setShowImages(true); // Imposta true per mostrare le immagini e attivare lo scroll
+        setShowImages(true);
       } else {
         console.error(
-          "Errore durante il caricamento delle immagini di street art"
+          "Errore durante il caricamento delle immagini street art."
         );
       }
     } catch (error) {
-      console.error(
-        "Errore nel caricamento delle immagini di street art",
-        error
-      );
+      console.error("Errore nel caricamento delle immagini street art", error);
     }
   };
 
-  // Fetch per tag
   const fetchTagImages = async () => {
     try {
       const response = await fetch(
@@ -115,30 +249,12 @@ function Profile() {
       if (response.ok) {
         const userImages = await response.json();
         setImages(userImages);
-        setShowImages(true); // Imposta true per mostrare le immagini e attivare lo scroll
+        setShowImages(true);
       } else {
-        console.error("Errore durante il caricamento delle immagini di tag");
+        console.error("Errore durante il caricamento delle immagini tag.");
       }
     } catch (error) {
-      console.error("Errore nel caricamento delle immagini di tag", error);
-    }
-  };
-
-  // Gestisci il cambio di categoria
-  const handleCategoryChange = (selectedCategory) => {
-    setCategory(selectedCategory);
-    switch (selectedCategory) {
-      case "graffiti":
-        fetchGraffitiImages();
-        break;
-      case "street-art":
-        fetchStreetArtImages();
-        break;
-      case "tag":
-        fetchTagImages();
-        break;
-      default:
-        fetchGraffitiImages(); // Default come graffiti
+      console.error("Errore nel caricamento delle immagini tag", error);
     }
   };
 
@@ -247,6 +363,38 @@ function Profile() {
                     </Dropdown.Menu>
                   </Dropdown>
                 </div>
+
+                {/* Ricerca per nome artista e anno */}
+                <Row className="mt-3">
+                  <Col xs={6}>
+                    <Form.Control
+                      type="text"
+                      placeholder="Cerca per nome artista"
+                      value={searchArtista}
+                      onChange={(e) => setSearchArtista(e.target.value)}
+                    />
+                  </Col>
+                  <Col xs={6}>
+                    <Form.Control
+                      type="text"
+                      placeholder="Cerca per anno"
+                      value={searchAnno}
+                      onChange={(e) => setSearchAnno(e.target.value)}
+                    />
+                  </Col>
+                </Row>
+
+                <Row className="mt-3">
+                  <Col xs={12}>
+                    <Button
+                      className="custom-btn-profile rounded-pill"
+                      onClick={handleSearch}
+                    >
+                      Cerca
+                    </Button>
+                  </Col>
+                </Row>
+
                 <Row className="mt-3">
                   {images.length > 0 ? (
                     images.map((img, index) => (
@@ -254,7 +402,7 @@ function Profile() {
                         key={index}
                         md={4}
                         className="mb-3 d-flex justify-content-center"
-                        onClick={() => handleImageClick(img)} // Apre la modal al click sull'immagine
+                        onClick={() => handleImageClick(img)}
                       >
                         <div className="card">
                           <img
