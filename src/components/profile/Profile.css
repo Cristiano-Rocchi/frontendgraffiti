@@ -76,7 +76,7 @@
 /* Bottoni custom trasparenti */
 .custom-btn-profile {
   font-family: "SpriteGraffiti", sans-serif;
-  background-color: rgba(0, 123, 255, 0.5); /* Azzurro trasparente */
+  background-color: rgba(24, 26, 28, 0.95); /* Azzurro trasparente */
   color: white;
   border: none;
   padding: 10px 20px;
@@ -85,6 +85,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease;
   border-radius: 50px; /* Rounded pill */
+  color: red;
 }
 
 .custom-btn-profile:hover {
@@ -101,6 +102,19 @@
 }
 
 /* Stile per le card delle immagini */
+.profile-page .cardProfile {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  border-color: black;
+  box-shadow: 0px 0px 41px 3px #000000;
+  background-color: #f9f9f9;
+}
 .profile-page .card {
   position: relative;
   overflow: hidden;
@@ -110,10 +124,12 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
   cursor: pointer;
+  border-color: black;
+  box-shadow: 0px 0px 30px 3px #000000;
 }
 
 /* Stile per l'immagine nella card */
-.profile-page .card img {
+.profile-page .cardProfile img {
   width: 100%;
   height: 300px;
   object-fit: cover;
@@ -208,6 +224,11 @@
 }
 .custom-profile-modal .img-hello {
   width: 150px;
+}
+input:focus {
+  outline: none !important;
+  border-color: black !important;
+  box-shadow: 0 0 5px black !important;
 }
 
 /* Media query per schermi più piccoli */

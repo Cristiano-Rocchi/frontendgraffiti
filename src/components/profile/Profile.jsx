@@ -11,6 +11,9 @@ import { useState, useEffect, useRef } from "react";
 import "../profile/Profile.css";
 import InfoProfileImg from "../../assets/profile/img/info-profilo.png";
 import HelloImg from "../../assets/profile/img/Hello.jpg";
+import GraffImg from "../../assets/profile/img/GRAFFITI.png";
+import TagImg from "../../assets/profile/img/TAGS.png";
+import StreetImg from "../../assets/profile/img/STREETART.png";
 import { useNavigate } from "react-router-dom";
 
 function Profile() {
@@ -26,6 +29,7 @@ function Profile() {
   const [searchArtista, setSearchArtista] = useState(""); // Stato per ricerca artista
   const [searchAnno, setSearchAnno] = useState(""); // Stato per ricerca anno
   const imageCardRef = useRef(null); // Crea un ref per la card delle immagini
+  const [categoryImage, setCategoryImage] = useState(GraffImg); // Immagine di default
 
   useEffect(() => {
     const leftElement = document.querySelector(".profile-left-sect");
@@ -182,9 +186,19 @@ function Profile() {
     }
   };
 
+  const categoryImages = {
+    graffiti: GraffImg, // Immagine per la categoria Graffiti
+    "street-art": StreetImg, // Immagine per la categoria Street Art
+    tag: TagImg, // Immagine per la categoria Tag
+  };
+
   // Gestisci il cambio di categoria
   const handleCategoryChange = (selectedCategory) => {
     setCategory(selectedCategory);
+
+    // Imposta l'immagine basata sulla categoria
+    setCategoryImage(categoryImages[selectedCategory]);
+
     if (selectedCategory === "graffiti") {
       fetchGraffitiImages();
     } else if (selectedCategory === "street-art") {
@@ -356,15 +370,15 @@ function Profile() {
         {showImages && (
           <Row className="mt-4" ref={imageCardRef}>
             <Col xs="12">
-              <div className="card p-3">
+              <div className="cardProfile p-3 mt-5">
                 <div className="d-flex justify-content-between align-items-center">
-                  <h4>
-                    {category === "graffiti"
-                      ? "Graffiti"
-                      : category === "street-art"
-                      ? "Street Art"
-                      : "Tag"}
-                  </h4>
+                  {categoryImage && (
+                    <img
+                      src={categoryImage}
+                      alt={category}
+                      style={{ width: "150px", height: "auto" }} // Stile dell'immagine
+                    />
+                  )}
                   {/* Dropdown per scegliere tra Graffiti, Street Art o Tag */}
                   <Dropdown onSelect={handleCategoryChange}>
                     <Dropdown.Toggle
