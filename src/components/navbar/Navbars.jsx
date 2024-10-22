@@ -14,6 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Logo from "../../assets/navbar/img/Logo_scritta_bianca.png";
 import CloseIcon from "../../assets/icons/delete.png";
 import { useLocation } from "react-router-dom";
+import SprayIcon from "../../assets/icons/spray-paint.png";
 
 function Navbars() {
   const [showInfoModal, setShowInfoModal] = useState(false);
@@ -149,31 +150,57 @@ function Navbars() {
                   <Link to={"/register"} className="nav-link">
                     Registrati
                   </Link>
+                  {/* Esplora visibile anche per utenti non loggati */}
+                  <NavDropdown title="ESPLORA" id="basic-nav-dropdown">
+                    <Link className="nav-link" to={"/graffiti"}>
+                      Graffiti
+                    </Link>
+                    <Link className="nav-link" to={"/graffiti"}>
+                      STREET-ART
+                    </Link>
+                    <Link className="nav-link" to={"/graffiti"}>
+                      TAGS
+                    </Link>
+                  </NavDropdown>
                 </>
               ) : (
                 <>
                   <Link to={"/profile"} className="nav-link">
                     Profilo
                   </Link>
+                  <Link to={"/upload"} className="nav-link">
+                    Upload
+                  </Link>
+                  <NavDropdown title="ESPLORA" id="basic-nav-dropdown">
+                    <Link className="nav-link" to={"/graffiti"}>
+                      Graffiti
+                    </Link>
+                    <Link className="nav-link" to={"/graffiti"}>
+                      STREET-ART
+                    </Link>
+                    <Link className="nav-link" to={"/graffiti"}>
+                      TAGS
+                    </Link>
+                  </NavDropdown>
                   <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
                 </>
               )}
-              <NavDropdown title="ESPLORA" id="basic-nav-dropdown">
-                <Link className="nav-link" to={"/graffiti"}>
-                  Graffiti
-                </Link>
-                <Link className="nav-link" to={"/graffiti"}>
-                  STREET-ART
-                </Link>
-                <Link className="nav-link" to={"/graffiti"}>
-                  TAGS
-                </Link>
-              </NavDropdown>
             </Nav>
 
             {username && (
               <Nav className="ms-auto">
-                <Nav.Link>Benvenuto, {username}</Nav.Link>
+                <Nav.Link>
+                  {" "}
+                  <img
+                    src={SprayIcon}
+                    alt="logo"
+                    className="logoImg"
+                    style={{
+                      width: "40px",
+                    }}
+                  />
+                  {username}
+                </Nav.Link>
               </Nav>
             )}
           </Navbar.Collapse>

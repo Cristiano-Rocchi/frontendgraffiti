@@ -278,21 +278,371 @@
 }
 
 /* Media query per schermi più piccoli */
+/* Contenitore principale per la pagina profilo */
+.profile-page .username-div {
+  height: 430px;
+  background-color: #181a1c;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: 50px 0;
+  position: relative;
+  clip-path: polygon(100% 0, 100% 77%, 50% 100%, 0 77%, 0 0);
+}
+
+.profile-page .username-text {
+  position: absolute;
+  bottom: 53%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 50px;
+  letter-spacing: 2px;
+  font-weight: 600;
+  font-family: "SpriteGraffiti", sans-serif;
+  text-transform: uppercase;
+}
+
+.profile-page .img-hello {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 27px;
+  box-shadow: 0px 0px 50px 10px rgba(255, 13, 13, 0.76);
+}
+
+/* Effetto di comparsa per la parte sinistra e destra */
+.profile-left-sect {
+  margin-top: 50px;
+  position: relative;
+  left: -100vw;
+  opacity: 1;
+}
+
+.profile-right-sect {
+  position: relative;
+  right: -100vw;
+  opacity: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-right: 50px;
+  margin-top: 30px;
+}
+.profile-left-sect h3 {
+  font-family: "Typewriter", sans-serif;
+  font-weight: lighter;
+  font-size: 1.2em;
+}
+
+.profile-slide-in-left {
+  animation: profileSlideInFromLeft 2s forwards;
+}
+
+.profile-slide-in-right {
+  animation: profileSlideInFromRight 2s forwards;
+}
+
+@keyframes profileSlideInFromLeft {
+  0% {
+    left: -100vw;
+  }
+  100% {
+    left: 0;
+  }
+}
+
+@keyframes profileSlideInFromRight {
+  0% {
+    right: -100vw;
+  }
+  100% {
+    right: 0;
+  }
+}
+
+/* Bottoni custom trasparenti */
+.custom-btn-profile {
+  font-family: "SpriteGraffiti", sans-serif;
+  background-color: rgba(24, 26, 28, 0.95); /* Azzurro trasparente */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  width: 100%; /* Assicura che i bottoni siano uno sotto l'altro */
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  border-radius: 50px; /* Rounded pill */
+  color: red;
+}
+
+.custom-btn-profile:hover {
+  background-color: #aeaeae;
+  color: black;
+}
+
+/* Griglia per le immagini */
+.profile-page .image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Stile per le card delle immagini */
+.profile-page .cardProfile {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  border-color: black;
+  box-shadow: 0px 0px 41px 3px #000000;
+  background-color: #f9f9f9;
+}
+.profile-page .card {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+  border-color: black;
+  box-shadow: 0px 0px 30px 3px #000000;
+}
+
+/* Stile per l'immagine nella card */
+.profile-page .cardProfile img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+}
+
+.profile-page .card-body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+/* Stile per le informazioni */
+.profile-page .card-body .info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-grow: 1;
+}
+
+/* Mostra le informazioni e il bottone solo quando passi sopra la singola card */
+.profile-page .card:hover .card-body {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Aggiungi un leggero zoom all'immagine al passaggio del mouse */
+.profile-page .card:hover {
+  transform: scale(1.05);
+}
+
+/* Bottone delete */
+.profile-page .delete-btn {
+  background-color: rgba(255, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  font-family: "SpriteGraffiti", sans-serif;
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+.profile-page .delete-btn:hover {
+  background-color: rgba(139, 0, 0, 0.7);
+}
+
+/* Modal container */
+.modal-image-container {
+  position: relative;
+}
+
+.modal-image-container img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.custom-profile-modal .modal-dialog {
+  display: flex;
+  align-items: center;
+  min-height: 60vh; /* Altezza minima del modale */
+}
+
+.custom-profile-modal .modal-content {
+  background-color: black; /* Sfondo scuro */
+  color: white; /* Testo bianco */
+  border-image: linear-gradient(to right, red, black) 1;
+}
+
+.custom-profile-modal .modal-header {
+  border-bottom: none;
+  justify-content: center;
+  position: relative;
+}
+
+.custom-profile-modal .modal-title {
+  display: flex;
+  align-items: center;
+}
+.custom-profile-modal .img-hello {
+  width: 150px;
+}
+
+/* Icona di chiusura */
+.custom-profile-modal .modal-header .close-icon {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.custom-profile-modal .modal-body .card {
+  background-color: black;
+  color: #f9f9f9;
+}
+.custom-profile-modal .titleCount {
+  color: red;
+  font-family: "SpriteGraffiti", sans-serif;
+}
+.custom-profile-modal .info-count {
+  font-family: "SpriteGraffiti", sans-serif;
+}
+.custom-profile-modal .counter {
+  font-family: "Typewriter", sans-serif;
+  font-size: 2em;
+  color: red;
+}
+.custom-profile-modal .info-profile {
+  font-family: "Typewriter", sans-serif;
+  color: red;
+}
+
+/* Stile per il pulsante di selezione del dropdown */
+.custom-dropdown-toggle {
+  background-color: #181a1c;
+  color: red;
+  font-family: "SpriteGraffiti", sans-serif;
+  border-radius: 0;
+  font-size: 1.5em;
+}
+
+/* Stile per il menu del dropdown */
+.profile-page .dropdown-menu {
+  background-color: #181a1c;
+  border: none;
+  box-shadow: none;
+  font-size: 1.3em;
+  padding-inline: 50px;
+}
+
+.profile-page .dropdown-item {
+  color: white;
+  font-family: "SpriteGraffiti", sans-serif;
+  letter-spacing: 2px;
+}
+
+.profile-page .dropdown-item:hover {
+  color: red;
+  background-color: transparent;
+}
+
+/* Impostazioni responsive */
+.custom-profile-modal .info-count p {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 1.2em;
+}
+
+/* Ottimizzazioni responsive per schermi più piccoli */
+/* Ottimizzazioni responsive per schermi più piccoli */
 @media (max-width: 768px) {
-  .profile-page .image-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  .custom-profile-modal .info-count p {
+    font-size: 1em; /* Riduce la dimensione del testo */
   }
 
-  .profile-page .profile-left-sect,
-  .profile-page .profile-right-sect {
-    text-align: center;
-    padding-right: 0;
+  .custom-profile-modal .counter,
+  .custom-profile-modal .info-profile {
+    font-size: 1.5em; /* Riduce la dimensione del testo dei valori */
+  }
+
+  .profile-page .custom-btn-profile {
+    padding: 8px 15px; /* Riduce il padding dei bottoni */
+    font-size: 1.1em; /* Riduce la dimensione del testo nei bottoni */
+  }
+
+  .profile-page .image-grid {
+    gap: 15px; /* Riduce lo spazio tra le immagini */
+  }
+
+  .profile-page .card {
+    width: 100%; /* Assicura che le card usino tutto lo spazio disponibile */
   }
 }
 
 @media (max-width: 480px) {
+  .custom-profile-modal .modal-body {
+    flex-direction: column; /* Mette le sezioni una sotto l'altra */
+    align-items: center;
+  }
+
+  .custom-profile-modal .info-count {
+    margin-bottom: 20px; /* Spazio tra le sezioni */
+  }
+
+  .custom-profile-modal .counter,
+  .custom-profile-modal .info-profile {
+    font-size: 1.2em; /* Riduce ulteriormente la dimensione del testo */
+  }
+
+  .custom-profile-modal .img-hello {
+    width: 100px; /* Riduce la dimensione dell'immagine */
+  }
+
+  .profile-page .username-text {
+    font-size: 30px; /* Riduce la dimensione del testo del nome utente */
+  }
+
+  .profile-page .custom-btn-profile {
+    padding: 6px 12px; /* Riduce ancora di più il padding dei bottoni */
+    font-size: 1em; /* Ulteriore riduzione della dimensione del testo nei bottoni */
+  }
+
   .profile-page .card {
-    max-width: 100%;
-    margin-bottom: 20px;
+    width: 100%; /* Le card si espandono per coprire tutta la larghezza disponibile */
+  }
+
+  .profile-page .image-grid {
+    gap: 10px; /* Riduce lo spazio tra le immagini */
+  }
+
+  .custom-profile-modal .info-count p {
+    text-align: center; /* Centra il testo nei contenitori più piccoli */
   }
 }

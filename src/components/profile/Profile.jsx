@@ -15,6 +15,7 @@ import HelloImg from "../../assets/profile/img/Hello.jpg";
 import GraffImg from "../../assets/profile/img/GRAFFITI.png";
 import TagImg from "../../assets/profile/img/TAGS.png";
 import StreetImg from "../../assets/profile/img/STREETART.png";
+import CloseIcon from "../../assets/icons/delete.png"; // Importa l'icona di chiusura
 import { useNavigate } from "react-router-dom";
 
 function Profile() {
@@ -27,6 +28,7 @@ function Profile() {
   const [selectedImage, setSelectedImage] = useState(null); // Stato per l'immagine selezionata
   const [showModal, setShowModal] = useState(false); // Stato per la modal delle immagini
   const [showProfileModal, setShowProfileModal] = useState(false); // Stato per la modal del profilo
+  const [showEditModal, setShowEditModal] = useState(false); // Stato per la modal di modifica profilo
   const [searchArtista, setSearchArtista] = useState(""); // Stato per ricerca artista
   const [searchAnno, setSearchAnno] = useState(""); // Stato per ricerca anno
   const imageCardRef = useRef(null); // Crea un ref per la card delle immagini
@@ -36,6 +38,9 @@ function Profile() {
   const [graffitiCount, setGraffitiCount] = useState(0); // Conteggio graffiti
   const [streetArtCount, setStreetArtCount] = useState(0); // Conteggio street art
   const [tagCount, setTagCount] = useState(0); // Conteggio tag
+
+  const [editedUsername, setEditedUsername] = useState(""); // Stato per username modificato
+  const [editedEmail, setEditedEmail] = useState(""); // Stato per email modificata
 
   useEffect(() => {
     const leftElement = document.querySelector(".profile-left-sect");
@@ -367,6 +372,48 @@ function Profile() {
     setShowProfileModal(false);
   };
 
+  // Funzione per aprire il modale di modifica profilo
+  const handleEditProfile = () => {
+    setEditedUsername(username); // Pre-compila il form con l'username attuale
+    setEditedEmail(email); // Pre-compila il form con l'email attuale
+    setShowEditModal(true);
+  };
+
+  // Funzione per chiudere la modal di modifica
+  const handleCloseEditModal = () => {
+    setShowEditModal(false);
+  };
+
+  // Funzione per salvare le modifiche al profilo
+  const handleSaveProfile = async () => {
+    const updatedProfile = {
+      username: editedUsername,
+      email: editedEmail,
+    };
+
+    try {
+      const response = await fetch("http://localhost:3001/api/users/me", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify(updatedProfile),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUsername(data.username); // Aggiorna lo stato con il nuovo username
+        setEmail(data.email); // Aggiorna lo stato con la nuova email
+        setShowEditModal(false); // Chiudi il modale dopo aver salvato
+      } else {
+        console.error("Errore durante l'aggiornamento del profilo");
+      }
+    } catch (error) {
+      console.error("Errore durante la richiesta di aggiornamento:", error);
+    }
+  };
+
   return (
     <div className="profile-page">
       <div className="username-div text-center pt-5 pb-5 position-relative">
@@ -470,7 +517,9 @@ function Profile() {
                     images.map((img, index) => (
                       <Col
                         key={index}
-                        md={4}
+                        xs={12}
+                        md={6}
+                        lg={4}
                         className="mb-3 d-flex justify-content-center"
                         onClick={() => handleImageClick(img)}
                       >
@@ -539,7 +588,7 @@ function Profile() {
         onHide={handleCloseProfileModal}
         centered
         size="lg"
-        className="custom-profile-modal" // Aggiungi la classe personalizzata
+        className="custom-profile-modal"
       >
         <Modal.Header closeButton>
           <Modal.Title>
@@ -548,17 +597,39 @@ function Profile() {
               src={InfoProfileImg}
               alt="Info Profilo"
             />
+            <img
+              src={CloseIcon}
+              alt="Chiudi"
+              className="close-icon"
+              onClick={handleCloseProfileModal}
+              style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                cursor: "pointer",
+                width: "30px",
+                height: "30px",
+              }}
+            />
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="d-flex justify-content-around">
+        <Modal.Body className="d-flex justify-content-around position-relative">
+          {/* Icona di chiusura in alto a destra */}
+
           <Card className="p-5 info-count">
             <h3 className="titleCount pb-2">INFO</h3>
             <p>
-              USERNAME: <span className=" ms-1 info-profile">{username}</span>
+              USERNAME: <span className="ms-1 info-profile">{username}</span>
             </p>
             <p>
               EMAIL: <span className="ms-1 info-profile">{email}</span>
             </p>
+            <Button
+              className="custom-btn-profile mt-3"
+              onClick={handleEditProfile}
+            >
+              Modifica
+            </Button>
           </Card>
 
           <Card className="p-5 info-count">
@@ -573,6 +644,45 @@ function Profile() {
               TAG: <span className="counter ms-1">{tagCount}</span>
             </p>{" "}
           </Card>
+        </Modal.Body>
+      </Modal>
+
+      {/* Modal per modificare il profilo */}
+      <Modal
+        show={showEditModal}
+        onHide={handleCloseEditModal}
+        centered
+        size="lg"
+        className="custom-profile-modal"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Modifica Profilo</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="formUsername">
+              <Form.Label>Username</Form.Label>
+              <Form.Control
+                type="text"
+                value={editedUsername}
+                onChange={(e) => setEditedUsername(e.target.value)}
+              />
+            </Form.Group>
+            <Form.Group controlId="formEmail" className="mt-3">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="email"
+                value={editedEmail}
+                onChange={(e) => setEditedEmail(e.target.value)}
+              />
+            </Form.Group>
+            <Button
+              className="custom-btn-profile mt-3"
+              onClick={handleSaveProfile}
+            >
+              Salva
+            </Button>
+          </Form>
         </Modal.Body>
       </Modal>
     </div>
