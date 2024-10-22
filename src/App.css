@@ -11,6 +11,11 @@
   font-family: "SpriteGraffiti-Bombing";
   src: url("../src/assets/fonts/SpriteGraffiti-Shadow.otf") format("opentype");
 }
+@font-face {
+  font-family: "Typewriter";
+  src: url("../src/assets/fonts/JMH\ Typewriter.otf") format("opentype");
+}
+
 input:focus {
   outline: none !important;
   border-color: black !important;

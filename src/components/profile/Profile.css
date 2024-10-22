@@ -89,7 +89,8 @@
 }
 
 .custom-btn-profile:hover {
-  background-color: rgba(0, 86, 179, 0.7);
+  background-color: #aeaeae;
+  color: black;
 }
 
 /* Griglia per le immagini */
@@ -137,7 +138,6 @@
   display: block;
 }
 
-/* Allineamento delle informazioni e del bottone su una singola linea */
 .profile-page .card-body {
   position: absolute;
   bottom: 0;
@@ -208,22 +208,44 @@
 }
 
 .custom-profile-modal .modal-content {
-  background-color: #181a1c; /* Sfondo scuro */
+  background-color: black; /* Sfondo scuro */
   color: white; /* Testo bianco */
-  border: 1px solid #c0c0c0; /* Bordo chiaro */
+  border-image: linear-gradient(to right, red, black) 1;
 }
 
 .custom-profile-modal .modal-header {
-  border-bottom: none; /* Rimuovi il bordo inferiore */
-  justify-content: center; /* Centra il contenuto dell'intestazione */
+  border-bottom: none;
+  justify-content: center;
 }
 
 .custom-profile-modal .modal-title {
   display: flex;
-  align-items: center; /* Allinea verticalmente */
+  align-items: center;
 }
 .custom-profile-modal .img-hello {
   width: 150px;
+}
+
+.custom-profile-modal .modal-body .card {
+  background-color: black;
+  color: #f9f9f9;
+}
+.custom-profile-modal .titleCount {
+  color: red;
+  font-family: "SpriteGraffiti", sans-serif;
+}
+.custom-profile-modal .info-count {
+  font-family: "SpriteGraffiti", sans-serif;
+}
+.custom-profile-modal .counter {
+  font-family: "Typewriter", sans-serif;
+  font-size: 2em;
+  color: red;
+}
+.custom-profile-modal .info-profile {
+  font-family: "Typewriter", sans-serif;
+
+  color: red;
 }
 
 /* Stile per il pulsante di selezione del dropdown */

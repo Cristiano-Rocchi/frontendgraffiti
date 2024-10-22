@@ -551,19 +551,29 @@ function Profile() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="d-flex justify-content-around">
-          <Card className="p-5">
-            <p>USERNAME: {username}</p>
-            <p>EMAIL: {email}</p>
+          <Card className="p-5 info-count">
+            <h3 className="titleCount pb-2">INFO</h3>
+            <p>
+              USERNAME: <span className=" ms-1 info-profile">{username}</span>
+            </p>
+            <p>
+              EMAIL: <span className="ms-1 info-profile">{email}</span>
+            </p>
           </Card>
 
-          <Card className="p-5">
-            <p>GRAFFITI: {graffitiCount}</p> <p>STREET-ART: {streetArtCount}</p>
-            <p>TAG: {tagCount}</p>{" "}
+          <Card className="p-5 info-count">
+            <h3 className="titleCount pb-2">UPLOAD</h3>
+            <p>
+              GRAFFITI: <span className="counter ms-1">{graffitiCount}</span>
+            </p>{" "}
+            <p>
+              STREET-ART: <span className="counter ms-1">{streetArtCount}</span>
+            </p>
+            <p>
+              TAG: <span className="counter ms-1">{tagCount}</span>
+            </p>{" "}
           </Card>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary">Modifica</Button>
-        </Modal.Footer>
       </Modal>
     </div>
   );

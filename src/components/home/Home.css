@@ -32,15 +32,6 @@ INVECE DELLA SFUMATURA BIANCA INTORNO ALLE IMG PROVARE OMBRA NERA
   animation: moveToCenter 2s forwards; /* Animazione che si esegue una volta */
 }
 
-@keyframes moveToCenter {
-  from {
-    top: 0;
-  }
-  to {
-    top: 55vh;
-    transform: translateY(-50%);
-  }
-}
 .imgTag {
   width: 70%;
   border: none;
