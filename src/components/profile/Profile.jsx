@@ -60,12 +60,15 @@ function Profile() {
   }, []);
 
   const fetchImageCounts = async () => {
+    const richiesta = new Request("http://localhost:3001/api/users/me/stats", {
+      method: "GET",
+      headers: new Headers({
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      }),
+    });
+
     try {
-      const response = await fetch("http://localhost:3001/api/users/me/stats", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await fetch(richiesta);
       if (response.ok) {
         const data = await response.json();
         setGraffitiCount(data.graffitiCount);
@@ -103,14 +106,18 @@ function Profile() {
 
   // Funzione di ricerca singola per graffiti
   const searchGraffitiImages = async () => {
-    try {
-      let url = "http://localhost:3001/api/graffiti/user-images";
-      const response = await fetch(url, {
-        headers: {
+    const richiesta = new Request(
+      "http://localhost:3001/api/graffiti/user-images",
+      {
+        method: "GET",
+        headers: new Headers({
           Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+        }),
+      }
+    );
 
+    try {
+      const response = await fetch(richiesta);
       if (response.ok) {
         let allImages = await response.json();
 
@@ -140,14 +147,18 @@ function Profile() {
 
   // Funzione per street art
   const searchStreetArtImages = async () => {
-    try {
-      let url = "http://localhost:3001/api/streetart/user-images";
-      const response = await fetch(url, {
-        headers: {
+    const richiesta = new Request(
+      "http://localhost:3001/api/streetart/user-images",
+      {
+        method: "GET",
+        headers: new Headers({
           Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+        }),
+      }
+    );
 
+    try {
+      const response = await fetch(richiesta);
       if (response.ok) {
         let allImages = await response.json();
 
@@ -177,14 +188,18 @@ function Profile() {
 
   // Funzione per tag
   const searchTagImages = async () => {
-    try {
-      let url = "http://localhost:3001/api/tags/user-images";
-      const response = await fetch(url, {
-        headers: {
+    const richiesta = new Request(
+      "http://localhost:3001/api/tags/user-images",
+      {
+        method: "GET",
+        headers: new Headers({
           Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+        }),
+      }
+    );
 
+    try {
+      const response = await fetch(richiesta);
       if (response.ok) {
         let allImages = await response.json();
 
@@ -254,15 +269,18 @@ function Profile() {
 
   // Fetch per le immagini personali di graffiti, street art e tag
   const fetchGraffitiImages = async () => {
+    const richiesta = new Request(
+      "http://localhost:3001/api/graffiti/user-images",
+      {
+        method: "GET",
+        headers: new Headers({
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }),
+      }
+    );
+
     try {
-      const response = await fetch(
-        "http://localhost:3001/api/graffiti/user-images",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await fetch(richiesta);
       if (response.ok) {
         const userImages = await response.json();
         setImages(userImages);
@@ -276,15 +294,18 @@ function Profile() {
   };
 
   const fetchStreetArtImages = async () => {
+    const richiesta = new Request(
+      "http://localhost:3001/api/streetart/user-images",
+      {
+        method: "GET",
+        headers: new Headers({
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }),
+      }
+    );
+
     try {
-      const response = await fetch(
-        "http://localhost:3001/api/streetart/user-images",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await fetch(richiesta);
       if (response.ok) {
         const userImages = await response.json();
         setImages(userImages);
@@ -300,15 +321,18 @@ function Profile() {
   };
 
   const fetchTagImages = async () => {
+    const richiesta = new Request(
+      "http://localhost:3001/api/tags/user-images",
+      {
+        method: "GET",
+        headers: new Headers({
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }),
+      }
+    );
+
     try {
-      const response = await fetch(
-        "http://localhost:3001/api/tags/user-images",
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
+      const response = await fetch(richiesta);
       if (response.ok) {
         const userImages = await response.json();
         setImages(userImages);
@@ -338,13 +362,15 @@ function Profile() {
         url = `http://localhost:3001/api/graffiti/${id}`; // Default come graffiti
     }
 
+    const richiesta = new Request(url, {
+      method: "DELETE",
+      headers: new Headers({
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      }),
+    });
+
     try {
-      const response = await fetch(url, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await fetch(richiesta);
 
       if (response.ok) {
         setImages(images.filter((img) => img.id !== id)); // Rimuovi l'immagine dalla lista
@@ -391,15 +417,17 @@ function Profile() {
       email: editedEmail,
     };
 
+    const richiesta = new Request("http://localhost:3001/api/users/me", {
+      method: "PUT",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      }),
+      body: JSON.stringify(updatedProfile),
+    });
+
     try {
-      const response = await fetch("http://localhost:3001/api/users/me", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-        body: JSON.stringify(updatedProfile),
-      });
+      const response = await fetch(richiesta);
 
       if (response.ok) {
         const data = await response.json();

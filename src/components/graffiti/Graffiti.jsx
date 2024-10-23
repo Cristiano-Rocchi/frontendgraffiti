@@ -14,50 +14,8 @@ import videoGraff from "../../assets/graffiti/vid/videowebsite.mp4";
 import { Link } from "react-router-dom";
 
 const Graffiti = () => {
-  const images = [
-    "https://via.placeholder.com/300x300.png?text=Immagine+1",
-    "https://via.placeholder.com/300x300.png?text=Immagine+2",
-    "https://via.placeholder.com/300x300.png?text=Immagine+3",
-    "https://via.placeholder.com/300x300.png?text=Immagine+4",
-    "https://via.placeholder.com/300x300.png?text=Immagine+5",
-    "https://via.placeholder.com/300x300.png?text=Immagine+6",
-    "https://via.placeholder.com/300x300.png?text=Immagine+7",
-    "https://via.placeholder.com/300x300.png?text=Immagine+8",
-    "https://via.placeholder.com/300x300.png?text=Immagine+9",
-    "https://via.placeholder.com/300x300.png?text=Immagine+10",
-    "https://via.placeholder.com/300x300.png?text=Immagine+11",
-    "https://via.placeholder.com/300x300.png?text=Immagine+12",
-    "https://via.placeholder.com/300x300.png?text=Immagine+13",
-    "https://via.placeholder.com/300x300.png?text=Immagine+14",
-    "https://via.placeholder.com/300x300.png?text=Immagine+15",
-    "https://via.placeholder.com/300x300.png?text=Immagine+16",
-    "https://via.placeholder.com/300x300.png?text=Immagine+17",
-    "https://via.placeholder.com/300x300.png?text=Immagine+18",
-    "https://via.placeholder.com/300x300.png?text=Immagine+19",
-    "https://via.placeholder.com/300x300.png?text=Immagine+20",
-    "https://via.placeholder.com/300x300.png?text=Immagine+21",
-    "https://via.placeholder.com/300x300.png?text=Immagine+22",
-    "https://via.placeholder.com/300x300.png?text=Immagine+23",
-    "https://via.placeholder.com/300x300.png?text=Immagine+24",
-    "https://via.placeholder.com/300x300.png?text=Immagine+25",
-    "https://via.placeholder.com/300x300.png?text=Immagine+26",
-    "https://via.placeholder.com/300x300.png?text=Immagine+27",
-    "https://via.placeholder.com/300x300.png?text=Immagine+28",
-    "https://via.placeholder.com/300x300.png?text=Immagine+29",
-    "https://via.placeholder.com/300x300.png?text=Immagine+30",
-    "https://via.placeholder.com/300x300.png?text=Immagine+31",
-    "https://via.placeholder.com/300x300.png?text=Immagine+32",
-    "https://via.placeholder.com/300x300.png?text=Immagine+33",
-    "https://via.placeholder.com/300x300.png?text=Immagine+34",
-    "https://via.placeholder.com/300x300.png?text=Immagine+35",
-    "https://via.placeholder.com/300x300.png?text=Immagine+36",
-    "https://via.placeholder.com/300x300.png?text=Immagine+37",
-    "https://via.placeholder.com/300x300.png?text=Immagine+38",
-    "https://via.placeholder.com/300x300.png?text=Immagine+39",
-    "https://via.placeholder.com/300x300.png?text=Immagine+40",
-  ];
-
   const [loadedImages, setLoadedImages] = useState([]);
+  const [randomImages, setRandomImages] = useState([]); // Stato per le immagini casuali
   const [visibleCount, setVisibleCount] = useState(20);
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -68,9 +26,62 @@ const Graffiti = () => {
 
   const containerRef = useRef(null);
 
+  // Carica immagini casuali per il carosello
   useEffect(() => {
-    setLoadedImages(images.slice(0, visibleCount));
-  }, [visibleCount]);
+    const fetchRandomImages = async () => {
+      const richiesta = new Request(
+        "http://localhost:3001/api/graffiti/random",
+        {
+          method: "GET",
+          headers: new Headers({
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          }),
+        }
+      );
+
+      try {
+        const response = await fetch(richiesta);
+        if (response.ok) {
+          const data = await response.json();
+          setRandomImages(data); // Carica le immagini casuali
+        } else {
+          console.error("Errore nel caricamento delle immagini casuali");
+        }
+      } catch (error) {
+        console.error("Errore nella richiesta delle immagini casuali:", error);
+      }
+    };
+
+    fetchRandomImages();
+  }, []);
+
+  // Carica tutte le immagini dal database
+  useEffect(() => {
+    const fetchImages = async () => {
+      const richiesta = new Request("http://localhost:3001/api/graffiti", {
+        method: "GET",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }),
+      });
+
+      try {
+        const response = await fetch(richiesta);
+        if (response.ok) {
+          const data = await response.json();
+          setLoadedImages(data); // Carica tutte le immagini dal DB
+        } else {
+          console.error("Errore nel caricamento delle immagini");
+        }
+      } catch (error) {
+        console.error("Errore nella richiesta delle immagini:", error);
+      }
+    };
+
+    fetchImages();
+  }, []);
 
   useEffect(() => {
     if (showModal) {
@@ -80,13 +91,17 @@ const Graffiti = () => {
     }
     return () => document.body.classList.remove("modal-open");
   }, [showModal]);
+
   const loadMoreImages = () => {
     setVisibleCount((prevCount) => prevCount + 20);
   };
 
-  const handleImageClick = (image, artist) => {
-    setSelectedImage(image);
-    setSelectedArtist(artist);
+  const handleImageClick = (image) => {
+    setSelectedImage(image.immagineUrl);
+    setSelectedArtist(image.artista || "Artista Sconosciuto");
+    setSelectedStatoOpera(image.stato || "Non Definito");
+    setSelectedAnno(image.annoCreazione || "Anno Sconosciuto");
+    setSelectedLuogo(image.luogo || "Luogo Non Definito");
     setShowModal(true);
   };
 
@@ -138,6 +153,7 @@ const Graffiti = () => {
           Il tuo browser non supporta il formato video.
         </video>
       </div>
+
       <div className="containerCarousel">
         <img
           src={GraffMonth}
@@ -158,13 +174,13 @@ const Graffiti = () => {
           modules={[Autoplay]}
           className="mySwiper pb-3 pt-3"
         >
-          {images.slice(0, 12).map((image, index) => (
+          {randomImages.slice(0, 12).map((image, index) => (
             <SwiperSlide key={index}>
               <div className="image-container">
                 <img
                   className="imgCarousel"
-                  src={image}
-                  alt={`Immagine ${index + 1}`}
+                  src={image.immagineUrl}
+                  alt={image.artista || `Immagine ${index + 1}`}
                   style={{
                     width: "250px",
                     height: "350px",
@@ -173,7 +189,7 @@ const Graffiti = () => {
                   }}
                 />
                 <div className="artist-info rounded-pill">
-                  <span>Artista {index + 1}</span>
+                  <span>{image.artista || "Artista Sconosciuto"}</span>
                 </div>
               </div>
             </SwiperSlide>
@@ -188,27 +204,28 @@ const Graffiti = () => {
           className="graffSection"
         />
         <Row>
-          {loadedImages.map((image, index) => (
+          {loadedImages.slice(0, visibleCount).map((image, index) => (
             <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
               <div
                 className="card-container"
-                onClick={() => handleImageClick(image, `Artista ${index + 1}`)}
+                onClick={() => handleImageClick(image)}
               >
                 <img
                   className="card-img"
-                  src={image}
-                  alt={`Immagine ${index + 1}`}
+                  src={image.immagineUrl}
+                  alt={image.artista || `Immagine ${index + 1}`}
                 />
                 <div className="card-info fs-5">
                   <p>
-                    <span>a</span>Nome Artista {index + 1}
+                    <span>a</span>
+                    {image.artista || "Artista Sconosciuto"}
                   </p>
                 </div>
               </div>
             </Col>
           ))}
         </Row>
-        {visibleCount < images.length && (
+        {visibleCount < loadedImages.length && (
           <div className="text-center">
             <div onClick={loadMoreImages}>
               <img
@@ -232,7 +249,6 @@ const Graffiti = () => {
                 className="modal-image"
               />
               <div className="d-flex justify-content-between">
-                {" "}
                 <div className="artist-info-modal mt-2 fs-3">
                   <span>{selectedArtist}</span>
                 </div>
