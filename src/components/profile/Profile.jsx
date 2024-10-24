@@ -559,7 +559,9 @@ function Profile() {
                           />
                           <div className="card-body">
                             <div className="info p-3">
-                              <p>{img.artista || "Artista Sconosciuto"}</p>
+                              <p className="text-uppercase">
+                                {img.artista || "Artista Sconosciuto"}
+                              </p>
                               <p>{img.annoCreazione || "Anno Sconosciuto"}</p>
                               <p>{img.stato || "Stato Non Definito"}</p>
                             </div>

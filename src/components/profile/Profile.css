@@ -446,6 +446,7 @@
   align-items: center;
   gap: 15px;
   flex-grow: 1;
+  color: #f9f9f9;
 }
 
 /* Mostra le informazioni e il bottone solo quando passi sopra la singola card */

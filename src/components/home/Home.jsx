@@ -26,10 +26,10 @@ function Home() {
           </Col>
           <Col>
             <div className="drop text-center">
-              <Link className="nav-link " to={"/graffiti"}>
+              <Link className="nav-link " to={"/streetart"}>
                 <img src={ImgStreetAtrt} alt="" className="imgHome" />
               </Link>
-              <Link to={"/graffiti"}>
+              <Link to={"/streetart"}>
                 <div className="cardBody">
                   <div className="containerCard">
                     <div className="cardHome card cardStreetart"></div>
@@ -40,10 +40,10 @@ function Home() {
           </Col>
           <Col>
             <div className="drop text-center">
-              <Link className="nav-link " to={"/graffiti"}>
+              <Link className="nav-link " to={"/tag"}>
                 <img src={imgTag} alt="" className="imgHome" />
               </Link>
-              <Link to={"/graffiti"}>
+              <Link to={"/tag"}>
                 <div className="cardBody">
                   <div className="containerCard">
                     <div className="cardHome card cardTag"></div>

@@ -1,20 +1,16 @@
 /* HEADER */
-.headerStreetArt {
+.headerTag {
   padding: 3em;
 }
 
-.streetart-buttons {
-  gap: 9rem;
-}
-
-.btn-style-streetart {
+.btn-style-tag {
   background-color: #ff6666;
   font-family: "SpriteGraffiti", sans-serif;
   border: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.btn-style-streetart span {
+.btn-style-tag span {
   display: inline-block;
   transform: scale(2.3);
   position: relative;
@@ -22,12 +18,12 @@
   rotate: -5deg;
 }
 
-.streetArtMonth {
+.tagMonth {
   width: 14em;
-  animation: danceEffectStreetArt 2s infinite ease-in-out;
+  animation: danceEffectTag 2s infinite ease-in-out;
 }
 
-@keyframes danceEffectStreetArt {
+@keyframes danceEffectTag {
   0% {
     transform: rotate(0deg) scale(1);
   }
@@ -45,14 +41,14 @@
   }
 }
 
-.video-container-streetart {
+.video-container-tag {
   position: relative;
   width: 100%;
   height: 90vh;
   overflow: hidden;
 }
 
-.background-video-streetart {
+.background-video-tag {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -62,34 +58,34 @@
 }
 
 /* CAROSELLO */
-.imgCarousel-streetart {
+.imgCarousel-tag {
   box-shadow: -6px 7px 18px -9px rgba(0, 0, 0, 0.77);
 }
 
-.containerCarousel-streetart h4 {
+.containerCarousel-tag h4 {
   font-family: "SpriteGraffiti", sans-serif;
 }
 
-.containerCarousel-streetart h4 span {
+.containerCarousel-tag h4 span {
   font-family: "SpriteGraffiti-extras", sans-serif;
 }
 
-.containerCarousel-streetart {
+.containerCarousel-tag {
   margin: 0 auto;
   padding: 50px 0;
   text-align: center;
 }
 
-.mySwiper-streetart .image-container-streetart {
+.mySwiper-tag .image-container-tag {
   position: relative;
   text-align: center;
 }
 
-.mySwiper-streetart img {
+.mySwiper-tag img {
   border-radius: 10px;
 }
 
-.artist-info-streetart {
+.artist-info-tag {
   position: absolute;
   bottom: 15px;
   left: 15px;
@@ -99,30 +95,30 @@
 }
 
 /* CONTAINER */
-.streetArtSection {
+.tagSection {
   width: 14em;
 }
 
-.containerBody-streetart {
+.containerBody-tag {
   box-shadow: -6px 7px 18px -9px rgba(0, 0, 0, 0.77);
   border-radius: 10px;
   background-color: #f9f9f9;
 }
 
-.card-container-streetart {
+.card-container-tag {
   position: relative;
   text-align: center;
   cursor: pointer;
 }
 
-.card-img-streetart {
+.card-img-tag {
   border-radius: 30px;
   width: 300px;
   height: 350px;
   object-fit: cover;
 }
 
-.card-info-streetart {
+.card-info-tag {
   position: absolute;
   bottom: 15px;
   left: 15px;
@@ -132,18 +128,18 @@
   border-radius: 5px;
 }
 
-.card-info-streetart span {
+.card-info-tag span {
   font-family: "SpriteGraffiti-Extras", sans-serif;
 }
 
-.arrow-svg-streetart {
+.arrow-svg-tag {
   cursor: pointer;
   max-width: 40px;
-  animation: moveArrowHorizontalStreetArt 1s infinite ease-in-out;
+  animation: moveArrowHorizontalTag 1s infinite ease-in-out;
   rotate: -82deg;
 }
 
-@keyframes moveArrowHorizontalStreetArt {
+@keyframes moveArrowHorizontalTag {
   0% {
     transform: translateX(0);
   }
@@ -156,13 +152,13 @@
 }
 
 /* Modale */
-.modal-image-streetart {
+.modal-image-tag {
   width: 100%;
   height: auto;
   border-radius: 20px;
 }
 
-.artist-info-modal-streetart {
+.artist-info-modal-tag {
   font-family: "SpriteGraffiti", sans-serif;
   padding: 5px 10px;
   border-radius: 5px;
@@ -170,9 +166,9 @@
   top: 9px;
 }
 
-.stato-opera-modal-streetart,
-.anno-opera-modal-streetart,
-.luogo-opera-modal-streetart {
+.stato-opera-modal-tag,
+.anno-opera-modal-tag,
+.luogo-opera-modal-tag {
   background-color: rgba(0, 0, 0, 0.6);
   color: white;
   padding: 5px 10px;
@@ -182,16 +178,17 @@
   margin-bottom: 10px;
 }
 
-.modal-content-streetart {
+.modal-content-tag {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
   border: solid 1px black;
 }
 
-.modal-open-streetart {
+/* Sfondo Modale */
+.modal-open-tag {
   overflow: hidden;
 }
 
-.modal-open-streetart::before {
+.modal-open-tag::before {
   content: "";
   position: fixed;
   top: 0;

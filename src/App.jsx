@@ -9,6 +9,7 @@ import Register from "./components/Register/Register";
 import Profile from "./components/profile/Profile";
 import Upload from "./components/upload/Upload";
 import Streetart from "./components/streetart/Streetart";
+import Tag from "./components/tags/Tag";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/upload" element={<Upload />} />
           <Route path="/streetart" element={<Streetart />} />
+          <Route path="/tag" element={<Tag />} />
         </Routes>
       </>
     </BrowserRouter>

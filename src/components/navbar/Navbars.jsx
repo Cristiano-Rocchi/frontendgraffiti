@@ -155,10 +155,10 @@ function Navbars() {
                     <Link className="nav-link" to={"/graffiti"}>
                       Graffiti
                     </Link>
-                    <Link className="nav-link" to={"/graffiti"}>
+                    <Link className="nav-link" to={"/streetart"}>
                       STREET-ART
                     </Link>
-                    <Link className="nav-link" to={"/graffiti"}>
+                    <Link className="nav-link" to={"/tag"}>
                       TAGS
                     </Link>
                   </NavDropdown>
@@ -175,10 +175,10 @@ function Navbars() {
                     <Link className="nav-link" to={"/graffiti"}>
                       Graffiti
                     </Link>
-                    <Link className="nav-link" to={"/graffiti"}>
+                    <Link className="nav-link" to={"/streetart"}>
                       STREET-ART
                     </Link>
-                    <Link className="nav-link" to={"/graffiti"}>
+                    <Link className="nav-link" to={"/tag"}>
                       TAGS
                     </Link>
                   </NavDropdown>

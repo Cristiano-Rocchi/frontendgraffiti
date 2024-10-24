@@ -1,4 +1,4 @@
-import "./Streetart.css";
+import "../tags/tag.css";
 
 import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -6,15 +6,15 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import StreetArtMonth from "../../assets/graffiti/img/graffiti_of_the_month.png";
-import StreetArtSection from "../../assets/streetart/img/graffitiSection.png";
+import TagMonth from "../../assets/graffiti/img/graffiti_of_the_month.png";
+import TagSection from "../../assets/graffiti/img/graffitiSection.png";
 import { Container, Row, Col, Modal } from "react-bootstrap";
 import CloseIcon from "../../assets/icons/delete.png";
 import ArrowDown from "../../assets/icons/graffitiarrowsvg.svg";
-import videoStreetArt from "../../assets/streetart/vid/videotag.mp4";
+import videoTag from "../../assets/graffiti/vid/videowebsite.mp4";
 import { Link } from "react-router-dom";
 
-const StreetArt = () => {
+const Tag = () => {
   const [loadedImages, setLoadedImages] = useState([]);
   const [randomImages, setRandomImages] = useState([]);
   const [visibleCount, setVisibleCount] = useState(20);
@@ -29,16 +29,13 @@ const StreetArt = () => {
 
   useEffect(() => {
     const fetchRandomImages = async () => {
-      const richiesta = new Request(
-        "http://localhost:3001/api/streetart/random",
-        {
-          method: "GET",
-          headers: new Headers({
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          }),
-        }
-      );
+      const richiesta = new Request("http://localhost:3001/api/tags/random", {
+        method: "GET",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }),
+      });
 
       try {
         const response = await fetch(richiesta);
@@ -58,7 +55,7 @@ const StreetArt = () => {
 
   useEffect(() => {
     const fetchImages = async () => {
-      const richiesta = new Request("http://localhost:3001/api/streetart", {
+      const richiesta = new Request("http://localhost:3001/api/tags", {
         method: "GET",
         headers: new Headers({
           "Content-Type": "application/json",
@@ -116,13 +113,13 @@ const StreetArt = () => {
 
   return (
     <>
-      <div className="headerStreetArt text-center">
+      <div className="headerTag text-center">
         <h1>
-          The right destination <br /> for your street art
+          The right destination <br /> for your tags
         </h1>
         <h3 className="mt-5">Upload a photo or get inspired</h3>
-        <div className="d-flex justify-content-center mt-5 streetart-buttons">
-          <button className="rounded-pill px-4 py-2 btn-style">
+        <div className="d-flex justify-content-center mt-5 tag-buttons">
+          <button className="rounded-pill px-4 py-2 btn-style-tag">
             <span>
               <Link
                 style={{ color: "black", textDecoration: "none" }}
@@ -133,7 +130,7 @@ const StreetArt = () => {
             </span>
           </button>
           <button
-            className="rounded-pill px-4 py-2 btn-style"
+            className="rounded-pill px-4 py-2 btn-style-tag"
             onClick={handleGetInspiredClick}
           >
             <span>GET INSPIRED</span>
@@ -141,19 +138,15 @@ const StreetArt = () => {
         </div>
       </div>
 
-      <div className="video-container">
-        <video autoPlay muted loop playsInline className="background-video">
-          <source src={videoStreetArt} type="video/mp4" />
+      <div className="video-container-tag">
+        <video autoPlay muted loop playsInline className="background-video-tag">
+          <source src={videoTag} type="video/mp4" />
           Il tuo browser non supporta il formato video.
         </video>
       </div>
 
-      <div className="containerCarousel">
-        <img
-          src={StreetArtMonth}
-          alt="street art of the month"
-          className="streetArtMonth"
-        />
+      <div className="containerCarousel-tag">
+        <img src={TagMonth} alt="tag of the month" className="tagMonth" />
 
         <Swiper
           slidesPerView={6}
@@ -166,13 +159,13 @@ const StreetArt = () => {
           }}
           speed={3000}
           modules={[Autoplay]}
-          className="mySwiper pb-3 pt-3"
+          className="mySwiper-tag pb-3 pt-3"
         >
           {randomImages.slice(0, 12).map((image, index) => (
             <SwiperSlide key={index}>
-              <div className="image-container">
+              <div className="image-container-tag">
                 <img
-                  className="imgCarousel"
+                  className="imgCarousel-tag"
                   src={image.immagineUrl}
                   alt={image.artista || `Immagine ${index + 1}`}
                   style={{
@@ -182,7 +175,7 @@ const StreetArt = () => {
                     borderRadius: "30px",
                   }}
                 />
-                <div className="artist-info rounded-pill">
+                <div className="artist-info-tag rounded-pill">
                   <span>{image.artista || "Artista Sconosciuto"}</span>
                 </div>
               </div>
@@ -191,25 +184,24 @@ const StreetArt = () => {
         </Swiper>
       </div>
 
-      <Container ref={containerRef} className="containerBody p-4 text-center">
-        <img
-          src={StreetArtSection}
-          alt="street art section"
-          className="streetArtSection"
-        />
+      <Container
+        ref={containerRef}
+        className="containerBody-tag p-4 text-center"
+      >
+        <img src={TagSection} alt="tag section" className="tagSection" />
         <Row>
           {loadedImages.slice(0, visibleCount).map((image, index) => (
             <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
               <div
-                className="card-container"
+                className="card-container-tag"
                 onClick={() => handleImageClick(image)}
               >
                 <img
-                  className="card-img"
+                  className="card-img-tag"
                   src={image.immagineUrl}
                   alt={image.artista || `Immagine ${index + 1}`}
                 />
-                <div className="card-info fs-5">
+                <div className="card-info-tag fs-5">
                   <p>
                     <span>a</span>
                     {image.artista || "Artista Sconosciuto"}
@@ -224,7 +216,7 @@ const StreetArt = () => {
             <div onClick={loadMoreImages}>
               <img
                 src={ArrowDown}
-                className="arrow-svg"
+                className="arrow-svg-tag"
                 alt="Carica altre immagini"
               />
             </div>
@@ -239,19 +231,19 @@ const StreetArt = () => {
               <img
                 src={selectedImage}
                 alt={selectedArtist}
-                className="modal-image"
+                className="modal-image-tag"
               />
               <div className="d-flex justify-content-between">
-                <div className="artist-info-modal mt-2 fs-3">
+                <div className="artist-info-modal-tag mt-2 fs-3">
                   <span>{selectedArtist}</span>
                 </div>
-                <div className="stato-opera-modal mt-2">
+                <div className="stato-opera-modal-tag mt-2">
                   <span>Stato: {selectedStatoOpera}</span>
                 </div>
-                <div className="anno-opera-modal mt-2">
+                <div className="anno-opera-modal-tag mt-2">
                   <span>Anno: {selectedAnno}</span>
                 </div>
-                <div className="luogo-opera-modal mt-2">
+                <div className="luogo-opera-modal-tag mt-2">
                   <span>Luogo: {selectedLuogo}</span>
                 </div>
               </div>
@@ -272,4 +264,4 @@ const StreetArt = () => {
   );
 };
 
-export default StreetArt;
+export default Tag;
