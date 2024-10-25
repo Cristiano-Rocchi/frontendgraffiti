@@ -11,6 +11,8 @@ import { Container, Row, Col, Modal } from "react-bootstrap";
 import CloseIcon from "../../assets/icons/delete.png";
 import ArrowDown from "../../assets/icons/graffitiarrowsvg.svg";
 import videoGraff from "../../assets/graffiti/vid/videowebsite.mp4";
+import BackImg from "../../assets/graffiti/img/sfondo.jpg";
+import SfondoCarousel from "../../assets/graffiti/img/sfondocarousel.jpg";
 import { Link } from "react-router-dom";
 
 const Graffiti = () => {
@@ -118,7 +120,12 @@ const Graffiti = () => {
   return (
     <div className="graffiti-body">
       <>
-        <div className="headerGraffiti text-center">
+        <div
+          className="headerGraffiti text-center"
+          style={{
+            backgroundImage: `url(${BackImg})`,
+          }}
+        >
           <h1>
             The right destination <br /> for your graffiti
           </h1>
@@ -155,7 +162,12 @@ const Graffiti = () => {
           </video>
         </div>
 
-        <div className="containerCarousel">
+        <div
+          className="containerCarousel"
+          style={{
+            backgroundImage: `url(${SfondoCarousel})`,
+          }}
+        >
           <img
             src={GraffMonth}
             alt="graffiti of the month"
@@ -202,7 +214,7 @@ const Graffiti = () => {
           {" "}
           <Container
             ref={containerRef}
-            className="containerBody graffiti-card  text-center"
+            className="containerBodyGraffiti graffiti-card  text-center"
           >
             <div className="title-graffiti">
               <img src={GraffSection} alt="" />
