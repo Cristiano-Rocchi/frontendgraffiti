@@ -1,7 +1,6 @@
-/* IMPORTANTE FARE OVERRYDE DEI GAP IN SASS E LEVARE LO STYLE INLINE SUI BUTTON */
-
 .graffiti-body {
 }
+
 /* HEADER */
 .headerGraffiti {
   padding: 3em;
@@ -11,14 +10,12 @@
 .btn-style {
   background-color: #ff6666;
   font-family: "SpriteGraffiti", sans-serif;
-
   border: none;
-
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .btn-style span {
   display: inline-block;
-  transform: scale(2.3); /* Aumenta la dimensione del testo */
+  transform: scale(2.3);
   position: relative;
   font-size: 1.3em;
   rotate: -5deg;
@@ -26,7 +23,7 @@
 
 .graffMonth {
   width: 14em;
-  animation: danceEffect 2s infinite ease-in-out; /* cambiare i secondi per regolare la velocita */
+  animation: danceEffect 2s infinite ease-in-out;
 }
 
 @keyframes danceEffect {
@@ -104,8 +101,8 @@
 
 /* CONTAINER */
 .title-graffiti {
-  background-image: url("https://img.freepik.com/premium-photo/black-brick-wall-with-red-graffiti-background_908985-6809.jpg");
   border-radius: 5px;
+  background-size: cover;
 }
 
 .title-graffiti img {
@@ -116,7 +113,6 @@
   box-shadow: -6px 7px 18px -9px rgba(0, 0, 0, 0.77);
   border-radius: 10px;
   background-color: #f9f9f9;
-  background-image: url("https://img.freepik.com/premium-photo/black-brick-wall-with-red-graffiti-background_908985-6809.jpg");
   margin: 0;
   max-width: 100%;
 }
@@ -124,7 +120,6 @@
 .card-container {
   position: relative;
   text-align: center;
-
   cursor: pointer;
 }
 
@@ -141,10 +136,6 @@
   left: 15px;
   font-family: "SpriteGraffiti", sans-serif;
   rotate: -3deg;
-  position: absolute;
-  bottom: 3px;
-  left: -16px;
-
   padding: 5px 10px;
   border-radius: 5px;
 }
@@ -179,7 +170,6 @@
 }
 
 /* Modale */
-
 .modal-body {
   background-color: black;
   padding: unset;
@@ -191,10 +181,8 @@
 
 .artist-info-modal {
   font-family: "SpriteGraffiti", sans-serif;
-
   padding: 5px 10px;
   border-radius: 5px;
-
   position: absolute;
   top: 9px;
 }
@@ -209,7 +197,6 @@
 .opera-modal {
   color: white;
   padding: 5px 10px;
-
   display: inline-block;
   font-size: 1.1rem;
   margin-bottom: 10px;
@@ -234,4 +221,50 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 999;
+}
+
+/* MASONRY GRID */
+.masonry-grid {
+  column-count: 4;
+  column-gap: 10px;
+  background-color: black;
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 10px;
+  overflow: hidden;
+  border-radius: 10px;
+  position: relative;
+}
+
+.masonry-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.masonry-info {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background-color: rgba(230, 25, 25, 0.39);
+  color: black;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-family: "SpriteGraffiti", sans-serif;
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+
+.masonry-info span {
+  color: #f9f9f9;
+  font-family: "SpriteGraffiti", sans-serif;
+}
+
+.masonry-info p {
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 3px 20px;
+  border-radius: 3px;
 }

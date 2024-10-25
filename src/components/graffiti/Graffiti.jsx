@@ -13,6 +13,7 @@ import ArrowDown from "../../assets/icons/graffitiarrowsvg.svg";
 import videoGraff from "../../assets/graffiti/vid/videowebsite.mp4";
 import BackImg from "../../assets/graffiti/img/sfondo.jpg";
 import SfondoCarousel from "../../assets/graffiti/img/sfondocarousel.jpg";
+import SfondoGraffSect from "../../assets/graffiti/img/sfondosection.jpg";
 import { Link } from "react-router-dom";
 
 const Graffiti = () => {
@@ -211,36 +212,37 @@ const Graffiti = () => {
         </div>
 
         <div className="graff-sect-body">
-          {" "}
           <Container
             ref={containerRef}
-            className="containerBodyGraffiti graffiti-card  text-center"
+            className="containerBodyGraffiti text-center"
           >
-            <div className="title-graffiti">
+            <div
+              className="title-graffiti"
+              style={{
+                backgroundImage: `url(${SfondoGraffSect})`,
+              }}
+            >
               <img src={GraffSection} alt="" />
             </div>
-            <Row>
+            <div className="masonry-grid">
               {loadedImages.slice(0, visibleCount).map((image, index) => (
-                <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
-                  <div
-                    className="card-container"
-                    onClick={() => handleImageClick(image)}
-                  >
-                    <img
-                      className="card-img"
-                      src={image.immagineUrl}
-                      alt={image.artista || `Immagine ${index + 1}`}
-                    />
-                    <div className="card-info fs-5">
-                      <p>
-                        <span>a</span>
-                        {image.artista || "Artista Sconosciuto"}
-                      </p>
-                    </div>
+                <div
+                  key={index}
+                  className="masonry-item"
+                  onClick={() => handleImageClick(image)}
+                >
+                  <img
+                    className="masonry-img"
+                    src={image.immagineUrl}
+                    alt={image.artista || `Immagine ${index + 1}`}
+                  />
+                  <div className="masonry-info">
+                    <span>{image.artista || "Artista Sconosciuto"}</span>
                   </div>
-                </Col>
+                </div>
               ))}
-            </Row>
+            </div>
+
             {visibleCount < loadedImages.length && (
               <div className="text-center">
                 <div onClick={loadMoreImages}>
