@@ -27,7 +27,12 @@ const Graffiti = () => {
   const [selectedAnno, setSelectedAnno] = useState(""); // Anno dell'opera
   const [selectedLuogo, setSelectedLuogo] = useState(""); // Luogo dell'opera
 
+  const [searchArtist, setSearchArtist] = useState(""); // Stato per la ricerca dell'artista
+  const [searchYear, setSearchYear] = useState(""); // Stato per la ricerca dell'anno
+
   const containerRef = useRef(null);
+
+  const currentYear = new Date().getFullYear();
 
   // Carica immagini casuali per il carosello
   useEffect(() => {
@@ -117,6 +122,16 @@ const Graffiti = () => {
       containerRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  // Filtraggio delle immagini basato sui campi di ricerca
+  const filteredImages = loadedImages.filter((image) => {
+    const matchArtist = image.artista
+      ?.toLowerCase()
+      .includes(searchArtist.toLowerCase());
+    const matchYear =
+      !searchYear || image.annoCreazione === parseInt(searchYear, 10);
+    return matchArtist && matchYear;
+  });
 
   return (
     <div className="graffiti-body">
@@ -210,6 +225,7 @@ const Graffiti = () => {
             ))}
           </Swiper>
         </div>
+        <div className="sfondo-sfumato"></div>
 
         <div className="graff-sect-body">
           <Container
@@ -224,8 +240,76 @@ const Graffiti = () => {
             >
               <img src={GraffSection} alt="" />
             </div>
+
+            <div className="d-flex bg-black justify-content-between graff-sect-text ">
+              <h5>
+                Sfoglia migliaia <br /> di opere
+              </h5>
+              <h5>
+                Clicca sull'immagine <br /> e vedi tutti i dettagli
+              </h5>
+            </div>
+
+            {/* Campi di ricerca */}
+            <div className="search-container my-4 d-flex justify-content-center gap-4">
+              {/* Card per la ricerca per nome */}
+              <div className="search-card flip-card search-card-expand p-3">
+                <div className="flip-card-inner">
+                  <div className="flip-card-front">
+                    <h5 className="search-title">Puoi cercare per nome</h5>
+                  </div>
+                  <div className="flip-card-back">
+                    <input
+                      type="text"
+                      placeholder="Cerca artista"
+                      value={searchArtist}
+                      onChange={(e) => setSearchArtist(e.target.value)}
+                      className="form-small"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Card per il totale opere */}
+              <div className="search-card flip-card p-3">
+                <div className="flip-card-inner">
+                  <div className="flip-card-front">
+                    <h5 className="search-title">Totale opere</h5>
+                  </div>
+                  <div className="flip-card-back">
+                    <p
+                      className="total-opere"
+                      style={{ color: "red", fontFamily: "Typewriter" }}
+                    >
+                      {loadedImages.length}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Card per la ricerca per anno */}
+              <div className="search-card flip-card search-card-expand p-3">
+                <div className="flip-card-inner">
+                  <div className="flip-card-front">
+                    <h5 className="search-title">Puoi cercare per data</h5>
+                  </div>
+                  <div className="flip-card-back">
+                    <input
+                      type="number"
+                      placeholder="Cerca per anno"
+                      value={searchYear}
+                      onChange={(e) => setSearchYear(e.target.value)}
+                      className="form-small"
+                      min="1975"
+                      max={currentYear}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div className="masonry-grid">
-              {loadedImages.slice(0, visibleCount).map((image, index) => (
+              {filteredImages.slice(0, visibleCount).map((image, index) => (
                 <div
                   key={index}
                   className="masonry-item"
