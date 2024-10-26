@@ -11,30 +11,49 @@ import { Container, Row, Col, Modal } from "react-bootstrap";
 import CloseIcon from "../../assets/icons/delete.png";
 import ArrowDown from "../../assets/icons/graffitiarrowsvg.svg";
 import videoGraff from "../../assets/graffiti/vid/videowebsite.mp4";
-import BackImg from "../../assets/graffiti/img/sfondo.jpg";
+import BackImg from "../../assets/graffiti/img/sfondo2.jpg";
 import SfondoCarousel from "../../assets/graffiti/img/sfondocarousel.jpg";
 import SfondoGraffSect from "../../assets/graffiti/img/sfondosection.jpg";
+import Track1 from "../../assets/music/The Notorious B.I.G. - Everyday Struggle (Official Audio) (152kbit_Opus).opus";
+import Track2 from "../../assets/music/The Notorious B.I.G. - Friend of Mine (Official Audio) (128kbit_AAC).m4a";
+import Track3 from "../../assets/music/The Notorious B.I.G. - Gimme the Loot (Official Audio) (128kbit_AAC).m4a";
 import { Link } from "react-router-dom";
+
+// Icon imports
+import PlayIcon from "../../assets/icons/play.png";
+import PauseIcon from "../../assets/icons/stop.png";
+import NextIcon from "../../assets/icons/next.png";
+import PrevIcon from "../../assets/icons/backward.png";
+import CloseOverlayIcon from "../../assets/icons/delete.png";
 
 const Graffiti = () => {
   const [loadedImages, setLoadedImages] = useState([]);
-  const [randomImages, setRandomImages] = useState([]); // Stato per le immagini casuali
+  const [randomImages, setRandomImages] = useState([]);
   const [visibleCount, setVisibleCount] = useState(20);
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedArtist, setSelectedArtist] = useState("");
-  const [selectedStatoOpera, setSelectedStatoOpera] = useState(""); // Stato dell'opera
-  const [selectedAnno, setSelectedAnno] = useState(""); // Anno dell'opera
-  const [selectedLuogo, setSelectedLuogo] = useState(""); // Luogo dell'opera
+  const [selectedStatoOpera, setSelectedStatoOpera] = useState("");
+  const [selectedAnno, setSelectedAnno] = useState("");
+  const [selectedLuogo, setSelectedLuogo] = useState("");
 
-  const [searchArtist, setSearchArtist] = useState(""); // Stato per la ricerca dell'artista
-  const [searchYear, setSearchYear] = useState(""); // Stato per la ricerca dell'anno
+  const [searchArtist, setSearchArtist] = useState("");
+  const [searchYear, setSearchYear] = useState("");
+  const [showPlayerOverlay, setShowPlayerOverlay] = useState(false);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const tracks = [Track1, Track2, Track3];
+  const trackNames = [
+    "The Notorious B.I.G. - Everyday Struggle ",
+    "The Notorious B.I.G. - Friend of Mine",
+    "The Notorious B.I.G. - Gimme the Loot",
+  ];
+  const audioRef = useRef(new Audio(tracks[currentTrackIndex]));
 
   const containerRef = useRef(null);
-
   const currentYear = new Date().getFullYear();
 
-  // Carica immagini casuali per il carosello
   useEffect(() => {
     const fetchRandomImages = async () => {
       const richiesta = new Request(
@@ -52,7 +71,7 @@ const Graffiti = () => {
         const response = await fetch(richiesta);
         if (response.ok) {
           const data = await response.json();
-          setRandomImages(data); // Carica le immagini casuali
+          setRandomImages(data);
         } else {
           console.error("Errore nel caricamento delle immagini casuali");
         }
@@ -64,7 +83,6 @@ const Graffiti = () => {
     fetchRandomImages();
   }, []);
 
-  // Carica tutte le immagini dal database
   useEffect(() => {
     const fetchImages = async () => {
       const richiesta = new Request("http://localhost:3001/api/graffiti", {
@@ -79,7 +97,7 @@ const Graffiti = () => {
         const response = await fetch(richiesta);
         if (response.ok) {
           const data = await response.json();
-          setLoadedImages(data); // Carica tutte le immagini dal DB
+          setLoadedImages(data);
         } else {
           console.error("Errore nel caricamento delle immagini");
         }
@@ -99,6 +117,47 @@ const Graffiti = () => {
     }
     return () => document.body.classList.remove("modal-open");
   }, [showModal]);
+
+  useEffect(() => {
+    // Cambia la sorgente dell'audio con la traccia attuale
+    audioRef.current.src = tracks[currentTrackIndex];
+
+    // Se la riproduzione è attiva, riproduci la nuova traccia
+    if (isPlaying) {
+      audioRef.current.play();
+    }
+
+    audioRef.current.addEventListener("ended", handleTrackEnd);
+    return () => {
+      audioRef.current.removeEventListener("ended", handleTrackEnd);
+    };
+  }, [currentTrackIndex, isPlaying]);
+
+  const handleTrackEnd = () => {
+    setCurrentTrackIndex((prevIndex) => (prevIndex + 1) % tracks.length);
+  };
+
+  const togglePlayPause = () => {
+    setIsPlaying(!isPlaying);
+    setShowPlayerOverlay(true);
+  };
+
+  const handleNextTrack = () => {
+    setCurrentTrackIndex((prevIndex) => (prevIndex + 1) % tracks.length);
+    setIsPlaying(true);
+  };
+
+  const handlePrevTrack = () => {
+    setCurrentTrackIndex(
+      (prevIndex) => (prevIndex - 1 + tracks.length) % tracks.length
+    );
+    setIsPlaying(true);
+  };
+
+  const closePlayerOverlay = () => {
+    setShowPlayerOverlay(false);
+    setIsPlaying(false);
+  };
 
   const loadMoreImages = () => {
     setVisibleCount((prevCount) => prevCount + 20);
@@ -123,7 +182,6 @@ const Graffiti = () => {
     }
   };
 
-  // Filtraggio delle immagini basato sui campi di ricerca
   const filteredImages = loadedImages.filter((image) => {
     const matchArtist = image.artista
       ?.toLowerCase()
@@ -252,7 +310,6 @@ const Graffiti = () => {
 
             {/* Campi di ricerca */}
             <div className="search-container my-4 d-flex justify-content-center gap-4">
-              {/* Card per la ricerca per nome */}
               <div className="search-card flip-card search-card-expand p-3">
                 <div className="flip-card-inner">
                   <div className="flip-card-front">
@@ -270,7 +327,6 @@ const Graffiti = () => {
                 </div>
               </div>
 
-              {/* Card per il totale opere */}
               <div className="search-card flip-card p-3">
                 <div className="flip-card-inner">
                   <div className="flip-card-front">
@@ -287,7 +343,6 @@ const Graffiti = () => {
                 </div>
               </div>
 
-              {/* Card per la ricerca per anno */}
               <div className="search-card flip-card search-card-expand p-3">
                 <div className="flip-card-inner">
                   <div className="flip-card-front">
@@ -303,6 +358,25 @@ const Graffiti = () => {
                       min="1975"
                       max={currentYear}
                     />
+                  </div>
+                </div>
+              </div>
+
+              <div className="search-card flip-card p-3">
+                <div className="flip-card-inner">
+                  <div className="flip-card-front">
+                    <h5 className="search-title">Ascolta la nostra playlist</h5>
+                  </div>
+                  <div className="flip-card-back" onClick={togglePlayPause}>
+                    <span
+                      style={{
+                        color: "red",
+                        fontFamily: "Typewriter",
+                        fontSize: "1.5rem",
+                      }}
+                    >
+                      {isPlaying ? "Pausa ◼" : "Play ▶"}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -341,8 +415,12 @@ const Graffiti = () => {
           </Container>
         </div>
 
-        {/* Modale per mostrare l'immagine ingrandita */}
-        <Modal show={showModal} onHide={handleClose} centered>
+        <Modal
+          className="modal-graffiti"
+          show={showModal}
+          onHide={handleClose}
+          centered
+        >
           <Modal.Body className="text-center">
             {selectedImage && (
               <>
@@ -386,6 +464,44 @@ const Graffiti = () => {
             />
           </Modal.Footer>
         </Modal>
+
+        {showPlayerOverlay && (
+          <div className="spotify-overlay">
+            <span className="close-overlay-icon" onClick={closePlayerOverlay}>
+              <img src={CloseOverlayIcon} alt="Chiudi" />
+            </span>
+            <p>
+              <span
+                style={{
+                  color: "red",
+                }}
+              >
+                Stai ascoltando: <br />
+              </span>{" "}
+              {trackNames[currentTrackIndex]}
+            </p>
+            <div className="player-controls">
+              <span
+                className="control-icon prev-icon"
+                onClick={handlePrevTrack}
+              >
+                <img src={PrevIcon} alt="Previous" />
+              </span>
+              <span
+                className="control-icon play-pause-icon"
+                onClick={togglePlayPause}
+              >
+                <img src={isPlaying ? PauseIcon : PlayIcon} alt="Play/Pause" />
+              </span>
+              <span
+                className="control-icon next-icon"
+                onClick={handleNextTrack}
+              >
+                <img src={NextIcon} alt="Next" />
+              </span>
+            </div>
+          </div>
+        )}
       </>
     </div>
   );

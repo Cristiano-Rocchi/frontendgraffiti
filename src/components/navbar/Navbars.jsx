@@ -281,7 +281,7 @@ function Navbars() {
                 required
               />
             </Form.Group>
-            <Button variant="primary" type="submit" className="mt-3">
+            <Button type="submit" className="mt-3 btn-custom">
               Login
             </Button>
           </Form>

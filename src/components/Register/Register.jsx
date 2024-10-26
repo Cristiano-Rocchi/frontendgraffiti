@@ -81,7 +81,7 @@ function Register() {
 
   return (
     <>
-      <Container className="register-page d-flex justify-content-center align-items-center custom-container">
+      <Container className="register-page d-flex justify-content-center align-items-center custom-container-register">
         {/* Sezioni di testo animate */}
         <div className="animated-text">
           UNISCITI A NOI E CARICA I TUOI GRAFFITI <br /> O QUELLI CHE TROVI

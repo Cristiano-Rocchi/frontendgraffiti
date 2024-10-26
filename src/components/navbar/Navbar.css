@@ -95,3 +95,14 @@
   color: red;
   background-color: transparent;
 }
+
+.btn-custom {
+  background-color: rgba(255, 255, 255, 0.95); /* Azzurro trasparente */
+  color: rgb(0, 0, 0);
+  border: none;
+  padding: 10px 20px;
+}
+.btn-custom:hover {
+  background-color: #aeaeae;
+  color: black;
+}

@@ -164,7 +164,7 @@ function Upload() {
 
   return (
     <>
-      <Container className="upload-page d-flex justify-content-center align-items-center custom-container">
+      <Container className="upload-page d-flex justify-content-center align-items-center custom-container-upload">
         {/* Sezioni di testo animate */}
         <div className="animated-text">
           UNISCITI A NOI E CARICA I TUOI GRAFFITI <br /> O QUELLI CHE TROVI
@@ -296,7 +296,7 @@ function Upload() {
                     </Form.Group>
 
                     <div className="text-center">
-                      <Button variant="primary" type="submit">
+                      <Button type="submit" className="btn-custom-black">
                         Carica
                       </Button>
                     </div>

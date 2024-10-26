@@ -1,4 +1,4 @@
-.custom-container {
+.custom-container-upload {
   padding: 0;
   margin: 0;
   max-width: 100%;
@@ -8,4 +8,17 @@
 .register-title {
   animation: danceEffect 2s infinite ease-in-out;
   font-family: "SpriteGraffiti", sans-serif;
+}
+
+.btn-custom-black {
+  font-family: "SpriteGraffiti", sans-serif;
+  background-color: rgba(24, 26, 28, 0.95); /* Azzurro trasparente */
+  color: white;
+  border: none;
+  width: 100%;
+}
+
+.btn-custom-black:hover {
+  background-color: #aeaeae;
+  color: black;
 }
