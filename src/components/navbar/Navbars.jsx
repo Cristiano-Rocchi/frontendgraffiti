@@ -92,6 +92,7 @@ function Navbars() {
   const location = useLocation();
   const [opacity, setOpacity] = useState(1);
   const isGraffitiPage = location.pathname === "/graffiti";
+  const isProfilePage = location.pathname === "/profile";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -112,6 +113,8 @@ function Navbars() {
 
     if (isGraffitiPage) {
       window.addEventListener("scroll", handleScroll);
+    } else if (isProfilePage) {
+      setOpacity(1); // Fissa l'opacità a 1 su ProfilePage
     }
 
     return () => {
@@ -119,16 +122,18 @@ function Navbars() {
         window.removeEventListener("scroll", handleScroll);
       }
     };
-  }, [isGraffitiPage]);
+  }, [isGraffitiPage, isProfilePage]);
 
   return (
     <>
       <Navbar
         expand="lg"
-        className={`navbarBody ${isGraffitiPage ? "sticky-navbar" : ""}`}
+        className={`navbarBody ${
+          isGraffitiPage ? "fade-navbar" : isProfilePage ? "sticky-navbar" : ""
+        }`}
         style={{
-          opacity: isGraffitiPage ? opacity : 1,
-          transition: "opacity 0.5s ease",
+          opacity: isGraffitiPage ? opacity : 1, // Effetto dissolvenza su GraffitiPage
+          transition: isGraffitiPage ? "opacity 0.5s ease" : "none", // Nessuna dissolvenza su ProfilePage
         }}
       >
         <Container>

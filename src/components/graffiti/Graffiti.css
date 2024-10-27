@@ -101,9 +101,9 @@
 
 /* CONTAINER */
 
-.sfondo-sfumato {
-  background: linear-gradient(to top, black, transparent);
-  height: 10vh; /* Altezza della sezione */
+.sfondo-graff-sect-up {
+  height: 24vh; /* Altezza della sezione */
+  background-size: cover;
 }
 
 .title-graffiti {
@@ -247,6 +247,9 @@
   overflow: hidden;
   border-radius: 10px;
   position: relative;
+}
+.masonry-item:hover {
+  transform: scale(1.03);
 }
 
 .masonry-item img {

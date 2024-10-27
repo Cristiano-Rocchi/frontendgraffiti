@@ -14,6 +14,8 @@ import videoGraff from "../../assets/graffiti/vid/videowebsite.mp4";
 import BackImg from "../../assets/graffiti/img/sfondo2.jpg";
 import SfondoCarousel from "../../assets/graffiti/img/sfondocarousel.jpg";
 import SfondoGraffSect from "../../assets/graffiti/img/sfondosection.jpg";
+import SfondoGraffSectUp from "../../assets/graffiti/img/sfondograffsect.jpg";
+
 import Track1 from "../../assets/music/The Notorious B.I.G. - Everyday Struggle (Official Audio) (152kbit_Opus).opus";
 import Track2 from "../../assets/music/The Notorious B.I.G. - Friend of Mine (Official Audio) (128kbit_AAC).m4a";
 import Track3 from "../../assets/music/The Notorious B.I.G. - Gimme the Loot (Official Audio) (128kbit_AAC).m4a";
@@ -283,7 +285,12 @@ const Graffiti = () => {
             ))}
           </Swiper>
         </div>
-        <div className="sfondo-sfumato"></div>
+        <div
+          className="sfondo-graff-sect-up"
+          style={{
+            backgroundImage: `url(${SfondoGraffSectUp})`,
+          }}
+        ></div>
 
         <div className="graff-sect-body">
           <Container

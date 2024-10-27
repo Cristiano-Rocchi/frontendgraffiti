@@ -22,7 +22,7 @@ input:focus {
   box-shadow: 0 0 5px black !important;
 }
 select:focus {
-  outline: none !important; /* Rimuove il bordo blu di default */
-  border-color: black !important; /* Cambia il colore del bordo */
-  box-shadow: 0 0 5px black !important; /* Cambia il colore dello sfondino */
+  outline: none !important;
+  border-color: black !important;
+  box-shadow: 0 0 5px black !important;
 }
