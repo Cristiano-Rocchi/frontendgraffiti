@@ -7,7 +7,7 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import GraffMonth from "../../assets/graffiti/img/graffiti_of_the_month.png";
 import GraffSection from "../../assets/graffiti/img/graffitiSection.png";
-import { Container, Row, Col, Modal } from "react-bootstrap";
+import { Container, Modal } from "react-bootstrap";
 import CloseIcon from "../../assets/icons/delete.png";
 import ArrowDown from "../../assets/icons/graffitiarrowsvg.svg";
 import videoGraff from "../../assets/graffiti/vid/videowebsite.mp4";

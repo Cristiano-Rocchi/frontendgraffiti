@@ -1,6 +1,14 @@
+.tag-body {
+}
+
 /* HEADER */
 .headerTag {
   padding: 3em;
+  background-size: cover;
+}
+
+.tag-buttons {
+  gap: 9rem;
 }
 
 .btn-style-tag {
@@ -64,6 +72,7 @@
 
 .containerCarousel-tag h4 {
   font-family: "SpriteGraffiti", sans-serif;
+  background-size: cover;
 }
 
 .containerCarousel-tag h4 span {
@@ -92,17 +101,36 @@
   background-color: rgba(0, 0, 0, 0.6);
   color: white;
   padding: 5px 10px;
+  text-transform: uppercase;
 }
 
 /* CONTAINER */
-.tagSection {
+
+.sfondo-tag-sect-up {
+  height: 24vh;
+  background-size: cover;
+}
+
+.title-tag {
+  background-size: cover;
+}
+
+.title-tag img {
   width: 14em;
 }
 
-.containerBody-tag {
+.tag-sect-text {
+  color: red;
+  font-family: "SpriteGraffiti", sans-serif;
+}
+
+.containerBodyTag {
   box-shadow: -6px 7px 18px -9px rgba(0, 0, 0, 0.77);
   border-radius: 10px;
   background-color: #f9f9f9;
+  margin: 0;
+  max-width: 100%;
+  padding: 0;
 }
 
 .card-container-tag {
@@ -152,10 +180,14 @@
 }
 
 /* Modale */
+
+.modal-tag .modal-body {
+  background-color: black;
+  padding: unset;
+}
 .modal-image-tag {
   width: 100%;
   height: auto;
-  border-radius: 20px;
 }
 
 .artist-info-modal-tag {
@@ -166,13 +198,16 @@
   top: 9px;
 }
 
-.stato-opera-modal-tag,
-.anno-opera-modal-tag,
-.luogo-opera-modal-tag {
-  background-color: rgba(0, 0, 0, 0.6);
+.opera-modal-tag p {
+  font-family: "SpriteGraffiti", sans-serif;
+}
+.opera-modal-tag span {
+  font-family: "Typewriter", sans-serif;
+  color: red;
+}
+.opera-modal-tag {
   color: white;
   padding: 5px 10px;
-  border-radius: 5px;
   display: inline-block;
   font-size: 1.1rem;
   margin-bottom: 10px;
@@ -183,7 +218,6 @@
   border: solid 1px black;
 }
 
-/* Sfondo Modale */
 .modal-open-tag {
   overflow: hidden;
 }
@@ -197,4 +231,62 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 999;
+}
+
+/* MASONRY GRID */
+.masonry-grid-tag {
+  column-count: 4;
+  column-gap: 10px;
+  background-color: black;
+}
+
+.masonry-item-tag {
+  break-inside: avoid;
+  margin-bottom: 10px;
+  overflow: hidden;
+  border-radius: 10px;
+  position: relative;
+}
+.masonry-item-tag:hover {
+  transform: scale(1.03);
+}
+
+.masonry-item-tag img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+.masonry-item-tag img:hover {
+  cursor: pointer;
+}
+
+.masonry-info-tag {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background-color: rgba(0, 0, 0, 0.39);
+  color: black;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-family: "SpriteGraffiti", sans-serif;
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+
+.masonry-info-tag span {
+  color: #f9f9f9;
+  font-family: "SpriteGraffiti", sans-serif;
+}
+
+.masonry-info-tag p {
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 3px 20px;
+  border-radius: 3px;
+}
+
+/* Sezione con background nero */
+.containerBodyTag,
+.masonry-grid-tag {
+  background-color: black;
 }

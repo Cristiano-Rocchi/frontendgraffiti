@@ -1,5 +1,4 @@
 import "../tags/tag.css";
-
 import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -8,10 +7,14 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import TagMonth from "../../assets/graffiti/img/graffiti_of_the_month.png";
 import TagSection from "../../assets/graffiti/img/graffitiSection.png";
-import { Container, Row, Col, Modal } from "react-bootstrap";
+import { Container, Modal } from "react-bootstrap";
 import CloseIcon from "../../assets/icons/delete.png";
 import ArrowDown from "../../assets/icons/graffitiarrowsvg.svg";
-import videoTag from "../../assets/graffiti/vid/videowebsite.mp4";
+import videoTag from "../../assets/graffiti/vid/videotag.mp4";
+import BackImg from "../../assets/graffiti/img/sfondo2.jpg";
+import SfondoCarousel from "../../assets/graffiti/img/sfondocarousel.jpg";
+import SfondoTagSect from "../../assets/graffiti/img/sfondosection.jpg";
+import SfondoTagSectUp from "../../assets/graffiti/img/sfondograffsect.jpg";
 import { Link } from "react-router-dom";
 
 const Tag = () => {
@@ -29,7 +32,7 @@ const Tag = () => {
 
   useEffect(() => {
     const fetchRandomImages = async () => {
-      const richiesta = new Request("http://localhost:3001/api/tags/random", {
+      const richiesta = new Request("http://localhost:3001/api/tag/random", {
         method: "GET",
         headers: new Headers({
           "Content-Type": "application/json",
@@ -55,7 +58,7 @@ const Tag = () => {
 
   useEffect(() => {
     const fetchImages = async () => {
-      const richiesta = new Request("http://localhost:3001/api/tags", {
+      const richiesta = new Request("http://localhost:3001/api/tag", {
         method: "GET",
         headers: new Headers({
           "Content-Type": "application/json",
@@ -112,155 +115,190 @@ const Tag = () => {
   };
 
   return (
-    <>
-      <div className="headerTag text-center">
-        <h1>
-          The right destination <br /> for your tags
-        </h1>
-        <h3 className="mt-5">Upload a photo or get inspired</h3>
-        <div className="d-flex justify-content-center mt-5 tag-buttons">
-          <button className="rounded-pill px-4 py-2 btn-style-tag">
-            <span>
-              <Link
-                style={{ color: "black", textDecoration: "none" }}
-                to={"/upload"}
-              >
-                UPLOAD
-              </Link>
-            </span>
-          </button>
-          <button
-            className="rounded-pill px-4 py-2 btn-style-tag"
-            onClick={handleGetInspiredClick}
-          >
-            <span>GET INSPIRED</span>
-          </button>
-        </div>
-      </div>
-
-      <div className="video-container-tag">
-        <video autoPlay muted loop playsInline className="background-video-tag">
-          <source src={videoTag} type="video/mp4" />
-          Il tuo browser non supporta il formato video.
-        </video>
-      </div>
-
-      <div className="containerCarousel-tag">
-        <img src={TagMonth} alt="tag of the month" className="tagMonth" />
-
-        <Swiper
-          slidesPerView={6}
-          spaceBetween={100}
-          loop={true}
-          autoplay={{
-            delay: 0,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: false,
+    <div className="tag-body">
+      <>
+        <div
+          className="headerTag text-center"
+          style={{
+            backgroundImage: `url(${BackImg})`,
           }}
-          speed={3000}
-          modules={[Autoplay]}
-          className="mySwiper-tag pb-3 pt-3"
         >
-          {randomImages.slice(0, 12).map((image, index) => (
-            <SwiperSlide key={index}>
-              <div className="image-container-tag">
-                <img
-                  className="imgCarousel-tag"
-                  src={image.immagineUrl}
-                  alt={image.artista || `Immagine ${index + 1}`}
-                  style={{
-                    width: "250px",
-                    height: "350px",
-                    objectFit: "cover",
-                    borderRadius: "30px",
-                  }}
-                />
-                <div className="artist-info-tag rounded-pill">
-                  <span>{image.artista || "Artista Sconosciuto"}</span>
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      </div>
+          <h1>
+            The right destination <br /> for your tags
+          </h1>
+          <h3 className="mt-5">Upload a photo or get inspired</h3>
+          <div
+            style={{
+              gap: "9rem",
+            }}
+            className="d-flex justify-content-center mt-5"
+          >
+            <button className="rounded-pill px-4 py-2 btn-style-tag">
+              <span>
+                <Link
+                  style={{ color: "black", textDecoration: "none" }}
+                  to={"/upload"}
+                >
+                  UPLOAD
+                </Link>
+              </span>
+            </button>
+            <button
+              className="rounded-pill px-4 py-2 btn-style-tag"
+              onClick={handleGetInspiredClick}
+            >
+              <span>GET INSPIRED</span>
+            </button>
+          </div>
+        </div>
 
-      <Container
-        ref={containerRef}
-        className="containerBody-tag p-4 text-center"
-      >
-        <img src={TagSection} alt="tag section" className="tagSection" />
-        <Row>
-          {loadedImages.slice(0, visibleCount).map((image, index) => (
-            <Col key={index} xs={12} sm={6} md={4} lg={3} className="mb-4">
+        <div className="video-container-tag">
+          <video autoPlay muted loop playsInline className="background-video">
+            <source src={videoTag} type="video/mp4" />
+            Il tuo browser non supporta il formato video.
+          </video>
+        </div>
+
+        <div
+          className="containerCarousel-tag"
+          style={{
+            backgroundImage: `url(${SfondoCarousel})`,
+          }}
+        >
+          <img src={TagMonth} alt="tag of the month" className="tagMonth" />
+
+          <Swiper
+            slidesPerView={6}
+            spaceBetween={100}
+            loop={true}
+            autoplay={{
+              delay: 0,
+              disableOnInteraction: false,
+              pauseOnMouseEnter: false,
+            }}
+            speed={3000}
+            modules={[Autoplay]}
+            className="mySwiper pb-3 pt-3"
+          >
+            {randomImages.slice(0, 12).map((image, index) => (
+              <SwiperSlide key={index}>
+                <div className="image-container-tag">
+                  <img
+                    className="imgCarousel-tag"
+                    src={image.immagineUrl}
+                    alt={image.artista || `Immagine ${index + 1}`}
+                    style={{
+                      width: "250px",
+                      height: "350px",
+                      objectFit: "cover",
+                      borderRadius: "30px",
+                    }}
+                  />
+                  <div className="artist-info-tag rounded-pill">
+                    <span>{image.artista || "Artista Sconosciuto"}</span>
+                  </div>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+
+        <div
+          className="sfondo-tag-sect-up"
+          style={{
+            backgroundImage: `url(${SfondoTagSectUp})`,
+          }}
+        ></div>
+
+        <Container
+          ref={containerRef}
+          className="containerBodyTag p-4 text-center"
+        >
+          <img src={TagSection} alt="tag section" className="tagSection" />
+
+          <div className="masonry-grid-tag">
+            {loadedImages.slice(0, visibleCount).map((image, index) => (
               <div
-                className="card-container-tag"
+                key={index}
+                className="masonry-item-tag"
                 onClick={() => handleImageClick(image)}
               >
                 <img
-                  className="card-img-tag"
+                  className="masonry-img"
                   src={image.immagineUrl}
                   alt={image.artista || `Immagine ${index + 1}`}
                 />
-                <div className="card-info-tag fs-5">
-                  <p>
-                    <span>a</span>
-                    {image.artista || "Artista Sconosciuto"}
-                  </p>
+                <div className="masonry-info-tag">
+                  <span>{image.artista || "Artista Sconosciuto"}</span>
                 </div>
               </div>
-            </Col>
-          ))}
-        </Row>
-        {visibleCount < loadedImages.length && (
-          <div className="text-center">
-            <div onClick={loadMoreImages}>
-              <img
-                src={ArrowDown}
-                className="arrow-svg-tag"
-                alt="Carica altre immagini"
-              />
-            </div>
+            ))}
           </div>
-        )}
-      </Container>
 
-      <Modal show={showModal} onHide={handleClose} centered>
-        <Modal.Body className="text-center">
-          {selectedImage && (
-            <>
-              <img
-                src={selectedImage}
-                alt={selectedArtist}
-                className="modal-image-tag"
-              />
-              <div className="d-flex justify-content-between">
-                <div className="artist-info-modal-tag mt-2 fs-3">
-                  <span>{selectedArtist}</span>
-                </div>
-                <div className="stato-opera-modal-tag mt-2">
-                  <span>Stato: {selectedStatoOpera}</span>
-                </div>
-                <div className="anno-opera-modal-tag mt-2">
-                  <span>Anno: {selectedAnno}</span>
-                </div>
-                <div className="luogo-opera-modal-tag mt-2">
-                  <span>Luogo: {selectedLuogo}</span>
-                </div>
+          {visibleCount < loadedImages.length && (
+            <div className="text-center">
+              <div onClick={loadMoreImages}>
+                <img
+                  src={ArrowDown}
+                  className="arrow-svg-tag"
+                  alt="Carica altre immagini"
+                />
               </div>
-            </>
+            </div>
           )}
-        </Modal.Body>
-        <Modal.Footer>
-          <img
-            src={CloseIcon}
-            alt="Close"
-            onClick={handleClose}
-            className="close-modal-icon"
-            style={{ cursor: "pointer", width: "30px", height: "30px" }}
-          />
-        </Modal.Footer>
-      </Modal>
-    </>
+        </Container>
+
+        <Modal
+          className="modal-tag"
+          show={showModal}
+          onHide={handleClose}
+          centered
+        >
+          <Modal.Body className="text-center">
+            {selectedImage && (
+              <>
+                <img
+                  src={selectedImage}
+                  alt={selectedArtist}
+                  className="modal-image-tag"
+                />
+                <div className="d-flex justify-content-between">
+                  <div className="artist-info-modal-tag mt-2 fs-3">
+                    <span>{selectedArtist}</span>
+                  </div>
+                  <div className="opera-modal-tag mt-2">
+                    <p>Stato:</p>
+                    <span>{selectedStatoOpera}</span>
+                  </div>
+                  <div className="opera-modal-tag mt-2">
+                    <p>Anno:</p>
+                    <span>{selectedAnno}</span>
+                  </div>
+                  <div className="opera-modal-tag mt-2">
+                    <p>Luogo:</p>
+                    <span>{selectedLuogo}</span>
+                  </div>
+                </div>
+              </>
+            )}
+          </Modal.Body>
+          <Modal.Footer
+            style={{
+              backgroundColor: "black",
+              border: "none",
+            }}
+          >
+            <img
+              src={CloseIcon}
+              alt="Close"
+              onClick={handleClose}
+              className="close-modal-icon"
+              style={{ cursor: "pointer", width: "30px", height: "30px" }}
+            />
+          </Modal.Footer>
+        </Modal>
+      </>
+    </div>
   );
 };
 

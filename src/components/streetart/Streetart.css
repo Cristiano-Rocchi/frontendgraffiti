@@ -1,6 +1,10 @@
+.streetart-body {
+}
+
 /* HEADER */
 .headerStreetArt {
   padding: 3em;
+  background-size: cover;
 }
 
 .streetart-buttons {
@@ -68,6 +72,7 @@
 
 .containerCarousel-streetart h4 {
   font-family: "SpriteGraffiti", sans-serif;
+  background-size: cover;
 }
 
 .containerCarousel-streetart h4 span {
@@ -96,17 +101,36 @@
   background-color: rgba(0, 0, 0, 0.6);
   color: white;
   padding: 5px 10px;
+  text-transform: uppercase;
 }
 
 /* CONTAINER */
-.streetArtSection {
+
+.sfondo-streetart-sect-up {
+  height: 24vh;
+  background-size: cover;
+}
+
+.title-streetart {
+  background-size: cover;
+}
+
+.title-streetart img {
   width: 14em;
 }
 
-.containerBody-streetart {
+.streetart-sect-text {
+  color: red;
+  font-family: "SpriteGraffiti", sans-serif;
+}
+
+.containerBodyStreetArt {
   box-shadow: -6px 7px 18px -9px rgba(0, 0, 0, 0.77);
   border-radius: 10px;
   background-color: #f9f9f9;
+  margin: 0;
+  max-width: 100%;
+  padding: 0;
 }
 
 .card-container-streetart {
@@ -156,10 +180,14 @@
 }
 
 /* Modale */
+
+.modal-streetart .modal-body {
+  background-color: black;
+  padding: unset;
+}
 .modal-image-streetart {
   width: 100%;
   height: auto;
-  border-radius: 20px;
 }
 
 .artist-info-modal-streetart {
@@ -170,13 +198,16 @@
   top: 9px;
 }
 
-.stato-opera-modal-streetart,
-.anno-opera-modal-streetart,
-.luogo-opera-modal-streetart {
-  background-color: rgba(0, 0, 0, 0.6);
+.opera-modal-streetart p {
+  font-family: "SpriteGraffiti", sans-serif;
+}
+.opera-modal-streetart span {
+  font-family: "Typewriter", sans-serif;
+  color: red;
+}
+.opera-modal-streetart {
   color: white;
   padding: 5px 10px;
-  border-radius: 5px;
   display: inline-block;
   font-size: 1.1rem;
   margin-bottom: 10px;
@@ -200,4 +231,62 @@
   height: 100%;
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 999;
+}
+
+/* MASONRY GRID */
+.masonry-grid-streetart {
+  column-count: 4;
+  column-gap: 10px;
+  background-color: black;
+}
+
+.masonry-item-streetart {
+  break-inside: avoid;
+  margin-bottom: 10px;
+  overflow: hidden;
+  border-radius: 10px;
+  position: relative;
+}
+.masonry-item-streetart:hover {
+  transform: scale(1.03);
+}
+
+.masonry-item-streetart img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+.masonry-item-streetart img:hover {
+  cursor: pointer;
+}
+
+.masonry-info-streetart {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background-color: rgba(0, 0, 0, 0.39);
+  color: black;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-family: "SpriteGraffiti", sans-serif;
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+
+.masonry-info-streetart span {
+  color: #f9f9f9;
+  font-family: "SpriteGraffiti", sans-serif;
+}
+
+.masonry-info-streetart p {
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 3px 20px;
+  border-radius: 3px;
+}
+
+/* Sezione con background nero */
+.containerBodyStreetArt,
+.masonry-grid-streetart {
+  background-color: black;
 }

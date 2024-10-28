@@ -143,7 +143,6 @@ function Navbars() {
 
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            {/* Prima del login tutti gli elementi allineati a sinistra */}
             <Nav className="me-auto">
               <Link to={"/"} className="nav-link">
                 Home
@@ -155,7 +154,7 @@ function Navbars() {
                   <Link to={"/register"} className="nav-link">
                     Registrati
                   </Link>
-                  {/* Esplora visibile anche per utenti non loggati */}
+
                   <NavDropdown title="ESPLORA" id="basic-nav-dropdown">
                     <Link className="nav-link" to={"/graffiti"}>
                       Graffiti
@@ -247,7 +246,7 @@ function Navbars() {
         </Modal.Footer>
       </Modal>
 
-      {/* Login Modal */}
+      {/* Login Modale */}
       <Modal
         show={showLoginModal}
         onHide={handleCloseLogin}
@@ -301,7 +300,7 @@ function Navbars() {
         </Modal.Footer>
       </Modal>
 
-      {/* Contact Modal */}
+      {/* Contact Modale */}
       <Modal
         show={showContactModal}
         onHide={handleCloseContact}
