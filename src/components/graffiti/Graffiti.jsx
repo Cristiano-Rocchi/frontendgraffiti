@@ -202,7 +202,7 @@ const Graffiti = () => {
             backgroundImage: `url(${BackImg})`,
           }}
         >
-          <h1>
+          <h1 className="h1-graff">
             The right destination <br /> for your graffiti
           </h1>
           <h3 className="mt-5">Upload a photo or get inspired</h3>
@@ -450,7 +450,10 @@ const Graffiti = () => {
                   </div>
                   <div className="opera-modal mt-2">
                     <p>Luogo:</p>
-                    <span> {selectedLuogo}</span>
+                    <span>
+                      {selectedLuogo.charAt(0).toUpperCase() +
+                        selectedLuogo.slice(1).toLowerCase()}
+                    </span>
                   </div>
                 </div>
               </>

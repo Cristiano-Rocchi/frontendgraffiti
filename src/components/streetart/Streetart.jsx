@@ -5,8 +5,8 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import StreetArtMonth from "../../assets/graffiti/img/graffiti_of_the_month.png";
-import StreetArtSection from "../../assets/graffiti/img/graffitiSection.png";
+import StreetArtMonth from "../../assets/streetart/img/streetartmonth.png";
+import StreetArtSection from "../../assets/streetart/img/streetartsect.png";
 import { Container, Modal } from "react-bootstrap";
 import CloseIcon from "../../assets/icons/delete.png";
 import ArrowDown from "../../assets/icons/graffitiarrowsvg.svg";
@@ -199,9 +199,7 @@ const Streetart = () => {
             backgroundImage: `url(${BackImg})`,
           }}
         >
-          <h1>
-            The right destination <br /> for your street art
-          </h1>
+          <h1 className="h1-streetart">THE STREET IS ART</h1>
           <h3 className="mt-5">Upload a photo or get inspired</h3>
           <div className="d-flex justify-content-center mt-5 streetart-buttons">
             <button className="rounded-pill px-4 py-2 btn-style-streetart">
