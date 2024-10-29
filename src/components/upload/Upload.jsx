@@ -10,11 +10,12 @@ import {
   Spinner,
 } from "react-bootstrap";
 import "../upload/Upload.css";
+import Logo from "../../assets/navbar/img/Logo_scritta_bianca.png";
 import { useNavigate } from "react-router-dom";
 import LogoNero from "../../assets/register/LOGONERO.png";
 import ArrowStyle from "../../assets/icons/arrowStyle.png";
 import ArrowWhite from "../../assets/icons/white-line.png";
-import CloseIcon from "../../assets/icons/delete.png"; // Import dell'icona di chiusura
+import CloseIcon from "../../assets/icons/delete.png";
 
 function Upload() {
   const [formData, setFormData] = useState({
@@ -123,7 +124,8 @@ function Upload() {
       if (responseImage.ok) {
         setModalContent({
           title: "Immagine caricata con successo!",
-          message: "L'immagine è stata caricata correttamente.",
+          message:
+            "L'immagine è stata caricata correttamente. Grazie per la condivisione.",
         });
         setShowModal(true);
         setLoading(false);
@@ -219,8 +221,9 @@ function Upload() {
                   <Form onSubmit={handleSubmit} encType="multipart/form-data">
                     {/* Selezione tipo */}
                     <Form.Group controlId="formTipo" className="mb-3">
-                      <Form.Label>Tipo</Form.Label>
+                      <Form.Label className="form-label">Tipo</Form.Label>
                       <Form.Control
+                        className="input-gradient-border"
                         as="select"
                         name="tipo"
                         value={formData.tipo}
@@ -235,8 +238,9 @@ function Upload() {
                     </Form.Group>
 
                     <Form.Group controlId="formLuogo" className="mb-3">
-                      <Form.Label>Luogo</Form.Label>
+                      <Form.Label className="form-label">Luogo</Form.Label>
                       <Form.Control
+                        className="input-gradient-border"
                         type="text"
                         placeholder="Inserisci il luogo"
                         name="luogo"
@@ -247,8 +251,11 @@ function Upload() {
                     </Form.Group>
 
                     <Form.Group controlId="formArtista" className="mb-3">
-                      <Form.Label>Artista (opzionale)</Form.Label>
+                      <Form.Label className="form-label">
+                        Artista (opzionale)
+                      </Form.Label>
                       <Form.Control
+                        className="input-gradient-border"
                         type="text"
                         placeholder="Inserisci l'artista"
                         name="artista"
@@ -258,8 +265,11 @@ function Upload() {
                     </Form.Group>
 
                     <Form.Group controlId="formAnno" className="mb-3">
-                      <Form.Label>Anno di Creazione</Form.Label>
+                      <Form.Label className="form-label">
+                        Anno di Creazione
+                      </Form.Label>
                       <Form.Control
+                        className="input-gradient-border"
                         type="number"
                         placeholder="Inserisci l'anno"
                         name="annoCreazione"
@@ -270,8 +280,9 @@ function Upload() {
                     </Form.Group>
 
                     <Form.Group controlId="formStato" className="mb-3">
-                      <Form.Label>Stato</Form.Label>
+                      <Form.Label className="form-label">Stato</Form.Label>
                       <Form.Control
+                        className="input-gradient-border"
                         as="select"
                         name="stato"
                         value={formData.stato}
@@ -286,8 +297,9 @@ function Upload() {
                     </Form.Group>
 
                     <Form.Group controlId="formFile" className="mb-3">
-                      <Form.Label>Immagine</Form.Label>
+                      <Form.Label className="form-label">Immagine</Form.Label>
                       <Form.Control
+                        className="input-gradient-border"
                         type="file"
                         name="img"
                         onChange={handleFileChange}
@@ -308,57 +320,48 @@ function Upload() {
         </Row>
 
         {/* Modale di successo o errore */}
-        <Modal show={showModal} onHide={handleCloseModal}>
-          <Modal.Header className="flex-column text-center">
-            {/* Usa flex-column per impilare l'immagine e il titolo */}
-            <img src={LogoNero} alt="Logo" className="register-logo mb-2" />
-            {/* Immagine centrata sopra il titolo */}
-            <Modal.Title className="w-100">{modalContent.title}</Modal.Title>
+        <Modal
+          className="modal-upload"
+          show={showModal}
+          onHide={handleCloseModal}
+          centered
+        >
+          <Modal.Header className="modal-upload-header">
+            <img
+              src={Logo}
+              alt="Logo"
+              className="modal-upload-logo"
+              style={{ width: "200px", marginBottom: "10px" }}
+            />
+            <Modal.Title className="modal-upload-title p-2">
+              {modalContent.title || "Immagine caricata con successo!"}
+            </Modal.Title>
+            <img
+              src={CloseIcon}
+              alt="Chiudi"
+              onClick={handleCloseModal}
+              className="modal-upload-close-icon"
+            />
           </Modal.Header>
-          <Modal.Body>
-            {modalContent.title === "Errore" ? (
-              <p>
-                Errore durante la creazione dell'oggetto. <br /> Iscriviti per
-                poter caricare un'immagine. <br /> Oppure torna alla Home per il
-                Login.
-              </p>
-            ) : (
-              <p className="text-center">
-                L'immagine è stata caricata correttamente. <br /> Grazie per la
-                condivisione.
-              </p>
-            )}
+          <Modal.Body className="modal-upload-body">
+            <p className="modal-upload-message p-3">
+              {modalContent.message ||
+                "L'immagine è stata caricata correttamente. Grazie per la condivisione."}
+            </p>
           </Modal.Body>
-          <Modal.Footer className="w-100 d-flex justify-content-between">
-            {modalContent.title === "Errore" ? (
-              <div className="w-100 d-flex justify-content-between">
-                <Button variant="primary" onClick={() => navigate("/register")}>
-                  Iscriviti
-                </Button>
-                {/* Pulsante "Iscriviti" a sinistra */}
-                <div>
-                  <Button
-                    variant="secondary"
-                    onClick={handleRetry}
-                    className="me-2"
-                  >
-                    Riprova
-                  </Button>
-                  <Button variant="primary" onClick={() => navigate("/")}>
-                    Torna alla Home
-                  </Button>
-                </div>
-              </div>
-            ) : (
-              <>
-                <Button variant="primary" onClick={() => navigate("/")}>
-                  Torna alla Home
-                </Button>
-                <Button variant="secondary" onClick={handleNewUpload}>
-                  Carica un'altra immagine
-                </Button>
-              </>
-            )}
+          <Modal.Footer className="modal-upload-footer">
+            <Button
+              className="modal-upload-home-button"
+              onClick={() => navigate("/")}
+            >
+              Torna alla Home
+            </Button>
+            <Button
+              className="modal-upload-another-button"
+              onClick={handleNewUpload}
+            >
+              Carica un'altra immagine
+            </Button>
           </Modal.Footer>
         </Modal>
       </Container>

@@ -62,6 +62,10 @@
 
 /* CAROSELLO */
 .imgCarousel {
+  width: 100%; /* Imposta la larghezza relativa alla slide */
+  height: auto; /* Mantiene l'altezza proporzionale */
+  object-fit: cover;
+  border-radius: 10px; /* Riduzione del raggio per uniformità */
   box-shadow: -6px 7px 18px -9px rgba(0, 0, 0, 0.77);
 }
 
@@ -87,6 +91,13 @@
 
 .mySwiper img {
   border-radius: 10px;
+}
+.mySwiper .imgCarousel {
+  max-width: none;
+  width: 250px; /* Imposta la dimensione desiderata */
+  height: 350px;
+  object-fit: cover;
+  border-radius: 30px;
 }
 
 .artist-info {

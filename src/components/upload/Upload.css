@@ -1,10 +1,17 @@
+/* Contenitore principale per la pagina upload */
+body,
+.upload-page {
+  overflow-x: hidden;
+}
+
 .custom-container-upload {
   padding: 0;
   margin: 0;
-  max-width: 100%;
+  max-width: 100vw;
   min-height: 100vh;
   background-color: #181a1c;
 }
+
 .register-title {
   animation: danceEffect 2s infinite ease-in-out;
   font-family: "SpriteGraffiti", sans-serif;
@@ -13,7 +20,7 @@
 .btn-custom-black {
   font-family: "SpriteGraffiti", sans-serif;
   background-color: rgba(24, 26, 28, 0.95); /* Azzurro trasparente */
-  color: white;
+  color: red;
   border: none;
   width: 100%;
 }
@@ -21,4 +28,128 @@
 .btn-custom-black:hover {
   background-color: #aeaeae;
   color: black;
+}
+
+.modal-upload .modal-content {
+  background-color: #181a1c; /* Sfondo nero */
+  color: white; /* Testo bianco */
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+/* Messaggio del Modale */
+.modal-upload-message {
+  color: white;
+  text-align: center;
+  white-space: normal; /* Assicura che il testo si adatti */
+}
+
+/* Header del Modale */
+.modal-upload-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.modal-upload-logo {
+  width: 100px;
+  margin-bottom: 10px;
+}
+
+.modal-upload-title {
+  color: red;
+  font-family: "SpriteGraffiti", sans-serif;
+  font-size: 1.3rem;
+}
+
+/* Icona di chiusura */
+.modal-upload-close-icon {
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* Corpo del Modale */
+.modal-upload-body {
+  padding: 20px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Footer del Modale */
+.modal-upload-footer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Stile per i Bottoni */
+.modal-upload-home-button,
+.modal-upload-another-button {
+  font-family: "SpriteGraffiti", sans-serif;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.modal-upload-home-button {
+  background-color: rgba(24, 26, 28, 0.95);
+  color: red;
+}
+
+.modal-upload-home-button:hover {
+  background-color: rgba(24, 26, 28, 1);
+  color: black;
+}
+
+.modal-upload-another-button {
+  background-color: #aeaeae;
+  color: black;
+}
+
+.modal-upload-another-button:hover {
+  background-color: #d1d1d1;
+}
+
+/* Testo animato */
+.animated-text {
+  max-width: 100%;
+  padding: 20px;
+  overflow-x: hidden;
+  font-size: 1.2em;
+  white-space: normal;
+}
+
+/* Regola per impedire che la sezione venga tagliata */
+.custom-container-upload {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Margini e padding generali */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Allineamento immagini e testo */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Animazioni di ingresso */
+
+.animated-text.second {
+  padding-right: 20px; /* Aggiunta di un po' di spazio a destra */
+  overflow: visible; /* Assicura che il contenuto visibile sia completamente visibile */
 }

@@ -307,10 +307,10 @@ const Graffiti = () => {
             </div>
 
             <div className="d-flex bg-black justify-content-between graff-sect-text ">
-              <h5>
-                Sfoglia migliaia <br /> di opere
+              <h5 className="ms-4">
+                Sfoglia tra <br /> le migliori opere
               </h5>
-              <h5>
+              <h5 className="me-4">
                 Clicca sull'immagine <br /> e vedi tutti i dettagli
               </h5>
             </div>

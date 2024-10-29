@@ -7,17 +7,12 @@
   background-size: cover;
 }
 
-.streetart-buttons {
-  gap: 9rem;
-}
-
 .btn-style-streetart {
   background-color: #ff6666;
   font-family: "SpriteGraffiti", sans-serif;
   border: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-
 .btn-style-streetart span {
   display: inline-block;
   transform: scale(2.3);
@@ -67,6 +62,10 @@
 
 /* CAROSELLO */
 .imgCarousel-streetart {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
   box-shadow: -6px 7px 18px -9px rgba(0, 0, 0, 0.77);
 }
 
@@ -93,6 +92,13 @@
 .mySwiper-streetart img {
   border-radius: 10px;
 }
+.mySwiper-streetart .imgCarousel-streetart {
+  max-width: none;
+  width: 250px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 30px;
+}
 
 .artist-info-streetart {
   position: absolute;
@@ -118,7 +124,6 @@
 .title-streetart img {
   width: 14em;
 }
-
 .streetart-sect-text {
   color: red;
   font-family: "SpriteGraffiti", sans-serif;
@@ -156,6 +161,12 @@
   border-radius: 5px;
 }
 
+.card-info-streetart p {
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 3px 20px;
+  border-radius: 3px;
+}
+
 .card-info-streetart span {
   font-family: "SpriteGraffiti-Extras", sans-serif;
 }
@@ -185,12 +196,12 @@
   background-color: black;
   padding: unset;
 }
-.modal-image-streetart {
+.modal-streetart .modal-image-streetart {
   width: 100%;
   height: auto;
 }
 
-.artist-info-modal-streetart {
+.modal-streetart .artist-info-modal-streetart {
   font-family: "SpriteGraffiti", sans-serif;
   padding: 5px 10px;
   border-radius: 5px;
@@ -218,11 +229,12 @@
   border: solid 1px black;
 }
 
-.modal-open-streetart {
+/* sfondo Modale */
+.modal-open {
   overflow: hidden;
 }
 
-.modal-open-streetart::before {
+.modal-open::before {
   content: "";
   position: fixed;
   top: 0;
@@ -289,4 +301,191 @@
 .containerBodyStreetArt,
 .masonry-grid-streetart {
   background-color: black;
+}
+
+/* Stile per i form di ricerca */
+.form-small-streetart {
+  width: 150px;
+  font-size: 0.85rem;
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  font-family: "SpriteGraffiti", sans-serif;
+}
+
+/* Placeholder bianco */
+.form-small-streetart::placeholder {
+  color: white;
+}
+
+/* Cambio colore bordo al clic */
+.form-small-streetart:focus {
+  border-color: red;
+  outline: none;
+}
+
+/* Stile per le card di ricerca */
+.search-card-streetart {
+  background-color: black;
+  border: 2px solid gray;
+  border-radius: 10px;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+  transition: border-color 0.3s;
+}
+
+/* Cambia colore bordo al passaggio del mouse */
+.search-card-streetart:hover {
+  border-color: red;
+}
+
+/* Stile per i titoli delle card */
+.search-title-streetart {
+  font-family: "SpriteGraffiti", sans-serif;
+  color: white;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+/* Stile per i form di ricerca all'interno delle card */
+.form-small-streetart {
+  width: 100%;
+  font-size: 0.85rem;
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  font-family: "SpriteGraffiti", sans-serif;
+  transition: border-color 0.3s;
+}
+
+/* Placeholder bianco */
+.form-small-streetart::placeholder {
+  color: white;
+}
+
+/* Bordo rosso quando il form è in focus */
+.form-small-streetart:focus {
+  border-color: red;
+  outline: none;
+}
+
+/* Stile per tutte le card */
+.flip-card-streetart {
+  perspective: 1000px;
+  width: 200px;
+  height: 100px;
+  background-color: black;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.flip-card-inner-streetart {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  transform-origin: center;
+}
+
+/* Effetto flip */
+.flip-card-streetart:hover .flip-card-inner-streetart {
+  transform: rotateY(180deg);
+}
+
+/* Solo le card di ricerca si espandono */
+.search-card-expand-streetart {
+  transition: width 0.4s ease;
+}
+
+.search-card-expand-streetart:hover {
+  width: 250px;
+}
+
+.flip-card-front-streetart,
+.flip-card-back-streetart {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: white;
+  background-color: black;
+}
+
+.flip-card-front-streetart {
+  background-color: black;
+}
+
+.flip-card-back-streetart {
+  background-color: black;
+  transform: rotateY(180deg);
+}
+
+.spotify-overlay-streetart {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: black;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid red;
+  font-family: "SpriteGraffiti", sans-serif;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.spotify-overlay-streetart p {
+  margin: 0;
+  text-align: center;
+  color: white;
+}
+
+.close-overlay-icon-streetart {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.player-controls-streetart {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Stile per le icone di controllo */
+.control-icon-streetart {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.control-icon-streetart img {
+  width: 100%;
+  height: 100%;
+}
+
+.close-overlay-icon-streetart img {
+  width: 20px;
+  height: 20px;
 }

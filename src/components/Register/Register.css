@@ -102,7 +102,66 @@
 }
 
 .input-gradient-border {
-  border: 2px solid transparent;
-  border-image: linear-gradient(to right, red, black) 1;
+  border: 2px solid black;
+
   padding: 10px;
+}
+
+.custom-modal .modal-content {
+  background-color: #181a1c; /* Black background */
+  color: white; /* White text */
+  margin-top: auto;
+  margin-bottom: auto;
+  border: 1px solid #c0c0c0;
+}
+
+/* Close icon for the modal */
+.custom-modal .close-modal-icon {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+}
+
+/* Button styles */
+.home-button {
+  font-family: "SpriteGraffiti", sans-serif;
+  background-color: rgba(24, 26, 28, 0.95);
+  color: red;
+  border: none;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  border-radius: 50px;
+}
+
+.home-button:hover {
+  background-color: rgba(24, 26, 28, 1);
+}
+
+.modal-reg-title {
+  color: red;
+  font-family: "Typewriter", sans-serif;
+}
+.reg-modal-body {
+  font-family: "Typewriter", sans-serif;
+}
+
+.custom-btn-reg {
+  font-family: "SpriteGraffiti", sans-serif;
+  background-color: rgba(24, 26, 28, 0.95); /* Azzurro trasparente */
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  width: 100%; /* Assicura che i bottoni siano uno sotto l'altro */
+  margin-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  border-radius: 50px; /* Rounded pill */
+  color: red;
+}
+
+.custom-btn-reg:hover {
+  background-color: #aeaeae;
+  color: black;
 }

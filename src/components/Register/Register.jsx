@@ -1,4 +1,5 @@
 import "../Register/Register.css";
+import Logo from "../../assets/navbar/img/Logo_scritta_bianca.png";
 import LogoNero from "../../assets/register/LOGONERO.png";
 import CloseIcon from "../../assets/icons/delete.png";
 import React, { useState } from "react";
@@ -101,7 +102,6 @@ function Register() {
           PRENDI ISPIRAZIONE DALLE OPERE DEGLI ALTRI. <br /> OPPURE DIMOSTRA IL
           TUO STILE.
         </div>
-
         <Row className="w-100">
           <Col xs={12} md={6} lg={4} className="mx-auto">
             <Card className="register-card p-4">
@@ -128,7 +128,7 @@ function Register() {
                 {error && <Alert variant="danger">{error}</Alert>}
                 <Form onSubmit={handleSubmit}>
                   <Form.Group controlId="formUsername" className="mb-3">
-                    <Form.Label>Username</Form.Label>
+                    <Form.Label className="form-label">Username</Form.Label>
                     <Form.Control
                       className="input-gradient-border"
                       type="text"
@@ -141,7 +141,7 @@ function Register() {
                   </Form.Group>
 
                   <Form.Group controlId="formEmail" className="mb-3">
-                    <Form.Label>Email</Form.Label>
+                    <Form.Label className="form-label">Email</Form.Label>
                     <Form.Control
                       className="input-gradient-border"
                       type="email"
@@ -154,7 +154,7 @@ function Register() {
                   </Form.Group>
 
                   <Form.Group controlId="formPassword" className="mb-3">
-                    <Form.Label>Password</Form.Label>
+                    <Form.Label className="form-label">Password</Form.Label>
                     <Form.Control
                       className="input-gradient-border"
                       type="password"
@@ -167,7 +167,9 @@ function Register() {
                   </Form.Group>
 
                   <Form.Group controlId="formConfirmPassword" className="mb-3">
-                    <Form.Label>Conferma Password</Form.Label>
+                    <Form.Label className="form-label">
+                      Conferma Password
+                    </Form.Label>
                     <Form.Control
                       className="input-gradient-border"
                       type="password"
@@ -180,8 +182,8 @@ function Register() {
                   </Form.Group>
 
                   <div className="text-center">
-                    <Button variant="primary" type="submit">
-                      Lets'Go
+                    <Button className="custom-btn-reg" type="submit">
+                      Let's Go
                     </Button>
                   </div>
                 </Form>
@@ -191,19 +193,47 @@ function Register() {
         </Row>
 
         <Modal
+          className="custom-modal"
           show={showSuccessModal}
           onHide={() => setShowSuccessModal(false)}
           centered
         >
-          <Modal.Header closeButton>
-            <Modal.Title>Registrazione completata</Modal.Title>
+          <Modal.Header>
+            <div className="w-100 text-center">
+              <img
+                src={Logo}
+                alt="Logo"
+                style={{ width: "200px", marginBottom: "10px" }}
+              />
+              <Modal.Title className="modal-reg-title">
+                Registrazione completata
+              </Modal.Title>
+            </div>
+            <img
+              src={CloseIcon}
+              alt="Chiudi"
+              onClick={() => setShowSuccessModal(false)}
+              className="close-modal-icon"
+              style={{
+                cursor: "pointer",
+                width: "24px",
+                height: "24px",
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+              }}
+            />
           </Modal.Header>
-          <Modal.Body>
-            <p>Registrazione avvenuta con successo!</p>
-            <Link to="/" className="btn btn-primary">
-              Torna alla Home
-            </Link>
+          <Modal.Body className="text-center fs-5 p-5">
+            <p className="reg-modal-body">
+              Registrazione avvenuta con successo!
+            </p>
           </Modal.Body>
+          <Modal.Footer>
+            <button className="home-button" onClick={() => navigate("/")}>
+              Torna alla Home
+            </button>
+          </Modal.Footer>
         </Modal>
       </Container>
     </>

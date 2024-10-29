@@ -199,6 +199,30 @@
   width: 100%;
   height: auto;
   object-fit: cover;
+  max-height: 80vh; /* Imposta una altezza massima per evitare immagini troppo grandi */
+}
+
+.modal-image-container .delete-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background-color: rgba(255, 0, 0, 0.8);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  font-family: "SpriteGraffiti", sans-serif;
+  cursor: pointer;
+  border-radius: 50px;
+  z-index: 1;
+}
+
+.modal-image-container .delete-btn:hover {
+  background-color: rgba(139, 0, 0, 0.9);
+}
+
+.modal-image-container img {
+  max-width: 100%; /* Imposta una larghezza massima */
+  max-height: 80vh; /* Imposta una altezza massima */
 }
 
 .custom-profile-modal .modal-dialog {

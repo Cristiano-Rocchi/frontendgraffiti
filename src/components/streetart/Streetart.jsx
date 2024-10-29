@@ -10,14 +10,24 @@ import StreetArtSection from "../../assets/graffiti/img/graffitiSection.png";
 import { Container, Modal } from "react-bootstrap";
 import CloseIcon from "../../assets/icons/delete.png";
 import ArrowDown from "../../assets/icons/graffitiarrowsvg.svg";
-import videoStreetArt from "../../assets/graffiti/vid/videotag.mp4";
+import videoStreetArt from "../../assets/graffiti/vid/videowebsite.mp4";
 import BackImg from "../../assets/graffiti/img/sfondo2.jpg";
 import SfondoCarousel from "../../assets/graffiti/img/sfondocarousel.jpg";
 import SfondoGraffSect from "../../assets/graffiti/img/sfondosection.jpg";
 import SfondoGraffSectUp from "../../assets/graffiti/img/sfondograffsect.jpg";
+import Track1 from "../../assets/music/The Notorious B.I.G. - Everyday Struggle (Official Audio) (152kbit_Opus).opus";
+import Track2 from "../../assets/music/The Notorious B.I.G. - Friend of Mine (Official Audio) (128kbit_AAC).m4a";
+import Track3 from "../../assets/music/The Notorious B.I.G. - Gimme the Loot (Official Audio) (128kbit_AAC).m4a";
 import { Link } from "react-router-dom";
 
-const StreetArt = () => {
+// Icon imports
+import PlayIcon from "../../assets/icons/play.png";
+import PauseIcon from "../../assets/icons/stop.png";
+import NextIcon from "../../assets/icons/next.png";
+import PrevIcon from "../../assets/icons/backward.png";
+import CloseOverlayIcon from "../../assets/icons/delete.png";
+
+const Streetart = () => {
   const [loadedImages, setLoadedImages] = useState([]);
   const [randomImages, setRandomImages] = useState([]);
   const [visibleCount, setVisibleCount] = useState(20);
@@ -28,7 +38,22 @@ const StreetArt = () => {
   const [selectedAnno, setSelectedAnno] = useState("");
   const [selectedLuogo, setSelectedLuogo] = useState("");
 
+  const [searchArtist, setSearchArtist] = useState("");
+  const [searchYear, setSearchYear] = useState("");
+  const [showPlayerOverlay, setShowPlayerOverlay] = useState(false);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const tracks = [Track1, Track2, Track3];
+  const trackNames = [
+    "The Notorious B.I.G. - Everyday Struggle",
+    "The Notorious B.I.G. - Friend of Mine",
+    "The Notorious B.I.G. - Gimme the Loot",
+  ];
+  const audioRef = useRef(new Audio(tracks[currentTrackIndex]));
+
   const containerRef = useRef(null);
+  const currentYear = new Date().getFullYear();
 
   useEffect(() => {
     const fetchRandomImages = async () => {
@@ -85,6 +110,58 @@ const StreetArt = () => {
     fetchImages();
   }, []);
 
+  useEffect(() => {
+    if (showModal) {
+      document.body.classList.add("modal-open");
+    } else {
+      document.body.classList.remove("modal-open");
+    }
+    return () => document.body.classList.remove("modal-open");
+  }, [showModal]);
+
+  useEffect(() => {
+    audioRef.current.src = tracks[currentTrackIndex];
+
+    if (isPlaying) {
+      audioRef.current.play();
+    }
+
+    audioRef.current.addEventListener("ended", handleTrackEnd);
+    return () => {
+      audioRef.current.removeEventListener("ended", handleTrackEnd);
+    };
+  }, [currentTrackIndex, isPlaying]);
+
+  const handleTrackEnd = () => {
+    setCurrentTrackIndex((prevIndex) => (prevIndex + 1) % tracks.length);
+  };
+
+  const togglePlayPause = () => {
+    setIsPlaying(!isPlaying);
+    setShowPlayerOverlay(true);
+  };
+
+  const handleNextTrack = () => {
+    setCurrentTrackIndex((prevIndex) => (prevIndex + 1) % tracks.length);
+    setIsPlaying(true);
+  };
+
+  const handlePrevTrack = () => {
+    setCurrentTrackIndex(
+      (prevIndex) => (prevIndex - 1 + tracks.length) % tracks.length
+    );
+    setIsPlaying(true);
+  };
+
+  const closePlayerOverlay = () => {
+    setShowPlayerOverlay(false);
+    setIsPlaying(false);
+  };
+
+  const loadMoreImages = () => {
+    setVisibleCount((prevCount) => prevCount + 20);
+  };
+
   const handleImageClick = (image) => {
     setSelectedImage(image.immagineUrl);
     setSelectedArtist(image.artista || "Artista Sconosciuto");
@@ -97,6 +174,21 @@ const StreetArt = () => {
   const handleClose = () => {
     setShowModal(false);
   };
+
+  const handleGetInspiredClick = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const filteredImages = loadedImages.filter((image) => {
+    const matchArtist = image.artista
+      ?.toLowerCase()
+      .includes(searchArtist.toLowerCase());
+    const matchYear =
+      !searchYear || image.annoCreazione === parseInt(searchYear, 10);
+    return matchArtist && matchYear;
+  });
 
   return (
     <div className="streetart-body">
@@ -124,9 +216,7 @@ const StreetArt = () => {
             </button>
             <button
               className="rounded-pill px-4 py-2 btn-style-streetart"
-              onClick={() =>
-                containerRef.current.scrollIntoView({ behavior: "smooth" })
-              }
+              onClick={handleGetInspiredClick}
             >
               <span>GET INSPIRED</span>
             </button>
@@ -215,16 +305,90 @@ const StreetArt = () => {
           </div>
 
           <div className="d-flex bg-black justify-content-between streetart-sect-text ">
-            <h5>
-              Sfoglia migliaia <br /> di opere
+            <h5 className="ms-4">
+              Sfoglia tra <br /> le migliori opere
             </h5>
-            <h5>
+            <h5 className="me-4">
               Clicca sull'immagine <br /> e vedi tutti i dettagli
             </h5>
           </div>
 
+          {/* Campi di ricerca */}
+          <div className="search-container my-4 d-flex justify-content-center gap-4">
+            <div className="search-card flip-card search-card-expand p-3">
+              <div className="flip-card-inner">
+                <div className="flip-card-front">
+                  <h5 className="search-title">Puoi cercare per nome</h5>
+                </div>
+                <div className="flip-card-back">
+                  <input
+                    type="text"
+                    placeholder="Cerca artista"
+                    value={searchArtist}
+                    onChange={(e) => setSearchArtist(e.target.value)}
+                    className="form-small"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="search-card flip-card p-3">
+              <div className="flip-card-inner">
+                <div className="flip-card-front">
+                  <h5 className="search-title">Totale opere</h5>
+                </div>
+                <div className="flip-card-back">
+                  <p
+                    className="total-opere"
+                    style={{ color: "red", fontFamily: "Typewriter" }}
+                  >
+                    {loadedImages.length}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="search-card flip-card search-card-expand p-3">
+              <div className="flip-card-inner">
+                <div className="flip-card-front">
+                  <h5 className="search-title">Puoi cercare per data</h5>
+                </div>
+                <div className="flip-card-back">
+                  <input
+                    type="number"
+                    placeholder="Cerca per anno"
+                    value={searchYear}
+                    onChange={(e) => setSearchYear(e.target.value)}
+                    className="form-small"
+                    min="1975"
+                    max={currentYear}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="search-card flip-card p-3">
+              <div className="flip-card-inner">
+                <div className="flip-card-front">
+                  <h5 className="search-title">Ascolta la nostra playlist</h5>
+                </div>
+                <div className="flip-card-back" onClick={togglePlayPause}>
+                  <span
+                    style={{
+                      color: "red",
+                      fontFamily: "Typewriter",
+                      fontSize: "1.5rem",
+                    }}
+                  >
+                    {isPlaying ? "Pausa ◼" : "Play ▶"}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
           <div className="masonry-grid-streetart">
-            {loadedImages.slice(0, visibleCount).map((image, index) => (
+            {filteredImages.slice(0, visibleCount).map((image, index) => (
               <div
                 key={index}
                 className="masonry-item-streetart"
@@ -241,6 +405,18 @@ const StreetArt = () => {
               </div>
             ))}
           </div>
+
+          {visibleCount < loadedImages.length && (
+            <div className="text-center">
+              <div onClick={loadMoreImages}>
+                <img
+                  src={ArrowDown}
+                  className="arrow-svg-streetart"
+                  alt="Carica altre immagini"
+                />
+              </div>
+            </div>
+          )}
         </Container>
 
         <Modal
@@ -287,9 +463,46 @@ const StreetArt = () => {
             />
           </Modal.Footer>
         </Modal>
+
+        {showPlayerOverlay && (
+          <div className="spotify-overlay-streetart">
+            <span
+              className="close-overlay-icon-streetart"
+              onClick={closePlayerOverlay}
+            >
+              <img src={CloseOverlayIcon} alt="Chiudi" />
+            </span>
+            <p>
+              <span style={{ color: "red" }}>
+                Stai ascoltando: <br />
+              </span>
+              {trackNames[currentTrackIndex]}
+            </p>
+            <div className="player-controls-streetart">
+              <span
+                className="control-icon-streetart prev-icon-streetart"
+                onClick={handlePrevTrack}
+              >
+                <img src={PrevIcon} alt="Previous" />
+              </span>
+              <span
+                className="control-icon-streetart play-pause-icon-streetart"
+                onClick={togglePlayPause}
+              >
+                <img src={isPlaying ? PauseIcon : PlayIcon} alt="Play/Pause" />
+              </span>
+              <span
+                className="control-icon-streetart next-icon-streetart"
+                onClick={handleNextTrack}
+              >
+                <img src={NextIcon} alt="Next" />
+              </span>
+            </div>
+          </div>
+        )}
       </>
     </div>
   );
 };
 
-export default StreetArt;
+export default Streetart;
