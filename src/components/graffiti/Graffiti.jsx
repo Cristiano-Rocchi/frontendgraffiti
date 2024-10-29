@@ -9,7 +9,7 @@ import GraffMonth from "../../assets/graffiti/img/graffiti_of_the_month.png";
 import GraffSection from "../../assets/graffiti/img/graffitiSection.png";
 import { Container, Modal } from "react-bootstrap";
 import CloseIcon from "../../assets/icons/delete.png";
-import ArrowDown from "../../assets/icons/graffitiarrowsvg.svg";
+import ArrowDown from "../../assets/icons/graffitiarrowred.png";
 import videoGraff from "../../assets/graffiti/vid/videowebsite.mp4";
 import BackImg from "../../assets/graffiti/img/sfondo2.jpg";
 import SfondoCarousel from "../../assets/graffiti/img/sfondocarousel.jpg";
@@ -410,12 +410,15 @@ const Graffiti = () => {
 
             {visibleCount < loadedImages.length && (
               <div className="text-center">
-                <div onClick={loadMoreImages}>
+                <div onClick={loadMoreImages} className="load-more-container">
+                  <span className="line"></span>
+                  <span className="load-more-text">Mostra di più</span>
                   <img
                     src={ArrowDown}
                     className="arrow-svg"
                     alt="Carica altre immagini"
                   />
+                  <span className="line"></span>
                 </div>
               </div>
             )}

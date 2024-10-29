@@ -176,6 +176,7 @@
   max-width: 40px;
   animation: moveArrowHorizontal 1s infinite ease-in-out;
   rotate: -82deg;
+  fill: red !important;
 }
 
 @keyframes moveArrowHorizontal {
@@ -495,4 +496,24 @@
 
 .h1-graff {
   font-family: "SpriteGraffiti", sans-serif;
+}
+
+.load-more-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.line {
+  flex: 1;
+  height: 0.5px;
+  background-color: red;
+  opacity: 0.5;
+  margin: 0 8px;
+}
+
+.load-more-text {
+  color: red;
+  font-weight: bold;
+  margin-right: 8px;
 }

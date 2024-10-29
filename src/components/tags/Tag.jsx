@@ -9,7 +9,7 @@ import StreetArtMonth from "../../assets/tag/img/tagmonth.png";
 import StreetArtSection from "../../assets/tag/img/tagsect.png";
 import { Container, Modal } from "react-bootstrap";
 import CloseIcon from "../../assets/icons/delete.png";
-import ArrowDown from "../../assets/icons/graffitiarrowsvg.svg";
+import ArrowDown from "../../assets/icons/graffitiarrowred.png";
 import videoStreetArt from "../../assets/graffiti/vid/videowebsite.mp4";
 import BackImg from "../../assets/graffiti/img/sfondo2.jpg";
 import SfondoCarousel from "../../assets/graffiti/img/sfondocarousel.jpg";
@@ -403,12 +403,15 @@ const Streetart = () => {
 
           {visibleCount < loadedImages.length && (
             <div className="text-center">
-              <div onClick={loadMoreImages}>
+              <div onClick={loadMoreImages} className="load-more-container">
+                <span className="line"></span>
+                <span className="load-more-text">Mostra di più</span>
                 <img
                   src={ArrowDown}
-                  className="arrow-svg-streetart"
+                  className="arrow-svg"
                   alt="Carica altre immagini"
                 />
+                <span className="line"></span>
               </div>
             </div>
           )}
