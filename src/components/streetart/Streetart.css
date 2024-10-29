@@ -1,6 +1,8 @@
 .streetart-body {
 }
-
+.streetart-buttons {
+  gap: 9rem;
+}
 /* HEADER */
 .headerStreetArt {
   padding: 3em;

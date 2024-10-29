@@ -93,6 +93,8 @@ function Navbars() {
   const [opacity, setOpacity] = useState(1);
   const isGraffitiPage = location.pathname === "/graffiti";
   const isProfilePage = location.pathname === "/profile";
+  const isTagPage = location.pathname === "/tag";
+  const isStreetArtPage = location.pathname === "/streetart";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -111,29 +113,36 @@ function Navbars() {
       }
     };
 
-    if (isGraffitiPage) {
+    if (isGraffitiPage || isTagPage || isStreetArtPage) {
       window.addEventListener("scroll", handleScroll);
     } else if (isProfilePage) {
       setOpacity(1); // Fissa l'opacità a 1 su ProfilePage
     }
 
     return () => {
-      if (isGraffitiPage) {
+      if (isGraffitiPage || isTagPage || isStreetArtPage) {
         window.removeEventListener("scroll", handleScroll);
       }
     };
-  }, [isGraffitiPage, isProfilePage]);
+  }, [isGraffitiPage, isTagPage, isStreetArtPage, isProfilePage]);
 
   return (
     <>
       <Navbar
         expand="lg"
-        className={`navbarBody ${
-          isGraffitiPage ? "fade-navbar" : isProfilePage ? "sticky-navbar" : ""
+        className={`navbarBody custom-navbar-toggle ${
+          isGraffitiPage || isTagPage || isStreetArtPage
+            ? "fade-navbar"
+            : isProfilePage
+            ? "sticky-navbar"
+            : ""
         }`}
         style={{
-          opacity: isGraffitiPage ? opacity : 1, // Effetto dissolvenza su GraffitiPage
-          transition: isGraffitiPage ? "opacity 0.5s ease" : "none", // Nessuna dissolvenza su ProfilePage
+          opacity: isGraffitiPage || isTagPage || isStreetArtPage ? opacity : 1,
+          transition:
+            isGraffitiPage || isTagPage || isStreetArtPage
+              ? "opacity 0.5s ease"
+              : "none",
         }}
       >
         <Container>
