@@ -169,8 +169,8 @@ function Upload() {
       <Container className="upload-page d-flex justify-content-center align-items-center custom-container-upload">
         {/* Sezioni di testo animate */}
         <div className="animated-text">
-          UNISCITI A NOI E CARICA I TUOI GRAFFITI <br /> O QUELLI CHE TROVI
-          NELLA TUA CITTA. <br /> NOI LI CONSERVEREMO PER TE.
+          CREA IN STRADA, FOTOGRAFA E CARICA <br /> NOI CI PRENDEREMO CURA DELLE
+          TUE OPERE
           <div className="">
             <img
               src={ArrowStyle}
@@ -183,8 +183,7 @@ function Upload() {
           <div className="d-block left-sect">
             <img src={ArrowWhite} className="arrow-left " alt="icona freccia" />
           </div>
-          PRENDI ISPIRAZIONE DALLE OPERE DEGLI ALTRI. <br /> OPPURE DIMOSTRA IL
-          TUO STILE.
+          OPPURE FOTOGRAFA LE OPERE NELLA TUA CITTA <br /> E CONDIVIDILE CON NOI
         </div>
 
         <Row className="w-100">
