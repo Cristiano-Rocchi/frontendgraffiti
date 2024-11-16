@@ -67,7 +67,13 @@ function Register() {
         setShowSuccessModal(true); // Mostra il modale di successo
       } else {
         const errorData = await response.json();
-        setError(errorData.message || "Errore durante la registrazione");
+
+        // Estrai solo il messaggio rilevante
+        const extractedMessage =
+          errorData.message?.split(". ").slice(-1)[0] ||
+          errorData.message ||
+          "Errore durante la registrazione.";
+        setError(extractedMessage);
       }
     } catch (error) {
       console.error("Errore di rete:", error);
