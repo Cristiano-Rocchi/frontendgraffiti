@@ -32,6 +32,18 @@ function AdminDashboard() {
   });
   const [userSearch, setUserSearch] = useState(""); // Stato per la ricerca di utenti
   const [filteredUsers, setFilteredUsers] = useState(users); // Stato per utenti filtrati
+  const [selectedImage, setSelectedImage] = useState(null); // Immagine selezionata
+  const [showModal, setShowModal] = useState(false); // Stato per mostrare la modale
+
+  const handleImageClick = (image) => {
+    setSelectedImage(image); // Imposta l'immagine selezionata
+    setShowModal(true); // Mostra la modale
+  };
+
+  const handleCloseModal = () => {
+    setSelectedImage(null); // Resetta l'immagine selezionata
+    setShowModal(false); // Chiudi la modale
+  };
 
   // Fetch users with stats
   useEffect(() => {
@@ -402,6 +414,8 @@ function AdminDashboard() {
                             src={image.immagineUrl}
                             alt="Graffito"
                             width="100"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => handleImageClick(image)}
                           />
                         </td>
                         <td>{image.artista || "Sconosciuto"}</td>
@@ -445,6 +459,8 @@ function AdminDashboard() {
                             src={image.immagineUrl}
                             alt="Street Art"
                             width="100"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => handleImageClick(image)}
                           />
                         </td>
                         <td>{image.artista || "Sconosciuto"}</td>
@@ -484,7 +500,13 @@ function AdminDashboard() {
                     {tags.map((image) => (
                       <tr key={image.id}>
                         <td>
-                          <img src={image.immagineUrl} alt="Tag" width="100" />
+                          <img
+                            src={image.immagineUrl}
+                            alt="Tag"
+                            width="100"
+                            style={{ cursor: "pointer" }}
+                            onClick={() => handleImageClick(image)}
+                          />
                         </td>
                         <td>{image.artista || "Sconosciuto"}</td>
                         <td>{image.annoCreazione || "Sconosciuta"}</td>
@@ -507,6 +529,20 @@ function AdminDashboard() {
           </Tabs>
         </Tab>
       </Tabs>
+
+      {selectedImage && (
+        <div
+          className="modal-overlay-admin"
+          onClick={handleCloseModal} // Chiudi la modale quando si clicca all'esterno
+        >
+          <div
+            className="modal-content-admin"
+            onClick={(e) => e.stopPropagation()} // Impedisce la chiusura cliccando all'interno
+          >
+            <img src={selectedImage.immagineUrl} alt="Immagine Ingrandita" />
+          </div>
+        </div>
+      )}
     </Container>
   );
 }

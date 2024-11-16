@@ -25,14 +25,17 @@ function Navbars() {
   const [error, setError] = useState("");
   const [username, setUsername] = useState(null); // Stato per memorizzare lo username
   const navigate = useNavigate();
+  const [role, setRole] = useState(null);
 
   // Controlla se l'utente è loggato leggendo il token JWT e lo username
   useEffect(() => {
     const token = localStorage.getItem("token");
     const storedUsername = localStorage.getItem("username");
+    const storedRole = localStorage.getItem("role"); // Recupera il ruolo
 
-    if (token && storedUsername) {
-      setUsername(storedUsername); // Imposta lo username se l'utente è loggato
+    if (token && storedUsername && storedRole) {
+      setUsername(storedUsername);
+      setRole(storedRole); // Imposta il ruolo dell'utente
     }
   }, []);
 
@@ -52,32 +55,35 @@ function Navbars() {
   };
 
   const handleLoginSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Previeni il comportamento predefinito del form
     try {
       const response = await fetch("http://localhost:3001/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formData), // Invia i dati del form al backend
       });
 
       if (response.ok) {
-        const data = await response.json();
+        const data = await response.json(); // Ottieni la risposta del backend
         localStorage.setItem("token", data.token); // Salva il token JWT
         localStorage.setItem("username", data.username); // Salva lo username
-        localStorage.setItem("email", data.email); // Salva l'email nel localStorage
-        setUsername(data.username); // Imposta lo username nello stato
-        setError("");
-        handleCloseLogin(); // Chiudi il modale
+        localStorage.setItem("email", data.email); // Salva l'email
+        localStorage.setItem("role", data.ruolo); // Salva il ruolo (IMPORTANTE)
+
+        // Imposta lo stato dell'utente
+        setUsername(data.username);
+        setError(""); // Resetta eventuali errori precedenti
+        handleCloseLogin(); // Chiudi il modale di login
         navigate("/"); // Reindirizza alla home
       } else {
         const errorData = await response.json();
-        setError(errorData.message || "Errore durante il login.");
+        setError(errorData.message || "Errore durante il login."); // Mostra un messaggio di errore
       }
     } catch (error) {
       console.error("Errore di rete:", error);
-      setError("Errore di connessione al server.");
+      setError("Errore di connessione al server."); // Mostra un errore di connessione
     }
   };
 
@@ -85,6 +91,7 @@ function Navbars() {
     localStorage.removeItem("token"); // Rimuovi il token dal localStorage
     localStorage.removeItem("username"); // Rimuovi lo username dal localStorage
     localStorage.removeItem("email"); // Rimuovi l'email dal localStorage
+    localStorage.removeItem("role"); // Rimuovi l'ruolo dal localStorage
     setUsername(null); // Resetta lo stato dello username
     navigate("/"); // Reindirizza alla home
   };
@@ -202,18 +209,39 @@ function Navbars() {
 
             {username && (
               <Nav className="ms-auto">
-                <Nav.Link>
-                  {" "}
-                  <img
-                    src={SprayIcon}
-                    alt="logo"
-                    className="logoImg"
-                    style={{
-                      width: "40px",
-                    }}
-                  />
-                  {username}
-                </Nav.Link>
+                <NavDropdown
+                  title={
+                    <>
+                      <img
+                        src={SprayIcon}
+                        alt="logo"
+                        className="logoImg"
+                        style={{
+                          width: "40px",
+                        }}
+                      />
+                      {username}
+                    </>
+                  }
+                  id="basic-nav-dropdown"
+                >
+                  <NavDropdown.Item
+                    className="text-white"
+                    as={Link}
+                    to="/profile"
+                  >
+                    Profilo
+                  </NavDropdown.Item>
+                  {role === "ADMIN" && (
+                    <NavDropdown.Item
+                      className="text-white"
+                      as={Link}
+                      to="/admin"
+                    >
+                      Admin
+                    </NavDropdown.Item>
+                  )}
+                </NavDropdown>
               </Nav>
             )}
           </Navbar.Collapse>

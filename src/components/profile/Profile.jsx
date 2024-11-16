@@ -33,6 +33,7 @@ function Profile() {
   const [searchAnno, setSearchAnno] = useState(""); // Stato per ricerca anno
   const imageCardRef = useRef(null); // Crea un ref per la card delle immagini
   const [categoryImage, setCategoryImage] = useState(GraffImg); // Immagine di default
+  const [role, setRole] = useState(""); // Stato per il ruolo dell'utente
 
   // Stati per il conteggio delle immagini caricate
   const [graffitiCount, setGraffitiCount] = useState(0); // Conteggio graffiti
@@ -49,11 +50,13 @@ function Profile() {
     leftElement.classList.add("profile-slide-in-left");
     rightElement.classList.add("profile-slide-in-right");
 
-    // Recupera lo username e l'email dal localStorage
+    // Recupera dati dal localStorage
     const storedUsername = localStorage.getItem("username");
-    const storedEmail = localStorage.getItem("email"); // Recupera l'email dal localStorage
-    setUsername(storedUsername); // Imposta lo username nello stato
-    setEmail(storedEmail); // Imposta l'email nello stato
+    const storedEmail = localStorage.getItem("email");
+    const storedRole = localStorage.getItem("role");
+
+    setUsername(storedUsername);
+    setEmail(storedEmail);
 
     // Fetch dei conteggi delle immagini
     fetchImageCounts();
@@ -84,6 +87,20 @@ function Profile() {
       );
     }
   };
+  //ruolo admin
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+    const storedEmail = localStorage.getItem("email");
+    const storedRole = localStorage.getItem("role"); // Recupera il ruolo dal localStorage
+
+    // Imposta i valori nello stato
+    setUsername(storedUsername);
+    setEmail(storedEmail);
+    setRole(storedRole);
+
+    // Fetch dei conteggi delle immagini
+    fetchImageCounts();
+  }, []);
 
   // Scrolla automaticamente quando showImages diventa true
   useEffect(() => {
@@ -375,7 +392,6 @@ function Profile() {
       if (response.ok) {
         setImages(images.filter((img) => img.id !== id)); // Rimuovi l'immagine dalla lista
         setShowModal(false); // Chiudi la modal dopo aver cancellato
-        console.log("Immagine cancellata con successo");
       } else {
         const errorText = await response.text();
         console.error(
@@ -458,6 +474,15 @@ function Profile() {
             </h3>
           </Col>
           <Col xs="6" className="profile-right-sect text-center">
+            {role === "ADMIN" && ( // Mostra il pulsante solo se l'utente è admin
+              <Button
+                className="custom-btn-profile mb-3 rounded-pill"
+                onClick={() => navigate("/admin")} // Naviga alla pagina Admin
+              >
+                Admin
+              </Button>
+            )}
+
             <Button
               className="custom-btn-profile mb-3 rounded-pill"
               onClick={fetchGraffitiImages}
@@ -466,7 +491,7 @@ function Profile() {
             </Button>
             <Button
               className="custom-btn-profile rounded-pill"
-              onClick={handleProfileModal} // Apre la modale del profilo
+              onClick={handleProfileModal}
             >
               Profilo
             </Button>
