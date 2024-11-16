@@ -16,6 +16,7 @@ import LogoNero from "../../assets/register/LOGONERO.png";
 import ArrowStyle from "../../assets/icons/arrowStyle.png";
 import ArrowWhite from "../../assets/icons/white-line.png";
 import CloseIcon from "../../assets/icons/delete.png";
+import Warning from "../../assets/icons/red-alert-icon.png";
 
 function Upload() {
   const [formData, setFormData] = useState({
@@ -101,7 +102,8 @@ function Upload() {
       });
 
       if (!response.ok) {
-        throw new Error("Errore durante la creazione dell'oggetto.");
+        const errorResponse = await response.json();
+        throw errorResponse;
       }
 
       const objectData = await response.json();
@@ -134,11 +136,29 @@ function Upload() {
         throw new Error("Errore durante il caricamento dell'immagine.");
       }
     } catch (error) {
-      console.error("Errore di rete:", error);
-      setModalContent({
-        title: "Errore",
-        message: error.message || "Errore durante il caricamento.",
-      });
+      console.error("Errore completo:", error);
+
+      if (error.errors && Object.keys(error.errors).length > 0) {
+        // Se ci sono errori dettagliati nella proprietà `errors`
+        const errorMessages = Object.values(error.errors).join("\n");
+        setModalContent({
+          title: "Errore",
+          message: errorMessages,
+        });
+      } else if (error.message) {
+        // Se esiste un messaggio principale
+        setModalContent({
+          title: "Errore",
+          message: error.message, // Mostra il messaggio principale
+        });
+      } else {
+        // Per errori sconosciuti
+        setModalContent({
+          title: "Errore",
+          message: "Errore sconosciuto.",
+        });
+      }
+
       setShowModal(true);
       setLoading(false);
     }
@@ -333,7 +353,17 @@ function Upload() {
               style={{ width: "200px", marginBottom: "10px" }}
             />
             <Modal.Title className="modal-upload-title p-2">
-              {modalContent.title || "Immagine caricata con successo!"}
+              {modalContent.title || "Errore caricamento Immagine"}{" "}
+              <img
+                src={Warning}
+                alt="Chiudi"
+                onClick={handleCloseCard}
+                style={{
+                  width: "24px",
+                  height: "24px",
+                  marginLeft: "3px",
+                }}
+              />
             </Modal.Title>
             <img
               src={CloseIcon}
@@ -342,11 +372,14 @@ function Upload() {
               className="modal-upload-close-icon"
             />
           </Modal.Header>
+
           <Modal.Body className="modal-upload-body">
-            <p className="modal-upload-message p-3">
-              {modalContent.message ||
-                "L'immagine è stata caricata correttamente. Grazie per la condivisione."}
-            </p>
+            {/* Sezione per mostrare il messaggio di errore con sfondo rosso chiaro */}
+            <div className="error-card">
+              <p className="error-message">
+                {modalContent.message || "Errore sconosciuto."}
+              </p>
+            </div>
           </Modal.Body>
           <Modal.Footer className="modal-upload-footer">
             <Button

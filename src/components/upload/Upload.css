@@ -34,6 +34,7 @@ body,
   background-color: #181a1c; /* Sfondo nero */
   color: white; /* Testo bianco */
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  font-family: "SpriteGraffiti";
 }
 
 /* Messaggio del Modale */
@@ -60,7 +61,7 @@ body,
 .modal-upload-title {
   color: red;
   font-family: "SpriteGraffiti", sans-serif;
-  font-size: 1.3rem;
+  font-size: 2rem;
 }
 
 /* Icona di chiusura */
@@ -105,7 +106,7 @@ body,
 
 .modal-upload-home-button:hover {
   background-color: rgba(24, 26, 28, 1);
-  color: black;
+  color: white;
 }
 
 .modal-upload-another-button {
@@ -152,4 +153,23 @@ img {
 .animated-text.second {
   padding-right: 20px; /* Aggiunta di un po' di spazio a destra */
   overflow: visible; /* Assicura che il contenuto visibile sia completamente visibile */
+}
+
+/* Contenitore del messaggio di errore */
+.error-card {
+  background-color: rgba(255, 0, 0, 0.2); /* Rosso chiaro trasparente */
+  border: 1px solid rgba(255, 0, 0, 0.5); /* Bordo rosso più intenso */
+  border-radius: 8px; /* Angoli arrotondati */
+  padding: 15px; /* Spaziatura interna */
+  margin-top: 15px; /* Distanza dall'elemento sopra */
+  text-align: center; /* Testo centrato */
+  font-size: 1rem; /* Dimensione del testo */
+  color: white; /* Colore del testo */
+  animation: danceEffect 3s infinite ease-in-out;
+}
+
+/* Messaggio di errore */
+.error-message {
+  font-family: "SpriteGraffiti", sans-serif; /* Font personalizzato */
+  margin: 0; /* Nessun margine aggiuntivo */
 }
