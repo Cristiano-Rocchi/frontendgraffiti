@@ -10,6 +10,7 @@ import Profile from "./components/profile/Profile";
 import Upload from "./components/upload/Upload";
 import Streetart from "./components/streetart/Streetart";
 import Tag from "./components/tags/Tag";
+import Admin from "./components/admin/AdminDashboard";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/upload" element={<Upload />} />
           <Route path="/streetart" element={<Streetart />} />
           <Route path="/tag" element={<Tag />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </>
     </BrowserRouter>
