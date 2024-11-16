@@ -1,15 +1,35 @@
 import React, { useState, useEffect } from "react";
 import "./AdminDashboard.css";
-import { Table, Button, Container, Tabs, Tab, Alert } from "react-bootstrap";
+import {
+  Table,
+  Button,
+  Container,
+  Tabs,
+  Tab,
+  Alert,
+  Form,
+  Row,
+  Col,
+  Card,
+} from "react-bootstrap";
 
 function AdminDashboard() {
   const [users, setUsers] = useState([]);
   const [graffiti, setGraffiti] = useState([]);
   const [streetArt, setStreetArt] = useState([]);
   const [tags, setTags] = useState([]);
+  const [originalGraffiti, setOriginalGraffiti] = useState([]);
+  const [originalStreetArt, setOriginalStreetArt] = useState([]);
+  const [originalTags, setOriginalTags] = useState([]);
   const [activeTab, setActiveTab] = useState("users");
   const [activeImageTab, setActiveImageTab] = useState("graffiti");
   const [error, setError] = useState("");
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchCriteria, setSearchCriteria] = useState({
+    year: "",
+    artist: "",
+    uploadedBy: "",
+  });
 
   // Fetch users with stats
   useEffect(() => {
@@ -51,7 +71,10 @@ function AdminDashboard() {
           throw new Error("Errore nel caricamento dei graffiti");
         return response.json();
       })
-      .then((data) => setGraffiti(Array.isArray(data) ? data : []))
+      .then((data) => {
+        setGraffiti(Array.isArray(data) ? data : []);
+        setOriginalGraffiti(Array.isArray(data) ? data : []);
+      })
       .catch((error) => setError(error.message));
   }, []);
 
@@ -68,7 +91,10 @@ function AdminDashboard() {
           throw new Error("Errore nel caricamento della street art");
         return response.json();
       })
-      .then((data) => setStreetArt(Array.isArray(data) ? data : []))
+      .then((data) => {
+        setStreetArt(Array.isArray(data) ? data : []);
+        setOriginalStreetArt(Array.isArray(data) ? data : []);
+      })
       .catch((error) => setError(error.message));
   }, []);
 
@@ -84,7 +110,10 @@ function AdminDashboard() {
         if (!response.ok) throw new Error("Errore nel caricamento dei tag");
         return response.json();
       })
-      .then((data) => setTags(Array.isArray(data) ? data : []))
+      .then((data) => {
+        setTags(Array.isArray(data) ? data : []);
+        setOriginalTags(Array.isArray(data) ? data : []);
+      })
       .catch((error) => setError(error.message));
   }, []);
 
@@ -132,6 +161,40 @@ function AdminDashboard() {
       .catch((error) => setError(error.message));
   };
 
+  const handleSearch = (category) => {
+    let filteredData;
+    if (category === "graffiti") filteredData = originalGraffiti;
+    if (category === "streetart") filteredData = originalStreetArt;
+    if (category === "tags") filteredData = originalTags;
+
+    if (searchCriteria.artist) {
+      filteredData = filteredData.filter((image) =>
+        image.artista
+          ?.toLowerCase()
+          .includes(searchCriteria.artist.toLowerCase())
+      );
+    }
+
+    if (searchCriteria.year) {
+      filteredData = filteredData.filter(
+        (image) =>
+          parseInt(image.annoCreazione) === parseInt(searchCriteria.year)
+      );
+    }
+
+    if (searchCriteria.uploadedBy) {
+      filteredData = filteredData.filter((image) =>
+        image.username
+          ?.toLowerCase()
+          .includes(searchCriteria.uploadedBy.toLowerCase())
+      );
+    }
+
+    if (category === "graffiti") setGraffiti(filteredData);
+    if (category === "streetart") setStreetArt(filteredData);
+    if (category === "tags") setTags(filteredData);
+  };
+
   return (
     <Container className="admin-dashboard">
       <h1 className="text-center">Admin Dashboard</h1>
@@ -152,7 +215,6 @@ function AdminDashboard() {
                 <tr>
                   <th>Username</th>
                   <th>Email</th>
-
                   <th>Totale Immagini</th>
                   <th>Azione</th>
                 </tr>
@@ -162,7 +224,6 @@ function AdminDashboard() {
                   <tr key={user.id}>
                     <td>{user.username}</td>
                     <td>{user.email}</td>
-
                     <td>{user.totalImageCount || 0}</td>
                     <td>
                       <Button
@@ -180,6 +241,91 @@ function AdminDashboard() {
         </Tab>
         <Tab eventKey="images" title="Gestisci Immagini">
           <h2>Gestisci Immagini</h2>
+          <Button
+            variant="primary"
+            className="mb-3"
+            onClick={() => setShowSearch(!showSearch)}
+          >
+            Ricerca
+          </Button>
+          {showSearch && (
+            <Card className="mb-4 p-3">
+              <h5>Filtra Immagini</h5>
+              <Form>
+                <Row>
+                  <Col md={4}>
+                    <Form.Group controlId="searchYear">
+                      <Form.Label>Anno</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Inserisci l'anno"
+                        value={searchCriteria.year}
+                        onChange={(e) =>
+                          setSearchCriteria({
+                            ...searchCriteria,
+                            year: e.target.value,
+                          })
+                        }
+                      />
+                      <Button
+                        variant="info"
+                        className="mt-2"
+                        onClick={() => handleSearch(activeImageTab)}
+                      >
+                        Cerca
+                      </Button>
+                    </Form.Group>
+                  </Col>
+                  <Col md={4}>
+                    <Form.Group controlId="searchArtist">
+                      <Form.Label>Artista</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Inserisci artista"
+                        value={searchCriteria.artist}
+                        onChange={(e) =>
+                          setSearchCriteria({
+                            ...searchCriteria,
+                            artist: e.target.value,
+                          })
+                        }
+                      />
+                      <Button
+                        variant="info"
+                        className="mt-2"
+                        onClick={() => handleSearch(activeImageTab)}
+                      >
+                        Cerca
+                      </Button>
+                    </Form.Group>
+                  </Col>
+                  <Col md={4}>
+                    <Form.Group controlId="searchUploadedBy">
+                      <Form.Label>Caricato da</Form.Label>
+                      <Form.Control
+                        type="text"
+                        placeholder="Inserisci utente"
+                        value={searchCriteria.uploadedBy}
+                        onChange={(e) =>
+                          setSearchCriteria({
+                            ...searchCriteria,
+                            uploadedBy: e.target.value,
+                          })
+                        }
+                      />
+                      <Button
+                        variant="info"
+                        className="mt-2"
+                        onClick={() => handleSearch(activeImageTab)}
+                      >
+                        Cerca
+                      </Button>
+                    </Form.Group>
+                  </Col>
+                </Row>
+              </Form>
+            </Card>
+          )}
           <Tabs
             activeKey={activeImageTab}
             onSelect={(key) => setActiveImageTab(key)}
@@ -254,7 +400,7 @@ function AdminDashboard() {
                           />
                         </td>
                         <td>{image.artista || "Sconosciuto"}</td>
-                        <td>{image.dataCreazione || "Sconosciuta"}</td>
+                        <td>{image.annoCreazione || "Sconosciuta"}</td>
                         <td>{image.luogo || "Sconosciuto"}</td>
                         <td>{image.username || "Anonimo"}</td>
                         <td>
@@ -293,7 +439,7 @@ function AdminDashboard() {
                           <img src={image.immagineUrl} alt="Tag" width="100" />
                         </td>
                         <td>{image.artista || "Sconosciuto"}</td>
-                        <td>{image.dataCreazione || "Sconosciuta"}</td>
+                        <td>{image.annoCreazione || "Sconosciuta"}</td>
                         <td>{image.luogo || "Sconosciuto"}</td>
                         <td>{image.username || "Anonimo"}</td>
                         <td>
