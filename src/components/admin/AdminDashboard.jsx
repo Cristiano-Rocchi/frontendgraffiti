@@ -11,24 +11,34 @@ function AdminDashboard() {
   const [activeImageTab, setActiveImageTab] = useState("graffiti");
   const [error, setError] = useState("");
 
-  // Carica gli utenti
+  // Fetch users with stats
   useEffect(() => {
-    fetch("http://localhost:3001/api/users", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    })
-      .then((response) => {
+    const fetchUsersAndStats = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:3001/api/users/admin-stats",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+
         if (!response.ok)
           throw new Error("Errore nel caricamento degli utenti");
-        return response.json();
-      })
-      .then((data) => setUsers(data))
-      .catch((error) => setError(error.message));
+
+        const usersWithStats = await response.json();
+        setUsers(usersWithStats);
+      } catch (error) {
+        setError(error.message);
+      }
+    };
+
+    fetchUsersAndStats();
   }, []);
 
-  // Carica i graffiti
+  // Fetch graffiti
   useEffect(() => {
     fetch("http://localhost:3001/api/graffiti", {
       method: "GET",
@@ -45,7 +55,7 @@ function AdminDashboard() {
       .catch((error) => setError(error.message));
   }, []);
 
-  // Carica la street art
+  // Fetch street art
   useEffect(() => {
     fetch("http://localhost:3001/api/streetart", {
       method: "GET",
@@ -62,7 +72,7 @@ function AdminDashboard() {
       .catch((error) => setError(error.message));
   }, []);
 
-  // Carica i tag
+  // Fetch tags
   useEffect(() => {
     fetch("http://localhost:3001/api/tags", {
       method: "GET",
@@ -78,7 +88,7 @@ function AdminDashboard() {
       .catch((error) => setError(error.message));
   }, []);
 
-  // Elimina utente
+  // Delete user
   const deleteUser = (userId) => {
     fetch(`http://localhost:3001/api/users/${userId}`, {
       method: "DELETE",
@@ -94,7 +104,7 @@ function AdminDashboard() {
       .catch((error) => setError(error.message));
   };
 
-  // Elimina immagine
+  // Delete image
   const deleteImage = (imageId, category) => {
     const endpoint =
       category === "graffiti"
@@ -125,11 +135,8 @@ function AdminDashboard() {
   return (
     <Container className="admin-dashboard">
       <h1 className="text-center">Admin Dashboard</h1>
-
-      {/* Messaggio di errore */}
       {error && <Alert variant="danger">{error}</Alert>}
 
-      {/* Tabs per navigare tra le sezioni */}
       <Tabs
         activeKey={activeTab}
         onSelect={(key) => setActiveTab(key)}
@@ -145,25 +152,28 @@ function AdminDashboard() {
                 <tr>
                   <th>Username</th>
                   <th>Email</th>
+
+                  <th>Totale Immagini</th>
                   <th>Azione</th>
                 </tr>
               </thead>
               <tbody>
-                {Array.isArray(users) &&
-                  users.map((user) => (
-                    <tr key={user.id}>
-                      <td>{user.username}</td>
-                      <td>{user.email}</td>
-                      <td>
-                        <Button
-                          variant="danger"
-                          onClick={() => deleteUser(user.id)}
-                        >
-                          Elimina
-                        </Button>
-                      </td>
-                    </tr>
-                  ))}
+                {users.map((user) => (
+                  <tr key={user.id}>
+                    <td>{user.username}</td>
+                    <td>{user.email}</td>
+
+                    <td>{user.totalImageCount || 0}</td>
+                    <td>
+                      <Button
+                        variant="danger"
+                        onClick={() => deleteUser(user.id)}
+                      >
+                        Elimina
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
           )}
@@ -191,30 +201,29 @@ function AdminDashboard() {
                     </tr>
                   </thead>
                   <tbody>
-                    {Array.isArray(graffiti) &&
-                      graffiti.map((image) => (
-                        <tr key={image.id}>
-                          <td>
-                            <img
-                              src={image.immagineUrl}
-                              alt="Graffito"
-                              width="100"
-                            />
-                          </td>
-                          <td>{image.artista || "Sconosciuto"}</td>
-                          <td>{image.dataCreazione || "Sconosciuta"}</td>
-                          <td>{image.luogo || "Sconosciuto"}</td>
-                          <td>{image.username || "Anonimo"}</td>
-                          <td>
-                            <Button
-                              variant="danger"
-                              onClick={() => deleteImage(image.id, "graffiti")}
-                            >
-                              Elimina
-                            </Button>
-                          </td>
-                        </tr>
-                      ))}
+                    {graffiti.map((image) => (
+                      <tr key={image.id}>
+                        <td>
+                          <img
+                            src={image.immagineUrl}
+                            alt="Graffito"
+                            width="100"
+                          />
+                        </td>
+                        <td>{image.artista || "Sconosciuto"}</td>
+                        <td>{image.annoCreazione || "Sconosciuta"}</td>
+                        <td>{image.luogo || "Sconosciuto"}</td>
+                        <td>{image.username || "Anonimo"}</td>
+                        <td>
+                          <Button
+                            variant="danger"
+                            onClick={() => deleteImage(image.id, "graffiti")}
+                          >
+                            Elimina
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </Table>
               )}
@@ -235,30 +244,29 @@ function AdminDashboard() {
                     </tr>
                   </thead>
                   <tbody>
-                    {Array.isArray(streetArt) &&
-                      streetArt.map((image) => (
-                        <tr key={image.id}>
-                          <td>
-                            <img
-                              src={image.immagineUrl}
-                              alt="Street Art"
-                              width="100"
-                            />
-                          </td>
-                          <td>{image.artista || "Sconosciuto"}</td>
-                          <td>{image.dataCreazione || "Sconosciuta"}</td>
-                          <td>{image.luogo || "Sconosciuto"}</td>
-                          <td>{image.username || "Anonimo"}</td>
-                          <td>
-                            <Button
-                              variant="danger"
-                              onClick={() => deleteImage(image.id, "streetart")}
-                            >
-                              Elimina
-                            </Button>
-                          </td>
-                        </tr>
-                      ))}
+                    {streetArt.map((image) => (
+                      <tr key={image.id}>
+                        <td>
+                          <img
+                            src={image.immagineUrl}
+                            alt="Street Art"
+                            width="100"
+                          />
+                        </td>
+                        <td>{image.artista || "Sconosciuto"}</td>
+                        <td>{image.dataCreazione || "Sconosciuta"}</td>
+                        <td>{image.luogo || "Sconosciuto"}</td>
+                        <td>{image.username || "Anonimo"}</td>
+                        <td>
+                          <Button
+                            variant="danger"
+                            onClick={() => deleteImage(image.id, "streetart")}
+                          >
+                            Elimina
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </Table>
               )}
@@ -279,30 +287,25 @@ function AdminDashboard() {
                     </tr>
                   </thead>
                   <tbody>
-                    {Array.isArray(tags) &&
-                      tags.map((image) => (
-                        <tr key={image.id}>
-                          <td>
-                            <img
-                              src={image.immagineUrl}
-                              alt="Tag"
-                              width="100"
-                            />
-                          </td>
-                          <td>{image.artista || "Sconosciuto"}</td>
-                          <td>{image.dataCreazione || "Sconosciuta"}</td>
-                          <td>{image.luogo || "Sconosciuto"}</td>
-                          <td>{image.username || "Anonimo"}</td>
-                          <td>
-                            <Button
-                              variant="danger"
-                              onClick={() => deleteImage(image.id, "tags")}
-                            >
-                              Elimina
-                            </Button>
-                          </td>
-                        </tr>
-                      ))}
+                    {tags.map((image) => (
+                      <tr key={image.id}>
+                        <td>
+                          <img src={image.immagineUrl} alt="Tag" width="100" />
+                        </td>
+                        <td>{image.artista || "Sconosciuto"}</td>
+                        <td>{image.dataCreazione || "Sconosciuta"}</td>
+                        <td>{image.luogo || "Sconosciuto"}</td>
+                        <td>{image.username || "Anonimo"}</td>
+                        <td>
+                          <Button
+                            variant="danger"
+                            onClick={() => deleteImage(image.id, "tags")}
+                          >
+                            Elimina
+                          </Button>
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </Table>
               )}
