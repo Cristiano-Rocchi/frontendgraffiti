@@ -30,6 +30,8 @@ function AdminDashboard() {
     artist: "",
     uploadedBy: "",
   });
+  const [userSearch, setUserSearch] = useState(""); // Stato per la ricerca di utenti
+  const [filteredUsers, setFilteredUsers] = useState(users); // Stato per utenti filtrati
 
   // Fetch users with stats
   useEffect(() => {
@@ -50,6 +52,7 @@ function AdminDashboard() {
 
         const usersWithStats = await response.json();
         setUsers(usersWithStats);
+        setFilteredUsers(usersWithStats); // Imposta anche i dati filtrati inizialmente
       } catch (error) {
         setError(error.message);
       }
@@ -194,6 +197,25 @@ function AdminDashboard() {
     if (category === "streetart") setStreetArt(filteredData);
     if (category === "tags") setTags(filteredData);
   };
+  const handleUserSearch = () => {
+    const filtered = users.filter(
+      (user) =>
+        user.username.toLowerCase().includes(userSearch.toLowerCase()) ||
+        user.email.toLowerCase().includes(userSearch.toLowerCase())
+    );
+    setFilteredUsers(filtered);
+  };
+  const resetSearch = () => {
+    setSearchCriteria({ year: "", artist: "", uploadedBy: "" });
+    setGraffiti(originalGraffiti);
+    setStreetArt(originalStreetArt);
+    setTags(originalTags);
+  };
+
+  const resetUserSearch = () => {
+    setFilteredUsers(users); // Reimposta i risultati originali
+    setUserSearch(""); // Pulisce il campo di ricerca
+  };
 
   return (
     <Container className="admin-dashboard">
@@ -207,7 +229,26 @@ function AdminDashboard() {
       >
         <Tab eventKey="users" title="Gestisci Utenti">
           <h2>Gestisci Utenti</h2>
-          {users.length === 0 ? (
+          <Form inline className="mb-3">
+            <Form.Control
+              type="text"
+              placeholder="Cerca per username o email"
+              value={userSearch}
+              onChange={(e) => setUserSearch(e.target.value)}
+              className="mr-2"
+            />
+            <Button
+              variant="primary"
+              onClick={handleUserSearch}
+              className="mr-2"
+            >
+              Cerca
+            </Button>
+            <Button variant="secondary" onClick={resetUserSearch}>
+              Reset
+            </Button>
+          </Form>
+          {filteredUsers.length === 0 ? (
             <p className="text-center">Nessun utente trovato.</p>
           ) : (
             <Table striped bordered hover>
@@ -220,7 +261,7 @@ function AdminDashboard() {
                 </tr>
               </thead>
               <tbody>
-                {users.map((user) => (
+                {filteredUsers.map((user) => (
                   <tr key={user.id}>
                     <td>{user.username}</td>
                     <td>{user.email}</td>
@@ -247,6 +288,13 @@ function AdminDashboard() {
             onClick={() => setShowSearch(!showSearch)}
           >
             Ricerca
+          </Button>
+          <Button
+            variant="secondary"
+            className="mb-3 ms-2"
+            onClick={resetSearch}
+          >
+            Reset
           </Button>
           {showSearch && (
             <Card className="mb-4 p-3">
