@@ -66,14 +66,15 @@ function Navbars() {
       });
 
       if (response.ok) {
-        const data = await response.json(); // Ottieni la risposta del backend
+        const data = await response.json(); // Ottieni la risposta dal backend
         localStorage.setItem("token", data.token); // Salva il token JWT
         localStorage.setItem("username", data.username); // Salva lo username
         localStorage.setItem("email", data.email); // Salva l'email
         localStorage.setItem("role", data.ruolo); // Salva il ruolo (IMPORTANTE)
 
-        // Imposta lo stato dell'utente
-        setUsername(data.username);
+        // Imposta lo stato dell'utente e del ruolo
+        setUsername(data.username); // Imposta lo username
+        setRole(data.ruolo); // Imposta il ruolo
         setError(""); // Resetta eventuali errori precedenti
         handleCloseLogin(); // Chiudi il modale di login
         navigate("/"); // Reindirizza alla home
@@ -209,30 +210,31 @@ function Navbars() {
 
             {username && (
               <Nav className="ms-auto">
-                <NavDropdown
-                  title={
-                    <>
-                      <img
-                        src={SprayIcon}
-                        alt="logo"
-                        className="logoImg"
-                        style={{
-                          width: "40px",
-                        }}
-                      />
-                      {username}
-                    </>
-                  }
-                  id="basic-nav-dropdown"
-                >
-                  <NavDropdown.Item
-                    className="text-white"
-                    as={Link}
-                    to="/profile"
+                {role === "ADMIN" ? (
+                  // Se l'utente è admin, mostra il dropdown
+                  <NavDropdown
+                    title={
+                      <>
+                        <img
+                          src={SprayIcon}
+                          alt="logo"
+                          className="logoImg"
+                          style={{
+                            width: "40px",
+                          }}
+                        />
+                        {username}
+                      </>
+                    }
+                    id="basic-nav-dropdown"
                   >
-                    Profilo
-                  </NavDropdown.Item>
-                  {role === "ADMIN" && (
+                    <NavDropdown.Item
+                      className="text-white"
+                      as={Link}
+                      to="/profile"
+                    >
+                      Profilo
+                    </NavDropdown.Item>
                     <NavDropdown.Item
                       className="text-white"
                       as={Link}
@@ -240,8 +242,21 @@ function Navbars() {
                     >
                       Admin
                     </NavDropdown.Item>
-                  )}
-                </NavDropdown>
+                  </NavDropdown>
+                ) : (
+                  // Se l'utente non è admin, mostra solo il nome come un link al profilo
+                  <Nav.Link as={Link} to="/profile" className="text-white">
+                    <img
+                      src={SprayIcon}
+                      alt="logo"
+                      className="logoImg"
+                      style={{
+                        width: "40px",
+                      }}
+                    />
+                    {username}
+                  </Nav.Link>
+                )}
               </Nav>
             )}
           </Navbar.Collapse>
