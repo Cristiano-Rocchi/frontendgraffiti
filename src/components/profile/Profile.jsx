@@ -44,22 +44,44 @@ function Profile() {
   const [editedEmail, setEditedEmail] = useState(""); // Stato per email modificata
 
   useEffect(() => {
+    const fetchUserData = async () => {
+      const richiesta = new Request("http://localhost:3001/api/users/me", {
+        method: "GET",
+        headers: new Headers({
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }),
+      });
+
+      try {
+        const response = await fetch(richiesta);
+
+        if (response.ok) {
+          const data = await response.json();
+
+          // Aggiorna lo stato con i dati ricevuti
+          setUsername(data.username);
+          setEmail(data.email);
+
+          // Aggiorna il localStorage con i nuovi valori
+          localStorage.setItem("username", data.username);
+          localStorage.setItem("email", data.email);
+        } else {
+          console.error("Errore nel recupero dei dati dell'utente");
+        }
+      } catch (error) {
+        console.error("Errore nella richiesta dei dati dell'utente:", error);
+      }
+    };
+
+    // Anima le sezioni laterali e recupera i dati utente
     const leftElement = document.querySelector(".profile-left-sect");
     const rightElement = document.querySelector(".profile-right-sect");
 
     leftElement.classList.add("profile-slide-in-left");
     rightElement.classList.add("profile-slide-in-right");
 
-    // Recupera dati dal localStorage
-    const storedUsername = localStorage.getItem("username");
-    const storedEmail = localStorage.getItem("email");
-    const storedRole = localStorage.getItem("role");
-
-    setUsername(storedUsername);
-    setEmail(storedEmail);
-
-    // Fetch dei conteggi delle immagini
-    fetchImageCounts();
+    fetchUserData();
+    fetchImageCounts(); // Recupera i conteggi delle immagini
   }, []);
 
   const fetchImageCounts = async () => {
@@ -447,9 +469,17 @@ function Profile() {
 
       if (response.ok) {
         const data = await response.json();
-        setUsername(data.username); // Aggiorna lo stato con il nuovo username
-        setEmail(data.email); // Aggiorna lo stato con la nuova email
-        setShowEditModal(false); // Chiudi il modale dopo aver salvato
+
+        // Aggiorna lo stato locale
+        setUsername(data.username);
+        setEmail(data.email);
+
+        // Aggiorna il localStorage
+        localStorage.setItem("username", data.username);
+        localStorage.setItem("email", data.email);
+
+        // Chiudi il modale dopo aver salvato
+        setShowEditModal(false);
       } else {
         console.error("Errore durante l'aggiornamento del profilo");
       }
@@ -645,7 +675,7 @@ function Profile() {
         size="lg"
         className="custom-profile-modal"
       >
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>
             <img
               className="img-hello"
@@ -657,27 +687,20 @@ function Profile() {
               alt="Chiudi"
               className="close-icon"
               onClick={handleCloseProfileModal}
-              style={{
-                position: "absolute",
-                top: "10px",
-                right: "10px",
-                cursor: "pointer",
-                width: "30px",
-                height: "30px",
-              }}
             />
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="d-flex justify-content-around position-relative">
-          {/* Icona di chiusura in alto a destra */}
-
+        <Modal.Body className="d-flex justify-content-around">
+          {/* Sezione Info */}
           <Card className="p-5 info-count">
             <h3 className="titleCount pb-2">INFO</h3>
             <p>
-              USERNAME: <span className="ms-1 info-profile">{username}</span>
+              <span className="title">USERNAME:</span>
+              <span className="info-profile">{username}</span>
             </p>
             <p>
-              EMAIL: <span className="ms-1 info-profile">{email}</span>
+              <span className="title">EMAIL:</span>
+              <span className="info-profile">{email}</span>
             </p>
             <Button
               className="custom-btn-profile mt-3"
@@ -687,17 +710,21 @@ function Profile() {
             </Button>
           </Card>
 
+          {/* Sezione Upload */}
           <Card className="p-5 info-count">
             <h3 className="titleCount pb-2">UPLOAD</h3>
             <p>
-              GRAFFITI: <span className="counter ms-1">{graffitiCount}</span>
-            </p>{" "}
-            <p>
-              STREET-ART: <span className="counter ms-1">{streetArtCount}</span>
+              <span className="title">GRAFFITI:</span>
+              <span className="counter">{graffitiCount}</span>
             </p>
             <p>
-              TAG: <span className="counter ms-1">{tagCount}</span>
-            </p>{" "}
+              <span className="title">STREET-ART:</span>
+              <span className="counter">{streetArtCount}</span>
+            </p>
+            <p>
+              <span className="title">TAG:</span>
+              <span className="counter">{tagCount}</span>
+            </p>
           </Card>
         </Modal.Body>
       </Modal>
@@ -708,15 +735,21 @@ function Profile() {
         onHide={handleCloseEditModal}
         centered
         size="lg"
-        className="custom-profile-modal"
+        className="custom-edit-modal" // Classe specifica per il modal di modifica
       >
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>Modifica Profilo</Modal.Title>
+          <img
+            src={CloseIcon}
+            alt="Chiudi"
+            className="close-icon"
+            onClick={handleCloseEditModal}
+          />
         </Modal.Header>
         <Modal.Body>
           <Form>
             <Form.Group controlId="formUsername">
-              <Form.Label>Username</Form.Label>
+              <Form.Label>USERNAME</Form.Label>
               <Form.Control
                 type="text"
                 value={editedUsername}
@@ -724,7 +757,7 @@ function Profile() {
               />
             </Form.Group>
             <Form.Group controlId="formEmail" className="mt-3">
-              <Form.Label>Email</Form.Label>
+              <Form.Label>EMAIL</Form.Label>
               <Form.Control
                 type="email"
                 value={editedEmail}

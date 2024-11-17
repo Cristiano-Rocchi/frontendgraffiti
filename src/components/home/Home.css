@@ -6,7 +6,7 @@ INVECE DELLA SFUMATURA BIANCA INTORNO ALLE IMG PROVARE OMBRA NERA
 
 .homeBody {
   height: 100vh; /* Imposta l'altezza del div a tutta la pagina */
-  background-color: #181a1c; /* Colore di sfondo scuro */
+  background-color: #191a1c; /* Colore di sfondo scuro */
 }
 .drop h4 {
   color: #c0c0c0;
@@ -87,4 +87,161 @@ INVECE DELLA SFUMATURA BIANCA INTORNO ALLE IMG PROVARE OMBRA NERA
 }
 .containerCard:hover .cardHome {
   transform: perspective(20px) rotateX(2deg) translateY(-50px);
+}
+
+/* Per schermi grandi: nessuna modifica, mantieni le dimensioni */
+@media (min-width: 1200px) {
+  .containerCard {
+    width: 15rem;
+    height: 19rem;
+  }
+}
+
+/* Per desktop medi: riduci leggermente la dimensione */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .containerCard {
+    width: 13rem;
+    height: 17rem;
+  }
+}
+
+/* Per tablet: dimensioni più piccole per stare in una riga */
+@media (min-width: 768px) and (max-width: 991px) {
+  .containerCard {
+    width: 9rem;
+    height: 12rem;
+  }
+}
+/* Per schermi grandi (manteniamo tutto com'è ora) */
+@media (min-width: 768px) {
+  .drop {
+    display: block;
+  }
+
+  .fullCard {
+    display: none;
+  }
+}
+
+/* Per schermi piccoli (max-width: 767px) */
+/* Per tablet (600-767px): layout affiancato */
+@media (min-width: 600px) and (max-width: 767px) {
+  .drop {
+    display: none; /* Nascondi il layout orizzontale */
+  }
+
+  .fullCard {
+    width: calc(
+      30% - 1rem
+    ); /* Ogni card larga circa il 30% della viewport con margini */
+    height: calc(
+      30vw - 1rem
+    ); /* Altezza uguale alla larghezza per renderle quadrate */
+    margin: 0.5rem; /* Spaziatura tra le card */
+    border-radius: 10px;
+    display: inline-flex; /* Disposizione affiancata */
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .fullCard::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(30%); /* Filtro solo sullo sfondo */
+    z-index: 0; /* Sfondo sotto il testo */
+    border-radius: 10px;
+  }
+
+  .graffitiCard::before {
+    background-image: url("../../assets/home/img/graffito_phase2.jpg");
+  }
+
+  .streetartCard::before {
+    background-image: url("../../assets/home/img/streetartalicepasquini.jpg");
+  }
+
+  .tagCard::before {
+    background-image: url("../../assets/home/img/tagTaki.png");
+  }
+
+  .cardText {
+    font-family: "SpriteGraffiti", sans-serif;
+    font-size: 1.5rem;
+    color: #f9f9f9; /* Colore bianco */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Ombra per contrasto */
+    z-index: 1; /* Testo sopra lo sfondo */
+    position: absolute;
+    top: 50%; /* Allineamento verticale */
+    left: 50%; /* Allineamento orizzontale */
+    transform: translate(-50%, -50%); /* Centra il testo */
+    text-align: center; /* Centra il testo orizzontalmente */
+  }
+}
+
+/* Per smartphone (fino a 599px): layout verticale */
+@media (max-width: 599px) {
+  .drop {
+    display: none; /* Nascondi il layout orizzontale */
+  }
+
+  .fullCard {
+    width: calc(100% - 2rem); /* Larghezza con margini laterali */
+    height: calc((100vh - 60px) / 3); /* Altezza dinamica con navbar corretta */
+    margin: 0 auto; /* Elimina margini verticali */
+    border-radius: 10px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .fullCard::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(60%); /* Filtro applicato solo allo sfondo */
+    z-index: 0; /* Sfondo sotto il testo */
+    border-radius: 10px;
+  }
+
+  .graffitiCard::before {
+    background-image: url("../../assets/home/img/graffito_phase2.jpg");
+  }
+
+  .streetartCard::before {
+    background-image: url("../../assets/home/img/streetartalicepasquini.jpg");
+  }
+
+  .tagCard::before {
+    background-image: url("../../assets/home/img/tagTaki.png");
+  }
+
+  .cardText {
+    font-family: "SpriteGraffiti", sans-serif;
+    font-size: 2rem;
+    color: #f9f9f9; /* Colore bianco chiaro */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8); /* Ombra per contrasto */
+    z-index: 1; /* Testo sopra lo sfondo */
+    position: absolute;
+    top: 50%; /* Allineamento verticale */
+    left: 50%; /* Allineamento orizzontale */
+    transform: translate(-50%, -50%); /* Centra il testo */
+    text-align: center; /* Centra il testo orizzontalmente */
+  }
+
+  /* Contenitore principale */
 }
