@@ -8,6 +8,7 @@ import {
   Button,
   Modal,
   Spinner,
+  Alert,
 } from "react-bootstrap";
 import "../upload/Upload.css";
 import Logo from "../../assets/navbar/img/Logo_scritta_bianca.png";
@@ -16,7 +17,6 @@ import LogoNero from "../../assets/register/LOGONERO.png";
 import ArrowStyle from "../../assets/icons/arrowStyle.png";
 import ArrowWhite from "../../assets/icons/white-line.png";
 import CloseIcon from "../../assets/icons/delete.png";
-import Warning from "../../assets/icons/red-alert-icon.png";
 
 function Upload() {
   const [formData, setFormData] = useState({
@@ -55,6 +55,8 @@ function Upload() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    setError(""); // Resetta l'errore all'inizio del caricamento
 
     if (!formData.tipo) {
       setError("Devi selezionare il tipo di contenuto.");
@@ -131,7 +133,7 @@ function Upload() {
         });
         setShowModal(true);
         setLoading(false);
-        setError("");
+        setError(""); // Resetta l'errore dopo il caricamento
       } else {
         throw new Error("Errore durante il caricamento dell'immagine.");
       }
@@ -139,27 +141,14 @@ function Upload() {
       console.error("Errore completo:", error);
 
       if (error.errors && Object.keys(error.errors).length > 0) {
-        // Se ci sono errori dettagliati nella proprietà `errors`
         const errorMessages = Object.values(error.errors).join("\n");
-        setModalContent({
-          title: "Errore",
-          message: errorMessages,
-        });
+        setError(errorMessages);
       } else if (error.message) {
-        // Se esiste un messaggio principale
-        setModalContent({
-          title: "Errore",
-          message: error.message, // Mostra il messaggio principale
-        });
+        setError(error.message);
       } else {
-        // Per errori sconosciuti
-        setModalContent({
-          title: "Errore",
-          message: "Errore sconosciuto.",
-        });
+        setError("Errore sconosciuto.");
       }
 
-      setShowModal(true);
       setLoading(false);
     }
   };
@@ -183,7 +172,6 @@ function Upload() {
   const handleCloseCard = () => {
     navigate("/"); // Reindirizza alla home page quando l'icona viene cliccata
   };
-
   return (
     <>
       <Container className="upload-page d-flex justify-content-center align-items-center custom-container-upload">
@@ -228,6 +216,7 @@ function Upload() {
                   <h3 className="register-title">UPLOAD</h3>
                 </div>
 
+                {error && <Alert variant="danger">{error}</Alert>}
                 {loading && (
                   <div className="text-center">
                     <Spinner animation="border" role="status">
@@ -354,16 +343,6 @@ function Upload() {
             />
             <Modal.Title className="modal-upload-title p-2">
               {modalContent.title || "Errore caricamento Immagine"}{" "}
-              <img
-                src={Warning}
-                alt="Chiudi"
-                onClick={handleCloseCard}
-                style={{
-                  width: "24px",
-                  height: "24px",
-                  marginLeft: "3px",
-                }}
-              />
             </Modal.Title>
             <img
               src={CloseIcon}
@@ -374,12 +353,7 @@ function Upload() {
           </Modal.Header>
 
           <Modal.Body className="modal-upload-body">
-            {/* Sezione per mostrare il messaggio di errore con sfondo rosso chiaro */}
-            <div className="error-card">
-              <p className="error-message">
-                {modalContent.message || "Errore sconosciuto."}
-              </p>
-            </div>
+            {modalContent.message || "Errore caricamento Immagine"}{" "}
           </Modal.Body>
           <Modal.Footer className="modal-upload-footer">
             <Button
