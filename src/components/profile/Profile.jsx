@@ -675,7 +675,7 @@ function Profile() {
         size="lg"
         className="custom-profile-modal"
       >
-        <Modal.Header>
+        <Modal.Header className="border-0">
           <Modal.Title>
             <img
               className="img-hello"

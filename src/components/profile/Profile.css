@@ -417,6 +417,24 @@
   .custom-profile-modal .info-profile {
     font-size: 1.5em;
   }
+
+  .custom-profile-modal .modal-body {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .custom-profile-modal .modal-body .card {
+    width: 90%;
+    margin: 10px 0;
+  }
+
+  .custom-profile-modal .titleCount {
+    font-size: 1.2em;
+  }
+
+  .custom-profile-modal .modal-header img.close-icon {
+    width: 20px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -448,5 +466,32 @@
 
   .profile-page .image-grid {
     gap: 10px;
+  }
+
+  .custom-profile-modal .modal-body .card {
+    padding: 15px;
+  }
+
+  .custom-profile-modal .counter,
+  .custom-profile-modal .info-profile {
+    font-size: 1.2em;
+  }
+
+  .custom-profile-modal .modal-body {
+    padding-top: 2vh;
+  }
+
+  .profile-page .username-div {
+    height: auto;
+    clip-path: none;
+    padding: 20px 0;
+  }
+
+  .profile-page .username-text {
+    font-size: 18px;
+  }
+
+  .custom-profile-modal .modal-content {
+    padding: 10px;
   }
 }
