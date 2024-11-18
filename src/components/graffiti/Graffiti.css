@@ -1,10 +1,9 @@
-.graffiti-body {
-}
-
 /* HEADER */
 .headerGraffiti {
   padding: 3em;
-  background-size: cover;
+  background-size: cover; /* L'immagine si adatta mantenendo le proporzioni */
+  background-position: center; /* Centra l'immagine */
+  background-repeat: no-repeat; /* Evita che l'immagine si ripeta */
 }
 
 .btn-style {
@@ -47,7 +46,7 @@
 .video-container {
   position: relative;
   width: 100%;
-  height: 90vh;
+  height: 50vh; /* Usa un'altezza relativa alla viewport */
   overflow: hidden;
 }
 
@@ -55,9 +54,10 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 100vw;
-  height: auto;
+  width: 100%; /* Il video copre tutta la larghezza */
+  height: 100%; /* Assicura che il video copra l'altezza del contenitore */
   transform: translate(-50%, -50%);
+  object-fit: cover; /* Assicura proporzioni corrette e copertura */
 }
 
 /* CAROSELLO */
