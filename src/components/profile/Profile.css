@@ -439,8 +439,8 @@
 
 @media (max-width: 480px) {
   .profile-page .username-text {
-    font-size: 30px;
-    top: 29%;
+    font-size: 35px;
+    top: 46%;
   }
 
   .profile-page .img-hello {
@@ -485,10 +485,6 @@
     height: auto;
     clip-path: none;
     padding: 20px 0;
-  }
-
-  .profile-page .username-text {
-    font-size: 18px;
   }
 
   .custom-profile-modal .modal-content {
