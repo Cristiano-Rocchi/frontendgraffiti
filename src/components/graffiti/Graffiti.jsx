@@ -14,7 +14,7 @@ import videoGraff from "../../assets/graffiti/vid/videowebsite.mp4";
 import BackImg from "../../assets/graffiti/img/prova2.jpg";
 import SfondoCarousel from "../../assets/graffiti/img/sfondocarousel.jpg";
 import SfondoGraffSect from "../../assets/graffiti/img/sfondosection.jpg";
-import SfondoGraffSectUp from "../../assets/graffiti/img/sfondograffsect.jpg";
+import SfondoGraffSectUp from "../../assets/graffiti/img/sectup.jpg";
 
 import Track1 from "../../assets/music/The Notorious B.I.G. - Everyday Struggle (Official Audio) (152kbit_Opus).opus";
 import Track2 from "../../assets/music/The Notorious B.I.G. - Friend of Mine (Official Audio) (128kbit_AAC).m4a";
@@ -262,6 +262,26 @@ const Graffiti = () => {
             speed={3000}
             modules={[Autoplay]}
             className="mySwiper pb-3 pt-3"
+            breakpoints={{
+              0: {
+                slidesPerView: 1, // Mostra 1 immagine per schermi < 480px
+              },
+              480: {
+                slidesPerView: 2, // Mostra 2 immagini per schermi >= 480px e < 768px
+              },
+              768: {
+                slidesPerView: 3, // Mostra 3 immagini per schermi >= 768px e < 992px
+              },
+              910: {
+                slidesPerView: 4, // Mostra 4 immagini per schermi >= 992px e < 1165px
+              },
+              1165: {
+                slidesPerView: 5, // Mostra 5 immagini per schermi >= 1165px e < 2000px
+              },
+              1500: {
+                slidesPerView: 6, // Mostra 6 immagini per schermi >= 2000px
+              },
+            }}
           >
             {randomImages.slice(0, 12).map((image, index) => (
               <SwiperSlide key={index}>
@@ -270,12 +290,6 @@ const Graffiti = () => {
                     className="imgCarousel"
                     src={image.immagineUrl}
                     alt={image.artista || `Immagine ${index + 1}`}
-                    style={{
-                      width: "250px",
-                      height: "350px",
-                      objectFit: "cover",
-                      borderRadius: "30px",
-                    }}
                   />
                   <div className="artist-info rounded-pill">
                     <span>{image.artista || "Artista Sconosciuto"}</span>

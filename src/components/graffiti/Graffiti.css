@@ -1,9 +1,9 @@
 /* HEADER */
 .headerGraffiti {
   padding: 3em;
-  background-size: cover; /* L'immagine si adatta mantenendo le proporzioni */
-  background-position: center; /* Centra l'immagine */
-  background-repeat: no-repeat; /* Evita che l'immagine si ripeta */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .btn-style {
@@ -115,6 +115,8 @@
 .sfondo-graff-sect-up {
   height: 24vh; /* Altezza della sezione */
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .title-graffiti {
@@ -516,4 +518,26 @@
   color: red;
   font-weight: bold;
   margin-right: 8px;
+}
+
+.imgCarousel {
+  width: 250px !important;
+  height: 350px !important;
+  object-fit: cover !important;
+  border-radius: 30px !important;
+}
+
+@media (max-width: 480px) {
+  .imgCarousel {
+    width: 75vw !important;
+    height: 350px !important;
+    border-radius: 10px !important;
+  }
+}
+@media (min-width: 480px) and (max-width: 768px) {
+  .imgCarousel {
+    width: 50vw !important; /* Rendi le immagini più larghe */
+    height: 350px !important; /* Aumenta l'altezza */
+    border-radius: 15px !important; /* Mantieni bordi arrotondati */
+  }
 }
