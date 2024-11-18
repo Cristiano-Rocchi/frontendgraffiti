@@ -44,6 +44,7 @@ const Graffiti = () => {
   const [showPlayerOverlay, setShowPlayerOverlay] = useState(false);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const tracks = [Track1, Track2, Track3];
   const trackNames = [
@@ -193,6 +194,10 @@ const Graffiti = () => {
     return matchArtist && matchYear;
   });
 
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
   return (
     <div className="graffiti-body">
       <>
@@ -330,74 +335,143 @@ const Graffiti = () => {
             </div>
 
             {/* Campi di ricerca */}
-            <div className="search-container my-4 d-flex justify-content-center gap-4">
-              <div className="search-card flip-card search-card-expand p-3">
-                <div className="flip-card-inner">
-                  <div className="flip-card-front">
-                    <h5 className="search-title">Puoi cercare per nome</h5>
+            <div className="search-container my-4">
+              {/* Dropdown per schermi inferiori a 600px */}
+              <div className="dropdown-container d-block d-md-none">
+                <button
+                  className="dropdown-toggle btn btn-dark w-100"
+                  onClick={toggleDropdown}
+                >
+                  Opzioni di Ricerca
+                </button>
+                {isDropdownOpen && (
+                  <div className="dropdown-cards">
+                    <div className="search-card p-3">
+                      <h5 className="search-title">Puoi cercare per nome</h5>
+                      <input
+                        type="text"
+                        placeholder="Cerca artista"
+                        value={searchArtist}
+                        onChange={(e) => setSearchArtist(e.target.value)}
+                        className="form-small mt-2"
+                      />
+                    </div>
+                    <div className="search-card p-3">
+                      <h5 className="search-title">Totale opere</h5>
+                      <p
+                        className="total-opere"
+                        style={{ color: "red", fontFamily: "Typewriter" }}
+                      >
+                        {loadedImages.length}
+                      </p>
+                    </div>
+                    <div className="search-card p-3">
+                      <h5 className="search-title">Puoi cercare per data</h5>
+                      <input
+                        type="number"
+                        placeholder="Cerca per anno"
+                        value={searchYear}
+                        onChange={(e) => setSearchYear(e.target.value)}
+                        className="form-small mt-2"
+                        min="1975"
+                        max={currentYear}
+                      />
+                    </div>
+                    <div className="search-card p-3">
+                      <h5 className="search-title">
+                        Ascolta la nostra playlist
+                      </h5>
+                      <div
+                        className="playlist-toggle mt-2"
+                        onClick={togglePlayPause}
+                      >
+                        <span
+                          style={{
+                            color: "red",
+                            fontFamily: "Typewriter",
+                            fontSize: "1.5rem",
+                          }}
+                        >
+                          {isPlaying ? "Pausa ◼" : "Play ▶"}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flip-card-back">
-                    <input
-                      type="text"
-                      placeholder="Cerca artista"
-                      value={searchArtist}
-                      onChange={(e) => setSearchArtist(e.target.value)}
-                      className="form-small"
-                    />
-                  </div>
-                </div>
+                )}
               </div>
 
-              <div className="search-card flip-card p-3">
-                <div className="flip-card-inner">
-                  <div className="flip-card-front">
-                    <h5 className="search-title">Totale opere</h5>
-                  </div>
-                  <div className="flip-card-back">
-                    <p
-                      className="total-opere"
-                      style={{ color: "red", fontFamily: "Typewriter" }}
-                    >
-                      {loadedImages.length}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="search-card flip-card search-card-expand p-3">
-                <div className="flip-card-inner">
-                  <div className="flip-card-front">
-                    <h5 className="search-title">Puoi cercare per data</h5>
-                  </div>
-                  <div className="flip-card-back">
-                    <input
-                      type="number"
-                      placeholder="Cerca per anno"
-                      value={searchYear}
-                      onChange={(e) => setSearchYear(e.target.value)}
-                      className="form-small"
-                      min="1975"
-                      max={currentYear}
-                    />
+              {/* Card orizzontali per schermi sopra i 600px */}
+              <div className="search-cards d-none d-md-flex justify-content-center gap-4">
+                <div className="search-card flip-card search-card-expand p-3">
+                  <div className="flip-card-inner">
+                    <div className="flip-card-front">
+                      <h5 className="search-title">Puoi cercare per nome</h5>
+                    </div>
+                    <div className="flip-card-back">
+                      <input
+                        type="text"
+                        placeholder="Cerca artista"
+                        value={searchArtist}
+                        onChange={(e) => setSearchArtist(e.target.value)}
+                        className="form-small"
+                      />
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="search-card flip-card p-3">
-                <div className="flip-card-inner">
-                  <div className="flip-card-front">
-                    <h5 className="search-title">Ascolta la nostra playlist</h5>
+                <div className="search-card flip-card p-3">
+                  <div className="flip-card-inner">
+                    <div className="flip-card-front">
+                      <h5 className="search-title">Totale opere</h5>
+                    </div>
+                    <div className="flip-card-back">
+                      <p
+                        className="total-opere"
+                        style={{ color: "red", fontFamily: "Typewriter" }}
+                      >
+                        {loadedImages.length}
+                      </p>
+                    </div>
                   </div>
-                  <div className="flip-card-back" onClick={togglePlayPause}>
-                    <span
-                      style={{
-                        color: "red",
-                        fontFamily: "Typewriter",
-                        fontSize: "1.5rem",
-                      }}
-                    >
-                      {isPlaying ? "Pausa ◼" : "Play ▶"}
-                    </span>
+                </div>
+
+                <div className="search-card flip-card search-card-expand p-3">
+                  <div className="flip-card-inner">
+                    <div className="flip-card-front">
+                      <h5 className="search-title">Puoi cercare per data</h5>
+                    </div>
+                    <div className="flip-card-back">
+                      <input
+                        type="number"
+                        placeholder="Cerca per anno"
+                        value={searchYear}
+                        onChange={(e) => setSearchYear(e.target.value)}
+                        className="form-small"
+                        min="1975"
+                        max={currentYear}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="search-card flip-card p-3">
+                  <div className="flip-card-inner">
+                    <div className="flip-card-front">
+                      <h5 className="search-title">
+                        Ascolta la nostra playlist
+                      </h5>
+                    </div>
+                    <div className="flip-card-back" onClick={togglePlayPause}>
+                      <span
+                        style={{
+                          color: "red",
+                          fontFamily: "Typewriter",
+                          fontSize: "1.5rem",
+                        }}
+                      >
+                        {isPlaying ? "Pausa ◼" : "Play ▶"}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
