@@ -11,7 +11,7 @@ import { Container, Modal } from "react-bootstrap";
 import CloseIcon from "../../assets/icons/delete.png";
 import ArrowDown from "../../assets/icons/graffitiarrowred.png";
 import videoGraff from "../../assets/graffiti/vid/videowebsite.mp4";
-import BackImg from "../../assets/graffiti/img/prova2.jpg";
+import BackImg from "../../assets/graffiti/img/backimg.jpg";
 import SfondoCarousel from "../../assets/graffiti/img/sfondocarousel.jpg";
 import SfondoGraffSect from "../../assets/graffiti/img/sfondosection.jpg";
 import SfondoGraffSectUp from "../../assets/graffiti/img/sectup.jpg";

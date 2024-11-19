@@ -1,10 +1,9 @@
-.tag-body {
-}
-
 /* HEADER */
 .headerTag {
   padding: 3em;
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .tag-buttons {
