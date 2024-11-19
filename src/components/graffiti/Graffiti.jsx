@@ -1,9 +1,9 @@
 import "../graffiti/Graffiti.css";
 import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
-import "swiper/css/pagination";
+
 import "swiper/css/navigation";
 import GraffMonth from "../../assets/graffiti/img/graffiti_of_the_month.png";
 import GraffSection from "../../assets/graffiti/img/graffitiSection.png";
@@ -336,68 +336,15 @@ const Graffiti = () => {
 
             {/* Campi di ricerca */}
             <div className="search-container my-4">
-              {/* Dropdown per schermi inferiori a 600px */}
-              <div className="dropdown-container d-block d-md-none">
-                <button
-                  className="dropdown-toggle btn btn-dark w-100"
-                  onClick={toggleDropdown}
+              {/* Card visibile su schermi piccoli */}
+              <div className="search-card d-block d-md-none p-3">
+                <h5 className="search-title">Totale opere</h5>
+                <p
+                  className="total-opere"
+                  style={{ color: "red", fontFamily: "Typewriter" }}
                 >
-                  Opzioni di Ricerca
-                </button>
-                {isDropdownOpen && (
-                  <div className="dropdown-cards">
-                    <div className="search-card p-3">
-                      <h5 className="search-title">Puoi cercare per nome</h5>
-                      <input
-                        type="text"
-                        placeholder="Cerca artista"
-                        value={searchArtist}
-                        onChange={(e) => setSearchArtist(e.target.value)}
-                        className="form-small mt-2"
-                      />
-                    </div>
-                    <div className="search-card p-3">
-                      <h5 className="search-title">Totale opere</h5>
-                      <p
-                        className="total-opere"
-                        style={{ color: "red", fontFamily: "Typewriter" }}
-                      >
-                        {loadedImages.length}
-                      </p>
-                    </div>
-                    <div className="search-card p-3">
-                      <h5 className="search-title">Puoi cercare per data</h5>
-                      <input
-                        type="number"
-                        placeholder="Cerca per anno"
-                        value={searchYear}
-                        onChange={(e) => setSearchYear(e.target.value)}
-                        className="form-small mt-2"
-                        min="1975"
-                        max={currentYear}
-                      />
-                    </div>
-                    <div className="search-card p-3">
-                      <h5 className="search-title">
-                        Ascolta la nostra playlist
-                      </h5>
-                      <div
-                        className="playlist-toggle mt-2"
-                        onClick={togglePlayPause}
-                      >
-                        <span
-                          style={{
-                            color: "red",
-                            fontFamily: "Typewriter",
-                            fontSize: "1.5rem",
-                          }}
-                        >
-                          {isPlaying ? "Pausa ◼" : "Play ▶"}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                )}
+                  {loadedImages.length}
+                </p>
               </div>
 
               {/* Card orizzontali per schermi sopra i 600px */}
@@ -477,39 +424,69 @@ const Graffiti = () => {
               </div>
             </div>
 
-            <div className="masonry-grid">
-              {filteredImages.slice(0, visibleCount).map((image, index) => (
-                <div
-                  key={index}
-                  className="masonry-item"
-                  onClick={() => handleImageClick(image)}
+            <div className="graffiti-section">
+              {/* Griglia visibile solo su schermi grandi */}
+              <div className="masonry-grid d-none d-md-block">
+                {filteredImages.slice(0, visibleCount).map((image, index) => (
+                  <div
+                    key={index}
+                    className="masonry-item"
+                    onClick={() => handleImageClick(image)}
+                  >
+                    <img
+                      className="masonry-img"
+                      src={image.immagineUrl}
+                      alt={image.artista || `Immagine ${index + 1}`}
+                    />
+                    <div className="masonry-info">
+                      <span>{image.artista || "Artista Sconosciuto"}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Carousel visibile solo su schermi piccoli */}
+              <div className="d-block d-md-none">
+                <Swiper
+                  slidesPerView={1}
+                  navigation
+                  pagination={{ clickable: true }}
+                  className="mobile-carousel"
+                  modules={[Navigation]}
                 >
-                  <img
-                    className="masonry-img"
-                    src={image.immagineUrl}
-                    alt={image.artista || `Immagine ${index + 1}`}
-                  />
-                  <div className="masonry-info">
-                    <span>{image.artista || "Artista Sconosciuto"}</span>
+                  {filteredImages.map((image, index) => (
+                    <SwiperSlide key={index}>
+                      <div className="image-container">
+                        <img
+                          className="carousel-img"
+                          src={image.immagineUrl}
+                          alt={image.artista || `Immagine ${index + 1}`}
+                        />
+                        <div className="artist-info rounded-pill">
+                          <span>{image.artista || "Artista Sconosciuto"}</span>
+                        </div>
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
+
+              {/* Bottone "Mostra di più" visibile solo con la griglia */}
+              {visibleCount < loadedImages.length && (
+                <div className="text-center d-none d-md-block">
+                  <div onClick={loadMoreImages} className="load-more-container">
+                    <span className="line"></span>
+                    <span className="load-more-text">Mostra di più</span>
+                    <img
+                      src={ArrowDown}
+                      className="arrow-svg"
+                      alt="Carica altre immagini"
+                    />
+                    <span className="line"></span>
                   </div>
                 </div>
-              ))}
+              )}
             </div>
-
-            {visibleCount < loadedImages.length && (
-              <div className="text-center">
-                <div onClick={loadMoreImages} className="load-more-container">
-                  <span className="line"></span>
-                  <span className="load-more-text">Mostra di più</span>
-                  <img
-                    src={ArrowDown}
-                    className="arrow-svg"
-                    alt="Carica altre immagini"
-                  />
-                  <span className="line"></span>
-                </div>
-              </div>
-            )}
           </Container>
         </div>
 
