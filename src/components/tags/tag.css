@@ -1,4 +1,9 @@
 /* HEADER */
+
+.h1-tag {
+  font-family: "SpriteGraffiti", sans-serif;
+}
+
 .headerTag {
   padding: 3em;
   background-size: cover;
@@ -47,7 +52,7 @@
 .video-container-tag {
   position: relative;
   width: 100%;
-  height: 50vh;
+  height: 80vh;
   overflow: hidden;
 }
 
@@ -62,7 +67,7 @@
 }
 
 /* CAROSELLO */
-.imgCarousel-tag {
+.imgCarousel {
   width: 250px !important;
   height: 350px !important;
   object-fit: cover !important;
@@ -85,6 +90,14 @@
   border-radius: 10px;
 }
 
+.mySwiper-tag .imgCarousel-tag {
+  max-width: none;
+  width: 250px;
+  height: 350px;
+  object-fit: cover;
+  border-radius: 30px;
+}
+
 .artist-info-tag {
   position: absolute;
   bottom: 15px;
@@ -96,6 +109,7 @@
 }
 
 /* CONTAINER */
+
 .sfondo-tag-sect-up {
   height: 24vh;
   background-size: cover;
@@ -163,6 +177,7 @@
   max-width: 40px;
   animation: moveArrowHorizontalTag 1s infinite ease-in-out;
   rotate: -82deg;
+  fill: red !important;
 }
 
 @keyframes moveArrowHorizontalTag {
@@ -178,6 +193,7 @@
 }
 
 /* MODALE */
+
 .modal-tag .modal-body {
   background-color: black;
   padding: unset;
@@ -218,7 +234,7 @@
   border: solid 1px black;
 }
 
-/* SFOCONDO MODALE */
+/* SONDO MODALE */
 .modal-open-tag {
   overflow: hidden;
 }
@@ -288,10 +304,213 @@
   border-radius: 3px;
 }
 
+.containerBodyTag,
+.masonry-grid {
+  background-color: black;
+}
+
+.form-small-tag {
+  width: 150px;
+  font-size: 0.85rem;
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  font-family: "SpriteGraffiti", sans-serif;
+}
+
+.form-small-tag::placeholder {
+  color: white;
+}
+
+.form-small-tag:focus {
+  border-color: red;
+  outline: none;
+}
+
+.search-card-tag {
+  background-color: black;
+  border: 2px solid gray;
+  border-radius: 10px;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+  transition: border-color 0.3s;
+}
+
+.search-card-tag:hover {
+  border-color: red;
+}
+
+.search-title-tag {
+  font-family: "SpriteGraffiti", sans-serif;
+  color: white;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.form-small-tag {
+  width: 100%;
+  font-size: 0.85rem;
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  font-family: "SpriteGraffiti", sans-serif;
+  transition: border-color 0.3s;
+}
+
+.form-small-tag::placeholder {
+  color: white;
+}
+
+.form-small-tag:focus {
+  border-color: red;
+  outline: none;
+}
+
+.flip-card-tag {
+  perspective: 1000px;
+  width: 200px;
+  height: 100px;
+  background-color: black;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.flip-card-tag-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  transform-origin: center;
+}
+
+.flip-card-tag:hover .flip-card-tag-inner {
+  transform: rotateY(180deg);
+}
+
+.search-card-tag-expand {
+  transition: width 0.4s ease;
+}
+
+.search-card-tag-expand:hover {
+  width: 250px;
+}
+
+.flip-card-tag-front,
+.flip-card-tag-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: white;
+  background-color: black;
+}
+
+.flip-card-tag-front {
+  background-color: black;
+}
+
+.flip-card-tag-back {
+  background-color: black;
+  transform: rotateY(180deg);
+}
+
+/* MUSICA OVERLAY */
+.music-overlay-tag {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: black;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px solid red;
+  font-family: "SpriteGraffiti", sans-serif;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.music-overlay-tag p {
+  margin: 0;
+  text-align: center;
+  color: white;
+}
+
+.close-overlay-icon-tag {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.player-controls-tag {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.control-icon-tag {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.control-icon-tag img {
+  width: 100%;
+  height: 100%;
+}
+
+.close-overlay-icon img {
+  width: 20px;
+  height: 20px;
+}
+
+.load-more-container-tag {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.line-tag {
+  flex: 1;
+  height: 0.5px;
+  background-color: red;
+  opacity: 0.5;
+  margin: 0 8px;
+}
+
+.load-more-text {
+  color: red;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
   .mobile-carousel-tag .image-container-tag {
     position: relative;
+  }
+  .search-card-tag {
+    border: none;
   }
   .mobile-carousel-tag .swiper-slide {
     height: 100vh;
@@ -308,6 +527,7 @@
   }
 }
 
+/* MOBILE */
 @media (max-width: 480px) {
   .imgCarousel-tag {
     width: 75vw !important;

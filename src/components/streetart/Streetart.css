@@ -1,12 +1,13 @@
-.streetart-body {
-}
-.streetart-buttons {
-  gap: 9rem;
-}
 /* HEADER */
+.h1-streetart {
+  font-family: "SpriteGraffiti", sans-serif;
+}
+
 .headerStreetArt {
   padding: 3em;
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .btn-style-streetart {
@@ -15,6 +16,7 @@
   border: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .btn-style-streetart span {
   display: inline-block;
   transform: scale(2.3);
@@ -49,7 +51,7 @@
 .video-container-streetart {
   position: relative;
   width: 100%;
-  height: 90vh;
+  height: 80vh;
   overflow: hidden;
 }
 
@@ -57,27 +59,19 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 100vw;
-  height: auto;
+  width: 100%;
+  height: 100%;
   transform: translate(-50%, -50%);
+  object-fit: cover;
 }
 
 /* CAROSELLO */
 .imgCarousel-streetart {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 10px;
+  width: 250px !important;
+  height: 350px !important;
+  object-fit: cover !important;
+  border-radius: 30px !important;
   box-shadow: -6px 7px 18px -9px rgba(0, 0, 0, 0.77);
-}
-
-.containerCarousel-streetart h4 {
-  font-family: "SpriteGraffiti", sans-serif;
-  background-size: cover;
-}
-
-.containerCarousel-streetart h4 span {
-  font-family: "SpriteGraffiti-extras", sans-serif;
 }
 
 .containerCarousel-streetart {
@@ -91,9 +85,6 @@
   text-align: center;
 }
 
-.mySwiper-streetart img {
-  border-radius: 10px;
-}
 .mySwiper-streetart .imgCarousel-streetart {
   max-width: none;
   width: 250px;
@@ -117,6 +108,8 @@
 .sfondo-streetart-sect-up {
   height: 24vh;
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .title-streetart {
@@ -126,6 +119,7 @@
 .title-streetart img {
   width: 14em;
 }
+
 .streetart-sect-text {
   color: red;
   font-family: "SpriteGraffiti", sans-serif;
@@ -178,6 +172,7 @@
   max-width: 40px;
   animation: moveArrowHorizontalStreetArt 1s infinite ease-in-out;
   rotate: -82deg;
+  fill: red !important;
 }
 
 @keyframes moveArrowHorizontalStreetArt {
@@ -192,12 +187,13 @@
   }
 }
 
-/* Modale */
+/* MODALE */
 
 .modal-streetart .modal-body {
   background-color: black;
   padding: unset;
 }
+
 .modal-streetart .modal-image-streetart {
   width: 100%;
   height: auto;
@@ -214,10 +210,12 @@
 .opera-modal-streetart p {
   font-family: "SpriteGraffiti", sans-serif;
 }
+
 .opera-modal-streetart span {
   font-family: "Typewriter", sans-serif;
   color: red;
 }
+
 .opera-modal-streetart {
   color: white;
   padding: 5px 10px;
@@ -231,12 +229,12 @@
   border: solid 1px black;
 }
 
-/* sfondo Modale */
-.modal-open {
+/* SFONDO MODALE */
+.modal-open-streetart {
   overflow: hidden;
 }
 
-.modal-open::before {
+.modal-open-streetart::before {
   content: "";
   position: fixed;
   top: 0;
@@ -261,6 +259,7 @@
   border-radius: 10px;
   position: relative;
 }
+
 .masonry-item-streetart:hover {
   transform: scale(1.03);
 }
@@ -271,6 +270,7 @@
   display: block;
   object-fit: cover;
 }
+
 .masonry-item-streetart img:hover {
   cursor: pointer;
 }
@@ -299,13 +299,11 @@
   border-radius: 3px;
 }
 
-/* Sezione con background nero */
 .containerBodyStreetArt,
 .masonry-grid-streetart {
   background-color: black;
 }
 
-/* Stile per i form di ricerca */
 .form-small-streetart {
   width: 150px;
   font-size: 0.85rem;
@@ -317,18 +315,15 @@
   font-family: "SpriteGraffiti", sans-serif;
 }
 
-/* Placeholder bianco */
 .form-small-streetart::placeholder {
   color: white;
 }
 
-/* Cambio colore bordo al clic */
 .form-small-streetart:focus {
   border-color: red;
   outline: none;
 }
 
-/* Stile per le card di ricerca */
 .search-card-streetart {
   background-color: black;
   border: 2px solid gray;
@@ -339,12 +334,10 @@
   transition: border-color 0.3s;
 }
 
-/* Cambia colore bordo al passaggio del mouse */
 .search-card-streetart:hover {
   border-color: red;
 }
 
-/* Stile per i titoli delle card */
 .search-title-streetart {
   font-family: "SpriteGraffiti", sans-serif;
   color: white;
@@ -352,31 +345,6 @@
   margin-bottom: 10px;
 }
 
-/* Stile per i form di ricerca all'interno delle card */
-.form-small-streetart {
-  width: 100%;
-  font-size: 0.85rem;
-  padding: 5px;
-  border: 1px solid gray;
-  border-radius: 5px;
-  background-color: black;
-  color: white;
-  font-family: "SpriteGraffiti", sans-serif;
-  transition: border-color 0.3s;
-}
-
-/* Placeholder bianco */
-.form-small-streetart::placeholder {
-  color: white;
-}
-
-/* Bordo rosso quando il form è in focus */
-.form-small-streetart:focus {
-  border-color: red;
-  outline: none;
-}
-
-/* Stile per tutte le card */
 .flip-card-streetart {
   perspective: 1000px;
   width: 200px;
@@ -386,7 +354,7 @@
   overflow: hidden;
 }
 
-.flip-card-inner-streetart {
+.flip-card-streetart-inner {
   position: relative;
   width: 100%;
   height: 100%;
@@ -396,22 +364,20 @@
   transform-origin: center;
 }
 
-/* Effetto flip */
-.flip-card-streetart:hover .flip-card-inner-streetart {
+.flip-card-streetart:hover .flip-card-streetart-inner {
   transform: rotateY(180deg);
 }
 
-/* Solo le card di ricerca si espandono */
-.search-card-expand-streetart {
+.search-card-streetart-expand {
   transition: width 0.4s ease;
 }
 
-.search-card-expand-streetart:hover {
+.search-card-streetart-expand:hover {
   width: 250px;
 }
 
-.flip-card-front-streetart,
-.flip-card-back-streetart {
+.flip-card-streetart-front,
+.flip-card-streetart-back {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -424,16 +390,17 @@
   background-color: black;
 }
 
-.flip-card-front-streetart {
+.flip-card-streetart-front {
   background-color: black;
 }
 
-.flip-card-back-streetart {
+.flip-card-streetart-back {
   background-color: black;
   transform: rotateY(180deg);
 }
 
-.spotify-overlay-streetart {
+/* MUSICA OVERLAY */
+.music-overlay-streetart {
   position: fixed;
   top: 10px;
   right: 10px;
@@ -450,7 +417,7 @@
   z-index: 1000;
 }
 
-.spotify-overlay-streetart p {
+.music-overlay-streetart p {
   margin: 0;
   text-align: center;
   color: white;
@@ -472,7 +439,6 @@
   margin-top: 10px;
 }
 
-/* Stile per le icone di controllo */
 .control-icon-streetart {
   cursor: pointer;
   width: 20px;
@@ -492,9 +458,62 @@
   height: 20px;
 }
 
-.h1-streetart {
-  font-family: "SpriteGraffiti", sans-serif;
+.load-more-container-streetart {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
-.load-more-text {
-  font-family: "Typewriter", sans-serif;
+
+.line-streetart {
+  flex: 1;
+  height: 0.5px;
+  background-color: red;
+  opacity: 0.5;
+  margin: 0 8px;
+}
+
+.load-more-text-streetart {
+  color: red;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .mobile-carousel-streetart .image-container-streetart {
+    position: relative;
+  }
+  .search-card-streetart {
+    border: none;
+  }
+  .mobile-carousel-streetart .swiper-slide {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .mobile-carousel-streetart .carousel-img-streetart {
+    border-radius: 10px;
+  }
+  .mobile-carousel-streetart .swiper-button-prev,
+  .mobile-carousel-streetart .swiper-button-next {
+    display: none !important;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .imgCarousel-streetart {
+    width: 75vw !important;
+    height: 350px !important;
+    border-radius: 10px !important;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+  .imgCarousel-streetart {
+    width: 50vw !important;
+    height: 350px !important;
+    border-radius: 15px !important;
+  }
 }

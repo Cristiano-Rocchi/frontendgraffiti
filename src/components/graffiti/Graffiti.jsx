@@ -543,7 +543,7 @@ const Graffiti = () => {
         </Modal>
 
         {showPlayerOverlay && (
-          <div className="spotify-overlay">
+          <div className="music-overlay">
             <span className="close-overlay-icon" onClick={closePlayerOverlay}>
               <img src={CloseOverlayIcon} alt="Chiudi" />
             </span>

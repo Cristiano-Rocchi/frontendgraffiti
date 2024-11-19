@@ -1,4 +1,9 @@
 /* HEADER */
+
+.h1-graff {
+  font-family: "SpriteGraffiti", sans-serif;
+}
+
 .headerGraffiti {
   padding: 3em;
   background-size: cover;
@@ -12,6 +17,7 @@
   border: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .btn-style span {
   display: inline-block;
   transform: scale(2.3);
@@ -46,7 +52,7 @@
 .video-container {
   position: relative;
   width: 100%;
-  height: 50vh;
+  height: 90vh;
   overflow: hidden;
 }
 
@@ -62,20 +68,11 @@
 
 /* CAROSELLO */
 .imgCarousel {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  border-radius: 10px;
+  width: 250px !important;
+  height: 350px !important;
+  object-fit: cover !important;
+  border-radius: 30px !important;
   box-shadow: -6px 7px 18px -9px rgba(0, 0, 0, 0.77);
-}
-
-.containerCarousel h4 {
-  font-family: "SpriteGraffiti", sans-serif;
-  background-size: cover;
-}
-
-.containerCarousel h4 span {
-  font-family: "SpriteGraffiti-extras", sans-serif;
 }
 
 .containerCarousel {
@@ -92,6 +89,7 @@
 .mySwiper img {
   border-radius: 10px;
 }
+
 .mySwiper .imgCarousel {
   max-width: none;
   width: 250px;
@@ -126,6 +124,7 @@
 .title-graffiti img {
   width: 14em;
 }
+
 .graff-sect-text {
   color: red;
   font-family: "SpriteGraffiti", sans-serif;
@@ -199,6 +198,7 @@
   background-color: black;
   padding: unset;
 }
+
 .modal-graffiti .modal-image {
   width: 100%;
   height: auto;
@@ -215,10 +215,12 @@
 .opera-modal p {
   font-family: "SpriteGraffiti", sans-serif;
 }
+
 .opera-modal span {
   font-family: "Typewriter", sans-serif;
   color: red;
 }
+
 .opera-modal {
   color: white;
   padding: 5px 10px;
@@ -232,7 +234,7 @@
   border: solid 1px black;
 }
 
-/* sfondo Modale */
+/* SECONDO MODALE */
 .modal-open {
   overflow: hidden;
 }
@@ -262,6 +264,7 @@
   border-radius: 10px;
   position: relative;
 }
+
 .masonry-item:hover {
   transform: scale(1.03);
 }
@@ -272,6 +275,7 @@
   display: block;
   object-fit: cover;
 }
+
 .masonry-item img:hover {
   cursor: pointer;
 }
@@ -300,36 +304,31 @@
   border-radius: 3px;
 }
 
-/* Sezione con background nero */
 .containerBodyGraffiti,
 .masonry-grid {
   background-color: black;
 }
 
-/* Stile per i form di ricerca */
 .form-small {
   width: 150px;
   font-size: 0.85rem;
   padding: 5px;
-  border: 1px solid gray; /* Bordo grigio */
+  border: 1px solid gray;
   border-radius: 5px;
-  background-color: black; /* Sfondo nero */
-  color: white; /* Testo bianco */
-  font-family: "SpriteGraffiti", sans-serif; /* Font personalizzato */
+  background-color: black;
+  color: white;
+  font-family: "SpriteGraffiti", sans-serif;
 }
 
-/* Placeholder bianco */
 .form-small::placeholder {
   color: white;
 }
 
-/* Cambio colore bordo al clic */
 .form-small:focus {
   border-color: red;
   outline: none;
 }
 
-/* Stile per le card di ricerca */
 .search-card {
   background-color: black;
   border: 2px solid gray;
@@ -340,12 +339,10 @@
   transition: border-color 0.3s;
 }
 
-/* Cambia colore bordo al passaggio del mouse */
 .search-card:hover {
   border-color: red;
 }
 
-/* Stile per i titoli delle card */
 .search-title {
   font-family: "SpriteGraffiti", sans-serif;
   color: white;
@@ -353,7 +350,6 @@
   margin-bottom: 10px;
 }
 
-/* Stile per i form di ricerca all'interno delle card */
 .form-small {
   width: 100%;
   font-size: 0.85rem;
@@ -366,18 +362,15 @@
   transition: border-color 0.3s;
 }
 
-/* Placeholder bianco */
 .form-small::placeholder {
   color: white;
 }
 
-/* Bordo rosso quando il form è in focus */
 .form-small:focus {
   border-color: red;
   outline: none;
 }
 
-/* Stile per tutte le card */
 .flip-card {
   perspective: 1000px;
   width: 200px;
@@ -397,18 +390,16 @@
   transform-origin: center;
 }
 
-/* Effetto flip */
 .flip-card:hover .flip-card-inner {
   transform: rotateY(180deg);
 }
 
-/* Solo le card di ricerca si espandono */
 .search-card-expand {
   transition: width 0.4s ease;
 }
 
 .search-card-expand:hover {
-  width: 250px; /* Larghezza aumentata solo per le card di ricerca */
+  width: 250px;
 }
 
 .flip-card-front,
@@ -434,7 +425,8 @@
   transform: rotateY(180deg);
 }
 
-.spotify-overlay {
+/* MUSICA OVERLAY */
+.music-overlay {
   position: fixed;
   top: 10px;
   right: 10px;
@@ -451,7 +443,7 @@
   z-index: 1000;
 }
 
-.spotify-overlay p {
+.music-overlay p {
   margin: 0;
   text-align: center;
   color: white;
@@ -473,7 +465,6 @@
   margin-top: 10px;
 }
 
-/* Stile per le icone di controllo */
 .control-icon {
   cursor: pointer;
   width: 20px;
@@ -491,10 +482,6 @@
 .close-overlay-icon img {
   width: 20px;
   height: 20px;
-}
-
-.h1-graff {
-  font-family: "SpriteGraffiti", sans-serif;
 }
 
 .load-more-container {
@@ -517,24 +504,17 @@
   margin-right: 8px;
 }
 
-.imgCarousel {
-  width: 250px !important;
-  height: 350px !important;
-  object-fit: cover !important;
-  border-radius: 30px !important;
-}
-
 /* RESPONSIVE*/
 @media (max-width: 768px) {
   .mobile-carousel .image-container {
-    position: relative; /* Assicura il posizionamento assoluto degli elementi figli */
+    position: relative;
   }
   .search-card {
     border: none;
   }
 
   .mobile-carousel .swiper-slide {
-    height: 100vh; /* Altezza schermo intero */
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -545,7 +525,7 @@
 
   .mobile-carousel .swiper-button-prev,
   .mobile-carousel .swiper-button-next {
-    display: none !important; /* Forza la rimozione delle frecce */
+    display: none !important;
   }
 }
 

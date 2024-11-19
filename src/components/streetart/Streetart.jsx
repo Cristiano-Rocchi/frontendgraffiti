@@ -1,7 +1,7 @@
 import "../streetart/Streetart.css";
 import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -14,7 +14,7 @@ import videoStreetArt from "../../assets/graffiti/vid/videowebsite.mp4";
 import BackImg from "../../assets/streetart/img/backimg.jpg";
 import SfondoCarousel from "../../assets/graffiti/img/sfondocarousel.jpg";
 import SfondoGraffSect from "../../assets/graffiti/img/sfondosection.jpg";
-import SfondoGraffSectUp from "../../assets/streetart/img/sectup.jpg";
+import SfondoStreetArtSectUp from "../../assets/tag/img/sectup.jpg";
 import Track1 from "../../assets/music/The Notorious B.I.G. - Everyday Struggle (Official Audio) (152kbit_Opus).opus";
 import Track2 from "../../assets/music/The Notorious B.I.G. - Friend of Mine (Official Audio) (128kbit_AAC).m4a";
 import Track3 from "../../assets/music/The Notorious B.I.G. - Gimme the Loot (Official Audio) (128kbit_AAC).m4a";
@@ -199,9 +199,16 @@ const Streetart = () => {
             backgroundImage: `url(${BackImg})`,
           }}
         >
-          <h1 className="h1-streetart">THE STREET IS ART</h1>
+          <h1 className="h1-streetart">
+            The right destination <br /> for your street art
+          </h1>
           <h3 className="mt-5">Upload a photo or get inspired</h3>
-          <div className="d-flex justify-content-center mt-5 streetart-buttons">
+          <div
+            style={{
+              gap: "9rem",
+            }}
+            className="d-flex justify-content-center mt-5"
+          >
             <button className="rounded-pill px-4 py-2 btn-style-streetart">
               <span>
                 <Link
@@ -258,6 +265,26 @@ const Streetart = () => {
             speed={3000}
             modules={[Autoplay]}
             className="mySwiper-streetart pb-3 pt-3"
+            breakpoints={{
+              0: {
+                slidesPerView: 1,
+              },
+              480: {
+                slidesPerView: 2,
+              },
+              768: {
+                slidesPerView: 3,
+              },
+              910: {
+                slidesPerView: 4,
+              },
+              1165: {
+                slidesPerView: 5,
+              },
+              1500: {
+                slidesPerView: 6,
+              },
+            }}
           >
             {randomImages.slice(0, 12).map((image, index) => (
               <SwiperSlide key={index}>
@@ -266,12 +293,6 @@ const Streetart = () => {
                     className="imgCarousel-streetart"
                     src={image.immagineUrl}
                     alt={image.artista || `Immagine ${index + 1}`}
-                    style={{
-                      width: "250px",
-                      height: "350px",
-                      objectFit: "cover",
-                      borderRadius: "30px",
-                    }}
                   />
                   <div className="artist-info-streetart rounded-pill">
                     <span>{image.artista || "Artista Sconosciuto"}</span>
@@ -285,140 +306,190 @@ const Streetart = () => {
         <div
           className="sfondo-streetart-sect-up"
           style={{
-            backgroundImage: `url(${SfondoGraffSectUp})`,
+            backgroundImage: `url(${SfondoStreetArtSectUp})`,
           }}
         ></div>
 
-        <Container
-          ref={containerRef}
-          className="containerBodyStreetArt text-center"
-        >
-          <div
-            className="title-streetart"
-            style={{
-              backgroundImage: `url(${SfondoGraffSect})`,
-            }}
+        <div className="streetart-sect-body">
+          <Container
+            ref={containerRef}
+            className="containerBodyStreetArt text-center"
           >
-            <img src={StreetArtSection} alt="street art section" />
-          </div>
+            <div
+              className="title-streetart"
+              style={{
+                backgroundImage: `url(${SfondoGraffSect})`,
+              }}
+            >
+              <img src={StreetArtSection} alt="" />
+            </div>
 
-          <div className="d-flex bg-black justify-content-between streetart-sect-text ">
-            <h5 className="ms-4">
-              Sfoglia tra <br /> le migliori opere
-            </h5>
-            <h5 className="me-4">
-              Clicca sull'immagine <br /> e vedi tutti i dettagli
-            </h5>
-          </div>
+            <div className="d-flex bg-black justify-content-between streetart-sect-text ">
+              <h5 className="ms-4">
+                Sfoglia tra <br /> le migliori opere
+              </h5>
+              <h5 className="me-4">
+                Clicca sull'immagine <br /> e vedi tutti i dettagli
+              </h5>
+            </div>
 
-          {/* Campi di ricerca */}
-          <div className="search-container my-4 d-flex justify-content-center gap-4">
-            <div className="search-card flip-card search-card-expand p-3">
-              <div className="flip-card-inner">
-                <div className="flip-card-front">
-                  <h5 className="search-title">Puoi cercare per nome</h5>
+            <div className="search-container my-4">
+              <div className="search-card-streetart d-block d-md-none p-3">
+                <h5 className="search-title-streetart">Totale opere</h5>
+                <p
+                  className="total-opere"
+                  style={{ color: "red", fontFamily: "Typewriter" }}
+                >
+                  {loadedImages.length}
+                </p>
+              </div>
+
+              <div className="search-cards-streetart d-none d-md-flex justify-content-center gap-4">
+                <div className="search-card-streetart flip-card-streetart search-card-streetart-expand p-3">
+                  <div className="flip-card-streetart-inner">
+                    <div className="flip-card-streetart-front">
+                      <h5 className="search-title">Puoi cercare per nome</h5>
+                    </div>
+                    <div className="flip-card-streetart-back">
+                      <input
+                        type="text"
+                        placeholder="Cerca artista"
+                        value={searchArtist}
+                        onChange={(e) => setSearchArtist(e.target.value)}
+                        className="form-small-streetart"
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div className="flip-card-back">
-                  <input
-                    type="text"
-                    placeholder="Cerca artista"
-                    value={searchArtist}
-                    onChange={(e) => setSearchArtist(e.target.value)}
-                    className="form-small"
-                  />
+
+                <div className="search-card-streetart flip-card-streetart p-3">
+                  <div className="flip-card-streetart-inner">
+                    <div className="flip-card-streetart-front">
+                      <h5 className="search-title">Totale opere</h5>
+                    </div>
+                    <div className="flip-card-streetart-back">
+                      <p
+                        className="total-opere"
+                        style={{ color: "red", fontFamily: "Typewriter" }}
+                      >
+                        {loadedImages.length}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="search-card-streetart flip-card-streetart search-card-streetart-expand p-3">
+                  <div className="flip-card-streetart-inner">
+                    <div className="flip-card-streetart-front">
+                      <h5 className="search-title">Puoi cercare per data</h5>
+                    </div>
+                    <div className="flip-card-streetart-back">
+                      <input
+                        type="number"
+                        placeholder="Cerca per anno"
+                        value={searchYear}
+                        onChange={(e) => setSearchYear(e.target.value)}
+                        className="form-small-streetart"
+                        min="1975"
+                        max={currentYear}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="search-card-streetart flip-card-streetart p-3">
+                  <div className="flip-card-streetart-inner">
+                    <div className="flip-card-streetart-front">
+                      <h5 className="search-title">
+                        Ascolta la nostra playlist
+                      </h5>
+                    </div>
+                    <div
+                      className="flip-card-streetart-back"
+                      onClick={togglePlayPause}
+                    >
+                      <span
+                        style={{
+                          color: "red",
+                          fontFamily: "Typewriter",
+                          fontSize: "1.5rem",
+                        }}
+                      >
+                        {isPlaying ? "Pausa ◼" : "Play ▶"}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="search-card flip-card p-3">
-              <div className="flip-card-inner">
-                <div className="flip-card-front">
-                  <h5 className="search-title">Totale opere</h5>
-                </div>
-                <div className="flip-card-back">
-                  <p
-                    className="total-opere"
-                    style={{ color: "red", fontFamily: "Typewriter" }}
+            <div className="streetart-section">
+              <div className="masonry-grid-streetart d-none d-md-block">
+                {filteredImages.slice(0, visibleCount).map((image, index) => (
+                  <div
+                    key={index}
+                    className="masonry-item-streetart"
+                    onClick={() => handleImageClick(image)}
                   >
-                    {loadedImages.length}
-                  </p>
-                </div>
+                    <img
+                      className="masonry-img-streetart"
+                      src={image.immagineUrl}
+                      alt={image.artista || `Immagine ${index + 1}`}
+                    />
+                    <div className="masonry-info-streetart">
+                      <span>{image.artista || "Artista Sconosciuto"}</span>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
 
-            <div className="search-card flip-card search-card-expand p-3">
-              <div className="flip-card-inner">
-                <div className="flip-card-front">
-                  <h5 className="search-title">Puoi cercare per data</h5>
-                </div>
-                <div className="flip-card-back">
-                  <input
-                    type="number"
-                    placeholder="Cerca per anno"
-                    value={searchYear}
-                    onChange={(e) => setSearchYear(e.target.value)}
-                    className="form-small"
-                    min="1975"
-                    max={currentYear}
-                  />
-                </div>
+              <div className="d-block d-md-none">
+                <Swiper
+                  slidesPerView={1}
+                  navigation
+                  pagination={{ clickable: true }}
+                  className="mobile-carousel-streetart"
+                  modules={[Navigation]}
+                >
+                  {filteredImages.map((image, index) => (
+                    <SwiperSlide key={index}>
+                      <div className="image-container-streetart">
+                        <img
+                          className="carousel-img-streetart"
+                          src={image.immagineUrl}
+                          alt={image.artista || `Immagine ${index + 1}`}
+                        />
+                        <div className="artist-info-streetart rounded-pill">
+                          <span>{image.artista || "Artista Sconosciuto"}</span>
+                        </div>
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
               </div>
-            </div>
 
-            <div className="search-card flip-card p-3">
-              <div className="flip-card-inner">
-                <div className="flip-card-front">
-                  <h5 className="search-title">Ascolta la nostra playlist</h5>
-                </div>
-                <div className="flip-card-back" onClick={togglePlayPause}>
-                  <span
-                    style={{
-                      color: "red",
-                      fontFamily: "Typewriter",
-                      fontSize: "1.5rem",
-                    }}
+              {visibleCount < loadedImages.length && (
+                <div className="text-center d-none d-md-block">
+                  <div
+                    onClick={loadMoreImages}
+                    className="load-more-container-streetart"
                   >
-                    {isPlaying ? "Pausa ◼" : "Play ▶"}
-                  </span>
+                    <span className="line-streetart"></span>
+                    <span className="load-more-text-streetart">
+                      Mostra di più
+                    </span>
+                    <img
+                      src={ArrowDown}
+                      className="arrow-svg-streetart"
+                      alt="Carica altre immagini"
+                    />
+                    <span className="line-streetart"></span>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
-          </div>
-
-          <div className="masonry-grid-streetart">
-            {filteredImages.slice(0, visibleCount).map((image, index) => (
-              <div
-                key={index}
-                className="masonry-item-streetart"
-                onClick={() => handleImageClick(image)}
-              >
-                <img
-                  className="masonry-img-streetart"
-                  src={image.immagineUrl}
-                  alt={image.artista || `Immagine ${index + 1}`}
-                />
-                <div className="masonry-info-streetart">
-                  <span>{image.artista || "Artista Sconosciuto"}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {visibleCount < loadedImages.length && (
-            <div className="text-center">
-              <div onClick={loadMoreImages} className="load-more-container">
-                <span className="line"></span>
-                <span className="load-more-text">Mostra di più</span>
-                <img
-                  src={ArrowDown}
-                  className="arrow-svg"
-                  alt="Carica altre immagini"
-                />
-                <span className="line"></span>
-              </div>
-            </div>
-          )}
-        </Container>
+          </Container>
+        </div>
 
         <Modal
           className="modal-streetart"
@@ -440,21 +511,29 @@ const Streetart = () => {
                   </div>
                   <div className="opera-modal-streetart mt-2">
                     <p>Stato:</p>
-                    <span>{selectedStatoOpera}</span>
+                    <span> {selectedStatoOpera}</span>
                   </div>
                   <div className="opera-modal-streetart mt-2">
                     <p>Anno:</p>
-                    <span>{selectedAnno}</span>
+                    <span> {selectedAnno}</span>
                   </div>
                   <div className="opera-modal-streetart mt-2">
                     <p>Luogo:</p>
-                    <span>{selectedLuogo}</span>
+                    <span>
+                      {selectedLuogo.charAt(0).toUpperCase() +
+                        selectedLuogo.slice(1).toLowerCase()}
+                    </span>
                   </div>
                 </div>
               </>
             )}
           </Modal.Body>
-          <Modal.Footer style={{ backgroundColor: "black", border: "none" }}>
+          <Modal.Footer
+            style={{
+              backgroundColor: "black",
+              border: "none",
+            }}
+          >
             <img
               src={CloseIcon}
               alt="Close"
@@ -466,7 +545,7 @@ const Streetart = () => {
         </Modal>
 
         {showPlayerOverlay && (
-          <div className="spotify-overlay-streetart">
+          <div className="music-overlay-streetart">
             <span
               className="close-overlay-icon-streetart"
               onClick={closePlayerOverlay}
@@ -474,9 +553,13 @@ const Streetart = () => {
               <img src={CloseOverlayIcon} alt="Chiudi" />
             </span>
             <p>
-              <span style={{ color: "red" }}>
+              <span
+                style={{
+                  color: "red",
+                }}
+              >
                 Stai ascoltando: <br />
-              </span>
+              </span>{" "}
               {trackNames[currentTrackIndex]}
             </p>
             <div className="player-controls-streetart">

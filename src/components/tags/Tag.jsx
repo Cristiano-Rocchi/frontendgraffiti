@@ -27,7 +27,7 @@ import NextIcon from "../../assets/icons/next.png";
 import PrevIcon from "../../assets/icons/backward.png";
 import CloseOverlayIcon from "../../assets/icons/delete.png";
 
-const Streetart = () => {
+const Tag = () => {
   const [loadedImages, setLoadedImages] = useState([]);
   const [randomImages, setRandomImages] = useState([]);
   const [visibleCount, setVisibleCount] = useState(20);
@@ -328,8 +328,8 @@ const Streetart = () => {
             </div>
 
             <div className="search-container my-4">
-              <div className="search-card d-block d-md-none p-3">
-                <h5 className="search-title">Totale opere</h5>
+              <div className="search-card-tag d-block d-md-none p-3">
+                <h5 className="search-title-tag">Totale opere</h5>
                 <p
                   className="total-opere"
                   style={{ color: "red", fontFamily: "Typewriter" }}
@@ -338,30 +338,30 @@ const Streetart = () => {
                 </p>
               </div>
 
-              <div className="search-cards d-none d-md-flex justify-content-center gap-4">
-                <div className="search-card flip-card search-card-expand p-3">
-                  <div className="flip-card-inner">
-                    <div className="flip-card-front">
+              <div className="search-cards-tag d-none d-md-flex justify-content-center gap-4">
+                <div className="search-card-tag flip-card-tag search-card-tag-expand p-3">
+                  <div className="flip-card-tag-inner">
+                    <div className="flip-card-tag-front">
                       <h5 className="search-title">Puoi cercare per nome</h5>
                     </div>
-                    <div className="flip-card-back">
+                    <div className="flip-card-tag-back">
                       <input
                         type="text"
                         placeholder="Cerca artista"
                         value={searchArtist}
                         onChange={(e) => setSearchArtist(e.target.value)}
-                        className="form-small"
+                        className="form-small-tag"
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="search-card flip-card p-3">
-                  <div className="flip-card-inner">
-                    <div className="flip-card-front">
+                <div className="search-card-tag flip-card-tag p-3">
+                  <div className="flip-card-tag-inner">
+                    <div className="flip-card-tag-front">
                       <h5 className="search-title">Totale opere</h5>
                     </div>
-                    <div className="flip-card-back">
+                    <div className="flip-card-tag-back">
                       <p
                         className="total-opere"
                         style={{ color: "red", fontFamily: "Typewriter" }}
@@ -372,18 +372,18 @@ const Streetart = () => {
                   </div>
                 </div>
 
-                <div className="search-card flip-card search-card-expand p-3">
-                  <div className="flip-card-inner">
-                    <div className="flip-card-front">
+                <div className="search-card-tag flip-card-tag search-card-tag-expand p-3">
+                  <div className="flip-card-tag-inner">
+                    <div className="flip-card-tag-front">
                       <h5 className="search-title">Puoi cercare per data</h5>
                     </div>
-                    <div className="flip-card-back">
+                    <div className="flip-card-tag-back">
                       <input
                         type="number"
                         placeholder="Cerca per anno"
                         value={searchYear}
                         onChange={(e) => setSearchYear(e.target.value)}
-                        className="form-small"
+                        className="form-small-tag"
                         min="1975"
                         max={currentYear}
                       />
@@ -391,14 +391,17 @@ const Streetart = () => {
                   </div>
                 </div>
 
-                <div className="search-card flip-card p-3">
-                  <div className="flip-card-inner">
-                    <div className="flip-card-front">
+                <div className="search-card-tag flip-card-tag p-3">
+                  <div className="flip-card-tag-inner">
+                    <div className="flip-card-tag-front">
                       <h5 className="search-title">
                         Ascolta la nostra playlist
                       </h5>
                     </div>
-                    <div className="flip-card-back" onClick={togglePlayPause}>
+                    <div
+                      className="flip-card-tag-back"
+                      onClick={togglePlayPause}
+                    >
                       <span
                         style={{
                           color: "red",
@@ -465,8 +468,8 @@ const Streetart = () => {
                     onClick={loadMoreImages}
                     className="load-more-container-tag"
                   >
-                    <span className="line"></span>
-                    <span className="load-more-text">Mostra di più</span>
+                    <span className="line-tag"></span>
+                    <span className="load-more-text-tag">Mostra di più</span>
                     <img
                       src={ArrowDown}
                       className="arrow-svg-tag"
@@ -534,7 +537,7 @@ const Streetart = () => {
         </Modal>
 
         {showPlayerOverlay && (
-          <div className="spotify-overlay-tag">
+          <div className="music-overlay-tag">
             <span
               className="close-overlay-icon-tag"
               onClick={closePlayerOverlay}
@@ -578,4 +581,4 @@ const Streetart = () => {
   );
 };
 
-export default Streetart;
+export default Tag;
