@@ -1,20 +1,20 @@
-import "../streetart/Streetart.css";
+import "../tags/tag.css";
 import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import StreetArtMonth from "../../assets/tag/img/tagmonth.png";
-import StreetArtSection from "../../assets/tag/img/tagsect.png";
+import TagMonth from "../../assets/tag/img/tagmonth.png";
+import TagSection from "../../assets/tag/img/tagsect.png";
 import { Container, Modal } from "react-bootstrap";
 import CloseIcon from "../../assets/icons/delete.png";
 import ArrowDown from "../../assets/icons/graffitiarrowred.png";
-import videoStreetArt from "../../assets/tag/video/videotag.mp4";
+import videotag from "../../assets/tag/video/videotag.mp4";
 import BackImg from "../../assets/tag/img/backimg.jpg";
 import SfondoCarousel from "../../assets/graffiti/img/sfondocarousel.jpg";
 import SfondoGraffSect from "../../assets/graffiti/img/sfondosection.jpg";
-import SfondoGraffSectUp from "../../assets/tag/img/sectup.jpg";
+import SfondoTagSectUp from "../../assets/tag/img/sectup.jpg";
 import Track1 from "../../assets/music/The Notorious B.I.G. - Everyday Struggle (Official Audio) (152kbit_Opus).opus";
 import Track2 from "../../assets/music/The Notorious B.I.G. - Friend of Mine (Official Audio) (128kbit_AAC).m4a";
 import Track3 from "../../assets/music/The Notorious B.I.G. - Gimme the Loot (Official Audio) (128kbit_AAC).m4a";
@@ -43,6 +43,7 @@ const Streetart = () => {
   const [showPlayerOverlay, setShowPlayerOverlay] = useState(false);
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const tracks = [Track1, Track2, Track3];
   const trackNames = [
@@ -188,18 +189,25 @@ const Streetart = () => {
   });
 
   return (
-    <div className="streetart-body">
+    <div className="tag-body">
       <>
         <div
-          className="headerStreetArt text-center"
+          className="headerTag text-center"
           style={{
             backgroundImage: `url(${BackImg})`,
           }}
         >
-          <h1 className="h1-streetart">TAG YOUR LIFE</h1>
+          <h1 className="h1-tag">
+            The right destination <br /> for your tags
+          </h1>
           <h3 className="mt-5">Upload a photo or get inspired</h3>
-          <div className="d-flex justify-content-center mt-5 streetart-buttons">
-            <button className="rounded-pill px-4 py-2 btn-style-streetart">
+          <div
+            style={{
+              gap: "9rem",
+            }}
+            className="d-flex justify-content-center mt-5"
+          >
+            <button className="rounded-pill px-4 py-2 btn-style-tag">
               <span>
                 <Link
                   style={{ color: "black", textDecoration: "none" }}
@@ -210,7 +218,7 @@ const Streetart = () => {
               </span>
             </button>
             <button
-              className="rounded-pill px-4 py-2 btn-style-streetart"
+              className="rounded-pill px-4 py-2 btn-style-tag"
               onClick={handleGetInspiredClick}
             >
               <span>GET INSPIRED</span>
@@ -218,30 +226,26 @@ const Streetart = () => {
           </div>
         </div>
 
-        <div className="video-container-streetart">
+        <div className="video-container-tag">
           <video
             autoPlay
             muted
             loop
             playsInline
-            className="background-video-streetart"
+            className="background-video-tag"
           >
-            <source src={videoStreetArt} type="video/mp4" />
+            <source src={videotag} type="video/mp4" />
             Il tuo browser non supporta il formato video.
           </video>
         </div>
 
         <div
-          className="containerCarousel-streetart"
+          className="containerCarousel-tag"
           style={{
             backgroundImage: `url(${SfondoCarousel})`,
           }}
         >
-          <img
-            src={StreetArtMonth}
-            alt="street art of the month"
-            className="streetArtMonth"
-          />
+          <img src={TagMonth} alt="tag of the month" className="tagMonth" />
 
           <Swiper
             slidesPerView={6}
@@ -254,23 +258,37 @@ const Streetart = () => {
             }}
             speed={3000}
             modules={[Autoplay]}
-            className="mySwiper-streetart pb-3 pt-3"
+            className="mySwiper-tag pb-3 pt-3"
+            breakpoints={{
+              0: {
+                slidesPerView: 1,
+              },
+              480: {
+                slidesPerView: 2,
+              },
+              768: {
+                slidesPerView: 3,
+              },
+              910: {
+                slidesPerView: 4,
+              },
+              1165: {
+                slidesPerView: 5,
+              },
+              1500: {
+                slidesPerView: 6,
+              },
+            }}
           >
             {randomImages.slice(0, 12).map((image, index) => (
               <SwiperSlide key={index}>
-                <div className="image-container-streetart">
+                <div className="image-container-tag">
                   <img
-                    className="imgCarousel-streetart"
+                    className="imgCarousel-tag"
                     src={image.immagineUrl}
                     alt={image.artista || `Immagine ${index + 1}`}
-                    style={{
-                      width: "250px",
-                      height: "350px",
-                      objectFit: "cover",
-                      borderRadius: "30px",
-                    }}
                   />
-                  <div className="artist-info-streetart rounded-pill">
+                  <div className="artist-info-tag rounded-pill">
                     <span>{image.artista || "Artista Sconosciuto"}</span>
                   </div>
                 </div>
@@ -280,145 +298,190 @@ const Streetart = () => {
         </div>
 
         <div
-          className="sfondo-streetart-sect-up"
+          className="sfondo-tag-sect-up"
           style={{
-            backgroundImage: `url(${SfondoGraffSectUp})`,
+            backgroundImage: `url(${SfondoTagSectUp})`,
           }}
         ></div>
 
-        <Container
-          ref={containerRef}
-          className="containerBodyStreetArt text-center"
-        >
-          <div
-            className="title-streetart"
-            style={{
-              backgroundImage: `url(${SfondoGraffSect})`,
-            }}
+        <div className="tag-sect-body">
+          <Container
+            ref={containerRef}
+            className="containerBodyTag text-center"
           >
-            <img src={StreetArtSection} alt="street art section" />
-          </div>
+            <div
+              className="title-tag"
+              style={{
+                backgroundImage: `url(${SfondoGraffSect})`,
+              }}
+            >
+              <img src={TagSection} alt="" />
+            </div>
 
-          <div className="d-flex bg-black justify-content-between streetart-sect-text ">
-            <h5 className="ms-4">
-              Sfoglia tra <br /> le migliori opere
-            </h5>
-            <h5 className="me-4">
-              Clicca sull'immagine <br /> e vedi tutti i dettagli
-            </h5>
-          </div>
+            <div className="d-flex bg-black justify-content-between tag-sect-text ">
+              <h5 className="ms-4">
+                Sfoglia tra <br /> le migliori opere
+              </h5>
+              <h5 className="me-4">
+                Clicca sull'immagine <br /> e vedi tutti i dettagli
+              </h5>
+            </div>
 
-          {/* Campi di ricerca */}
-          <div className="search-container my-4 d-flex justify-content-center gap-4">
-            <div className="search-card flip-card search-card-expand p-3">
-              <div className="flip-card-inner">
-                <div className="flip-card-front">
-                  <h5 className="search-title">Puoi cercare per nome</h5>
+            <div className="search-container my-4">
+              <div className="search-card d-block d-md-none p-3">
+                <h5 className="search-title">Totale opere</h5>
+                <p
+                  className="total-opere"
+                  style={{ color: "red", fontFamily: "Typewriter" }}
+                >
+                  {loadedImages.length}
+                </p>
+              </div>
+
+              <div className="search-cards d-none d-md-flex justify-content-center gap-4">
+                <div className="search-card flip-card search-card-expand p-3">
+                  <div className="flip-card-inner">
+                    <div className="flip-card-front">
+                      <h5 className="search-title">Puoi cercare per nome</h5>
+                    </div>
+                    <div className="flip-card-back">
+                      <input
+                        type="text"
+                        placeholder="Cerca artista"
+                        value={searchArtist}
+                        onChange={(e) => setSearchArtist(e.target.value)}
+                        className="form-small"
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div className="flip-card-back">
-                  <input
-                    type="text"
-                    placeholder="Cerca artista"
-                    value={searchArtist}
-                    onChange={(e) => setSearchArtist(e.target.value)}
-                    className="form-small"
-                  />
+
+                <div className="search-card flip-card p-3">
+                  <div className="flip-card-inner">
+                    <div className="flip-card-front">
+                      <h5 className="search-title">Totale opere</h5>
+                    </div>
+                    <div className="flip-card-back">
+                      <p
+                        className="total-opere"
+                        style={{ color: "red", fontFamily: "Typewriter" }}
+                      >
+                        {loadedImages.length}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="search-card flip-card search-card-expand p-3">
+                  <div className="flip-card-inner">
+                    <div className="flip-card-front">
+                      <h5 className="search-title">Puoi cercare per data</h5>
+                    </div>
+                    <div className="flip-card-back">
+                      <input
+                        type="number"
+                        placeholder="Cerca per anno"
+                        value={searchYear}
+                        onChange={(e) => setSearchYear(e.target.value)}
+                        className="form-small"
+                        min="1975"
+                        max={currentYear}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="search-card flip-card p-3">
+                  <div className="flip-card-inner">
+                    <div className="flip-card-front">
+                      <h5 className="search-title">
+                        Ascolta la nostra playlist
+                      </h5>
+                    </div>
+                    <div className="flip-card-back" onClick={togglePlayPause}>
+                      <span
+                        style={{
+                          color: "red",
+                          fontFamily: "Typewriter",
+                          fontSize: "1.5rem",
+                        }}
+                      >
+                        {isPlaying ? "Pausa ◼" : "Play ▶"}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="search-card flip-card p-3">
-              <div className="flip-card-inner">
-                <div className="flip-card-front">
-                  <h5 className="search-title">Totale opere</h5>
-                </div>
-                <div className="flip-card-back">
-                  <p
-                    className="total-opere"
-                    style={{ color: "red", fontFamily: "Typewriter" }}
+            <div className="tag-section">
+              <div className="masonry-grid-tag d-none d-md-block">
+                {filteredImages.slice(0, visibleCount).map((image, index) => (
+                  <div
+                    key={index}
+                    className="masonry-item-tag"
+                    onClick={() => handleImageClick(image)}
                   >
-                    {loadedImages.length}
-                  </p>
-                </div>
+                    <img
+                      className="masonry-img-tag"
+                      src={image.immagineUrl}
+                      alt={image.artista || `Immagine ${index + 1}`}
+                    />
+                    <div className="masonry-info-tag">
+                      <span>{image.artista || "Artista Sconosciuto"}</span>
+                    </div>
+                  </div>
+                ))}
               </div>
-            </div>
 
-            <div className="search-card flip-card search-card-expand p-3">
-              <div className="flip-card-inner">
-                <div className="flip-card-front">
-                  <h5 className="search-title">Puoi cercare per data</h5>
-                </div>
-                <div className="flip-card-back">
-                  <input
-                    type="number"
-                    placeholder="Cerca per anno"
-                    value={searchYear}
-                    onChange={(e) => setSearchYear(e.target.value)}
-                    className="form-small"
-                    min="1975"
-                    max={currentYear}
-                  />
-                </div>
+              <div className="d-block d-md-none">
+                <Swiper
+                  slidesPerView={1}
+                  navigation
+                  pagination={{ clickable: true }}
+                  className="mobile-carousel-tag"
+                  modules={[Navigation]}
+                >
+                  {filteredImages.map((image, index) => (
+                    <SwiperSlide key={index}>
+                      <div className="image-container-tag">
+                        <img
+                          className="carousel-img-tag"
+                          src={image.immagineUrl}
+                          alt={image.artista || `Immagine ${index + 1}`}
+                        />
+                        <div className="artist-info-tag rounded-pill">
+                          <span>{image.artista || "Artista Sconosciuto"}</span>
+                        </div>
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
               </div>
-            </div>
 
-            <div className="search-card flip-card p-3">
-              <div className="flip-card-inner">
-                <div className="flip-card-front">
-                  <h5 className="search-title">Ascolta la nostra playlist</h5>
-                </div>
-                <div className="flip-card-back" onClick={togglePlayPause}>
-                  <span
-                    style={{
-                      color: "red",
-                      fontFamily: "Typewriter",
-                      fontSize: "1.5rem",
-                    }}
+              {visibleCount < loadedImages.length && (
+                <div className="text-center d-none d-md-block">
+                  <div
+                    onClick={loadMoreImages}
+                    className="load-more-container-tag"
                   >
-                    {isPlaying ? "Pausa ◼" : "Play ▶"}
-                  </span>
+                    <span className="line"></span>
+                    <span className="load-more-text">Mostra di più</span>
+                    <img
+                      src={ArrowDown}
+                      className="arrow-svg-tag"
+                      alt="Carica altre immagini"
+                    />
+                    <span className="line"></span>
+                  </div>
                 </div>
-              </div>
+              )}
             </div>
-          </div>
-
-          <div className="masonry-grid-streetart">
-            {filteredImages.slice(0, visibleCount).map((image, index) => (
-              <div
-                key={index}
-                className="masonry-item-streetart"
-                onClick={() => handleImageClick(image)}
-              >
-                <img
-                  className="masonry-img-streetart"
-                  src={image.immagineUrl}
-                  alt={image.artista || `Immagine ${index + 1}`}
-                />
-                <div className="masonry-info-streetart">
-                  <span>{image.artista || "Artista Sconosciuto"}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {visibleCount < loadedImages.length && (
-            <div className="text-center">
-              <div onClick={loadMoreImages} className="load-more-container">
-                <span className="line"></span>
-                <span className="load-more-text">Mostra di più</span>
-                <img
-                  src={ArrowDown}
-                  className="arrow-svg"
-                  alt="Carica altre immagini"
-                />
-                <span className="line"></span>
-              </div>
-            </div>
-          )}
-        </Container>
+          </Container>
+        </div>
 
         <Modal
-          className="modal-streetart"
+          className="modal-tag"
           show={showModal}
           onHide={handleClose}
           centered
@@ -429,68 +492,80 @@ const Streetart = () => {
                 <img
                   src={selectedImage}
                   alt={selectedArtist}
-                  className="modal-image-streetart"
+                  className="modal-image-tag"
                 />
                 <div className="d-flex justify-content-between">
-                  <div className="artist-info-modal-streetart mt-2 fs-3">
+                  <div className="artist-info-modal-tag mt-2 fs-3">
                     <span>{selectedArtist}</span>
                   </div>
-                  <div className="opera-modal-streetart mt-2">
+                  <div className="opera-modal-tag mt-2">
                     <p>Stato:</p>
-                    <span>{selectedStatoOpera}</span>
+                    <span> {selectedStatoOpera}</span>
                   </div>
-                  <div className="opera-modal-streetart mt-2">
+                  <div className="opera-modal-tag mt-2">
                     <p>Anno:</p>
-                    <span>{selectedAnno}</span>
+                    <span> {selectedAnno}</span>
                   </div>
-                  <div className="opera-modal-streetart mt-2">
+                  <div className="opera-modal-tag mt-2">
                     <p>Luogo:</p>
-                    <span>{selectedLuogo}</span>
+                    <span>
+                      {selectedLuogo.charAt(0).toUpperCase() +
+                        selectedLuogo.slice(1).toLowerCase()}
+                    </span>
                   </div>
                 </div>
               </>
             )}
           </Modal.Body>
-          <Modal.Footer style={{ backgroundColor: "black", border: "none" }}>
+          <Modal.Footer
+            style={{
+              backgroundColor: "black",
+              border: "none",
+            }}
+          >
             <img
               src={CloseIcon}
               alt="Close"
               onClick={handleClose}
-              className="close-modal-icon-streetart"
+              className="close-modal-icon-tag"
               style={{ cursor: "pointer", width: "30px", height: "30px" }}
             />
           </Modal.Footer>
         </Modal>
 
         {showPlayerOverlay && (
-          <div className="spotify-overlay-streetart">
+          <div className="spotify-overlay-tag">
             <span
-              className="close-overlay-icon-streetart"
+              className="close-overlay-icon-tag"
               onClick={closePlayerOverlay}
             >
               <img src={CloseOverlayIcon} alt="Chiudi" />
             </span>
             <p>
-              <span style={{ color: "red" }}>
+              <span
+                style={{
+                  color: "red",
+                }}
+              >
                 Stai ascoltando: <br />
-              </span>
+              </span>{" "}
               {trackNames[currentTrackIndex]}
             </p>
-            <div className="player-controls-streetart">
+            <div className="player-controls-tag">
               <span
-                className="control-icon-streetart prev-icon-streetart"
+                className="control-icon-tag prev-icon-tag"
                 onClick={handlePrevTrack}
               >
                 <img src={PrevIcon} alt="Previous" />
               </span>
               <span
-                className="control-icon-streetart play-pause-icon-streetart"
+                className="control-icon-tag play-pause-icon-tag"
                 onClick={togglePlayPause}
               >
                 <img src={isPlaying ? PauseIcon : PlayIcon} alt="Play/Pause" />
               </span>
               <span
-                className="control-icon-streetart next-icon-streetart"
+                className="control-icon-tag next-icon-tag"
                 onClick={handleNextTrack}
               >
                 <img src={NextIcon} alt="Next" />

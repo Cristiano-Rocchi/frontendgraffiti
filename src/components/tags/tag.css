@@ -6,10 +6,6 @@
   background-repeat: no-repeat;
 }
 
-.tag-buttons {
-  gap: 9rem;
-}
-
 .btn-style-tag {
   background-color: #ff6666;
   font-family: "SpriteGraffiti", sans-serif;
@@ -51,7 +47,7 @@
 .video-container-tag {
   position: relative;
   width: 100%;
-  height: 90vh;
+  height: 50vh;
   overflow: hidden;
 }
 
@@ -59,23 +55,19 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 100vw;
-  height: auto;
+  width: 100%;
+  height: 100%;
   transform: translate(-50%, -50%);
+  object-fit: cover;
 }
 
 /* CAROSELLO */
 .imgCarousel-tag {
+  width: 250px !important;
+  height: 350px !important;
+  object-fit: cover !important;
+  border-radius: 30px !important;
   box-shadow: -6px 7px 18px -9px rgba(0, 0, 0, 0.77);
-}
-
-.containerCarousel-tag h4 {
-  font-family: "SpriteGraffiti", sans-serif;
-  background-size: cover;
-}
-
-.containerCarousel-tag h4 span {
-  font-family: "SpriteGraffiti-extras", sans-serif;
 }
 
 .containerCarousel-tag {
@@ -104,10 +96,11 @@
 }
 
 /* CONTAINER */
-
 .sfondo-tag-sect-up {
   height: 24vh;
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .title-tag {
@@ -155,6 +148,12 @@
   border-radius: 5px;
 }
 
+.card-info-tag p {
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 3px 20px;
+  border-radius: 3px;
+}
+
 .card-info-tag span {
   font-family: "SpriteGraffiti-Extras", sans-serif;
 }
@@ -178,18 +177,18 @@
   }
 }
 
-/* Modale */
-
+/* MODALE */
 .modal-tag .modal-body {
   background-color: black;
   padding: unset;
 }
-.modal-image-tag {
+
+.modal-tag .modal-image-tag {
   width: 100%;
   height: auto;
 }
 
-.artist-info-modal-tag {
+.modal-tag .artist-info-modal-tag {
   font-family: "SpriteGraffiti", sans-serif;
   padding: 5px 10px;
   border-radius: 5px;
@@ -200,10 +199,12 @@
 .opera-modal-tag p {
   font-family: "SpriteGraffiti", sans-serif;
 }
+
 .opera-modal-tag span {
   font-family: "Typewriter", sans-serif;
   color: red;
 }
+
 .opera-modal-tag {
   color: white;
   padding: 5px 10px;
@@ -217,6 +218,7 @@
   border: solid 1px black;
 }
 
+/* SFOCONDO MODALE */
 .modal-open-tag {
   overflow: hidden;
 }
@@ -246,6 +248,7 @@
   border-radius: 10px;
   position: relative;
 }
+
 .masonry-item-tag:hover {
   transform: scale(1.03);
 }
@@ -256,6 +259,7 @@
   display: block;
   object-fit: cover;
 }
+
 .masonry-item-tag img:hover {
   cursor: pointer;
 }
@@ -284,8 +288,38 @@
   border-radius: 3px;
 }
 
-/* Sezione con background nero */
-.containerBodyTag,
-.masonry-grid-tag {
-  background-color: black;
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .mobile-carousel-tag .image-container-tag {
+    position: relative;
+  }
+  .mobile-carousel-tag .swiper-slide {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .mobile-carousel-tag .carousel-img-tag {
+    border-radius: 10px;
+  }
+  .mobile-carousel-tag .swiper-button-prev,
+  .mobile-carousel-tag .swiper-button-next {
+    display: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .imgCarousel-tag {
+    width: 75vw !important;
+    height: 350px !important;
+    border-radius: 10px !important;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 768px) {
+  .imgCarousel-tag {
+    width: 50vw !important;
+    height: 350px !important;
+    border-radius: 15px !important;
+  }
 }
