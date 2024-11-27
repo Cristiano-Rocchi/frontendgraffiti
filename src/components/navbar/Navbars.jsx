@@ -15,7 +15,7 @@ import Logo from "../../assets/navbar/img/Logo_scritta_bianca.png";
 import CloseIcon from "../../assets/icons/delete.png";
 import { useLocation } from "react-router-dom";
 import SprayIcon from "../../assets/icons/spray-paint.png";
-import BASE_URL from "../config";
+import BASE_URL from "../../config";
 
 function Navbars() {
   const [showInfoModal, setShowInfoModal] = useState(false);

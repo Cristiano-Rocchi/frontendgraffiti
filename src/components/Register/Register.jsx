@@ -16,7 +16,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import ArrowStyle from "../../assets/icons/arrowStyle.png";
 import ArrowWhite from "../../assets/icons/white-line.png";
-import BASE_URL from "../config";
+import BASE_URL from "../../config";
 
 function Register() {
   const [formData, setFormData] = useState({

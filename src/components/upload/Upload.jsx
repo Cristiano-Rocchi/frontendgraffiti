@@ -17,7 +17,7 @@ import LogoNero from "../../assets/register/LOGONERO.png";
 import ArrowStyle from "../../assets/icons/arrowStyle.png";
 import ArrowWhite from "../../assets/icons/white-line.png";
 import CloseIcon from "../../assets/icons/delete.png";
-import BASE_URL from "../config";
+import BASE_URL from "../../config";
 
 function Upload() {
   const [formData, setFormData] = useState({

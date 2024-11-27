@@ -12,7 +12,7 @@ import {
   Col,
   Card,
 } from "react-bootstrap";
-import BASE_URL from "../config";
+import BASE_URL from "../../config";
 
 function AdminDashboard() {
   const [users, setUsers] = useState([]);

@@ -17,7 +17,7 @@ import TagImg from "../../assets/profile/img/TAGS.png";
 import StreetImg from "../../assets/profile/img/STREETART.png";
 import CloseIcon from "../../assets/icons/delete.png"; // Importa l'icona di chiusura
 import { useNavigate } from "react-router-dom";
-import BASE_URL from "../config";
+import BASE_URL from "../../config";
 
 function Profile() {
   const navigate = useNavigate();

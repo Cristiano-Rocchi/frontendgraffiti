@@ -19,7 +19,7 @@ import Track1 from "../../assets/music/The Notorious B.I.G. - Everyday Struggle 
 import Track2 from "../../assets/music/The Notorious B.I.G. - Friend of Mine (Official Audio) (128kbit_AAC).m4a";
 import Track3 from "../../assets/music/The Notorious B.I.G. - Gimme the Loot (Official Audio) (128kbit_AAC).m4a";
 import { Link } from "react-router-dom";
-import BASE_URL from "../config";
+import BASE_URL from "../../config";
 
 // Icon imports
 import PlayIcon from "../../assets/icons/play.png";
