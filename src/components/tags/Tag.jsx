@@ -197,9 +197,7 @@ const Tag = () => {
             backgroundImage: `url(${BackImg})`,
           }}
         >
-          <h1 className="h1-tag">
-            The right destination <br /> for your tags
-          </h1>
+          <h1 className="h1-tag">TAG YOUR LIFE</h1>
           <h3 className="mt-5">Upload a photo or get inspired</h3>
           <div
             style={{

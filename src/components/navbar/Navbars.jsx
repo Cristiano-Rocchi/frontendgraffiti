@@ -26,6 +26,7 @@ function Navbars() {
   const [username, setUsername] = useState(null); // Stato per memorizzare lo username
   const navigate = useNavigate();
   const [role, setRole] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Controlla se l'utente è loggato leggendo il token JWT e lo username
   useEffect(() => {
@@ -45,6 +46,7 @@ function Navbars() {
   const handleCloseContact = () => setShowContactModal(false);
   const handleShowLogin = () => setShowLoginModal(true);
   const handleCloseLogin = () => setShowLoginModal(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -56,6 +58,7 @@ function Navbars() {
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault(); // Previeni il comportamento predefinito del form
+    setIsLoading(true); // Mostra lo spinner
     try {
       const response = await fetch("http://localhost:3001/auth/login", {
         method: "POST",
@@ -85,6 +88,8 @@ function Navbars() {
     } catch (error) {
       console.error("Errore di rete:", error);
       setError("Errore di connessione al server."); // Mostra un errore di connessione
+    } finally {
+      setIsLoading(false); // Nascondi lo spinner
     }
   };
 
@@ -134,6 +139,32 @@ function Navbars() {
     };
   }, [isGraffitiPage, isTagPage, isStreetArtPage, isProfilePage]);
 
+  const esploraLinks = (
+    <>
+      <Link
+        className="nav-link"
+        to="/graffiti"
+        onClick={() => setIsDropdownOpen(false)}
+      >
+        Graffiti
+      </Link>
+      <Link
+        className="nav-link"
+        to="/streetart"
+        onClick={() => setIsDropdownOpen(false)}
+      >
+        STREET-ART
+      </Link>
+      <Link
+        className="nav-link"
+        to="/tag"
+        onClick={() => setIsDropdownOpen(false)}
+      >
+        TAGS
+      </Link>
+    </>
+  );
+
   return (
     <>
       <Navbar
@@ -171,18 +202,6 @@ function Navbars() {
                   <Link to={"/register"} className="nav-link">
                     Registrati
                   </Link>
-
-                  <NavDropdown title="ESPLORA" id="basic-nav-dropdown">
-                    <Link className="nav-link" to={"/graffiti"}>
-                      Graffiti
-                    </Link>
-                    <Link className="nav-link" to={"/streetart"}>
-                      STREET-ART
-                    </Link>
-                    <Link className="nav-link" to={"/tag"}>
-                      TAGS
-                    </Link>
-                  </NavDropdown>
                 </>
               ) : (
                 <>
@@ -192,20 +211,37 @@ function Navbars() {
                   <Link to={"/upload"} className="nav-link">
                     Upload
                   </Link>
-                  <NavDropdown title="ESPLORA" id="basic-nav-dropdown">
-                    <Link className="nav-link" to={"/graffiti"}>
-                      Graffiti
-                    </Link>
-                    <Link className="nav-link" to={"/streetart"}>
-                      STREET-ART
-                    </Link>
-                    <Link className="nav-link" to={"/tag"}>
-                      TAGS
-                    </Link>
-                  </NavDropdown>
                   <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
                 </>
               )}
+              <NavDropdown
+                title="ESPLORA"
+                id="basic-nav-dropdown"
+                show={isDropdownOpen}
+                onToggle={() => setIsDropdownOpen((prev) => !prev)}
+              >
+                <Link
+                  className="nav-link"
+                  to="/graffiti"
+                  onClick={() => setIsDropdownOpen(false)}
+                >
+                  Graffiti
+                </Link>
+                <Link
+                  className="nav-link"
+                  to="/streetart"
+                  onClick={() => setIsDropdownOpen(false)}
+                >
+                  STREET-ART
+                </Link>
+                <Link
+                  className="nav-link"
+                  to="/tag"
+                  onClick={() => setIsDropdownOpen(false)}
+                >
+                  TAGS
+                </Link>
+              </NavDropdown>
             </Nav>
 
             {username && (
@@ -229,14 +265,14 @@ function Navbars() {
                     id="basic-nav-dropdown"
                   >
                     <NavDropdown.Item
-                      className="text-white"
+                      className="text-white nav-link"
                       as={Link}
                       to="/profile"
                     >
                       Profilo
                     </NavDropdown.Item>
                     <NavDropdown.Item
-                      className="text-white"
+                      className="text-white nav-link"
                       as={Link}
                       to="/admin"
                     >
@@ -337,8 +373,18 @@ function Navbars() {
                 required
               />
             </Form.Group>
-            <Button type="submit" className="mt-3 btn-custom">
-              Login
+            <Button
+              type="submit"
+              className="mt-3 btn-custom"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <div className="spinner-border spinner-border-sm" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>
+              ) : (
+                "Login"
+              )}
             </Button>
           </Form>
         </Modal.Body>

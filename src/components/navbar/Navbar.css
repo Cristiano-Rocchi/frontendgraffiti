@@ -4,6 +4,9 @@
   width: 100%;
   z-index: 99;
 }
+.spinner-border {
+  color: white; /* Adatta il colore dello spinner */
+}
 
 .fade-navbar {
   position: sticky;

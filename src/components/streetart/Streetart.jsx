@@ -199,9 +199,7 @@ const Streetart = () => {
             backgroundImage: `url(${BackImg})`,
           }}
         >
-          <h1 className="h1-streetart">
-            The right destination <br /> for your street art
-          </h1>
+          <h1 className="h1-streetart">THE STREET IS ART</h1>
           <h3 className="mt-5">Upload a photo or get inspired</h3>
           <div
             style={{
