@@ -116,9 +116,10 @@ function Upload() {
       });
 
       // Controllo della risposta
+      let objectData;
       if (response.ok) {
-        const responseData = await response.json();
-        console.log("Risposta della prima fetch:", responseData);
+        objectData = await response.json();
+        console.log("Risposta della prima fetch:", objectData);
       } else {
         const errorResponse = await response.json();
         console.error("Errore nella prima fetch:", errorResponse);
@@ -127,14 +128,12 @@ function Upload() {
         );
       }
 
-      const objectData = await response.json();
-
       // Seconda chiamata: carica l'immagine
       const formDataToSend = new FormData();
       formDataToSend.append("img", formData.img);
 
       const responseImage = await fetch(
-        `${BASE_URL}/${endpoint}/${objectData.id}/img`,
+        `${BASE_URL}/api/${endpoint}/${objectData.id}/img`,
         {
           method: "POST",
           headers: {
@@ -154,6 +153,8 @@ function Upload() {
         setLoading(false);
         setError(""); // Resetta l'errore dopo il caricamento
       } else {
+        const errorImage = await responseImage.json();
+        console.error("Errore nella seconda fetch:", errorImage);
         throw new Error("Errore durante il caricamento dell'immagine.");
       }
     } catch (error) {
