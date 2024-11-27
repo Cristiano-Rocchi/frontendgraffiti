@@ -372,16 +372,16 @@ function Profile() {
     let url;
     switch (category) {
       case "graffiti":
-        url = `http://localhost:3001/api/graffiti/${id}`;
+        url = `${BASE_URL}/api/graffiti/${id}`;
         break;
       case "street-art":
-        url = `http://localhost:3001/api/streetart/${id}`;
+        url = `${BASE_URL}/api/streetart/${id}`;
         break;
       case "tag":
-        url = `http://localhost:3001/api/tags/${id}`;
+        url = `${BASE_URL}/api/tags/${id}`;
         break;
       default:
-        url = `http://localhost:3001/api/graffiti/${id}`; // Default come graffiti
+        url = `${BASE_URL}/api/graffiti/${id}`; // Default come graffiti
     }
 
     const richiesta = new Request(url, {
