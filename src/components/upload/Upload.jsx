@@ -89,6 +89,17 @@ function Upload() {
           endpoint = "graffiti";
       }
 
+      console.log("BASE_URL:", BASE_URL);
+      console.log("Endpoint:", endpoint);
+      console.log("Token:", token);
+      console.log("Dati inviati nella prima fetch:", {
+        immagineUrl: "http://example.com/image.jpg", // Temporaneo
+        stato: formData.stato,
+        artista: formData.artista || "Sconosciuto",
+        annoCreazione: formData.annoCreazione,
+        luogo: formData.luogo,
+      });
+
       const response = await fetch(`${BASE_URL}/api/${endpoint}`, {
         method: "POST",
         headers: {
@@ -104,9 +115,16 @@ function Upload() {
         }),
       });
 
-      if (!response.ok) {
+      // Controllo della risposta
+      if (response.ok) {
+        const responseData = await response.json();
+        console.log("Risposta della prima fetch:", responseData);
+      } else {
         const errorResponse = await response.json();
-        throw errorResponse;
+        console.error("Errore nella prima fetch:", errorResponse);
+        throw new Error(
+          `Errore nella prima fetch: ${response.status} ${response.statusText}`
+        );
       }
 
       const objectData = await response.json();
