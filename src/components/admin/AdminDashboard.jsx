@@ -12,6 +12,7 @@ import {
   Col,
   Card,
 } from "react-bootstrap";
+import BASE_URL from "../config";
 
 function AdminDashboard() {
   const [users, setUsers] = useState([]);
@@ -49,15 +50,12 @@ function AdminDashboard() {
   useEffect(() => {
     const fetchUsersAndStats = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:3001/api/users/admin-stats",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
+        const response = await fetch(`${BASE_URL}/api/users/admin-stats`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
 
         if (!response.ok)
           throw new Error("Errore nel caricamento degli utenti");
@@ -75,7 +73,7 @@ function AdminDashboard() {
 
   // Fetch graffiti
   useEffect(() => {
-    fetch("http://localhost:3001/api/graffiti", {
+    fetch(`${BASE_URL}/api/graffiti`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -95,7 +93,7 @@ function AdminDashboard() {
 
   // Fetch street art
   useEffect(() => {
-    fetch("http://localhost:3001/api/streetart", {
+    fetch(`${BASE_URL}/api/streetart`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -115,7 +113,7 @@ function AdminDashboard() {
 
   // Fetch tags
   useEffect(() => {
-    fetch("http://localhost:3001/api/tags", {
+    fetch(`${BASE_URL}/api/tags`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -134,7 +132,7 @@ function AdminDashboard() {
 
   // Delete user
   const deleteUser = (userId) => {
-    fetch(`http://localhost:3001/api/users/${userId}`, {
+    fetch(`${BASE_URL}/api/users/${userId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -157,7 +155,7 @@ function AdminDashboard() {
         ? "streetart"
         : "tags";
 
-    fetch(`http://localhost:3001/api/${endpoint}/${imageId}`, {
+    fetch(`${BASE_URL}/api/${endpoint}/${imageId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

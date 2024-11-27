@@ -15,6 +15,7 @@ import Logo from "../../assets/navbar/img/Logo_scritta_bianca.png";
 import CloseIcon from "../../assets/icons/delete.png";
 import { useLocation } from "react-router-dom";
 import SprayIcon from "../../assets/icons/spray-paint.png";
+import BASE_URL from "../config";
 
 function Navbars() {
   const [showInfoModal, setShowInfoModal] = useState(false);
@@ -60,7 +61,7 @@ function Navbars() {
     e.preventDefault(); // Previeni il comportamento predefinito del form
     setIsLoading(true); // Mostra lo spinner
     try {
-      const response = await fetch("http://localhost:3001/auth/login", {
+      const response = await fetch(`${BASE_URL}/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

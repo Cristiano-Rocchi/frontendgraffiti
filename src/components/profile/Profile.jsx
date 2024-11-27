@@ -17,6 +17,7 @@ import TagImg from "../../assets/profile/img/TAGS.png";
 import StreetImg from "../../assets/profile/img/STREETART.png";
 import CloseIcon from "../../assets/icons/delete.png"; // Importa l'icona di chiusura
 import { useNavigate } from "react-router-dom";
+import BASE_URL from "../config";
 
 function Profile() {
   const navigate = useNavigate();
@@ -45,7 +46,7 @@ function Profile() {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const richiesta = new Request("http://localhost:3001/api/users/me", {
+      const richiesta = new Request(`${BASE_URL}/api/users/me`, {
         method: "GET",
         headers: new Headers({
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -85,7 +86,7 @@ function Profile() {
   }, []);
 
   const fetchImageCounts = async () => {
-    const richiesta = new Request("http://localhost:3001/api/users/me/stats", {
+    const richiesta = new Request(`${BASE_URL}/api/users/me/stats`, {
       method: "GET",
       headers: new Headers({
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -145,15 +146,12 @@ function Profile() {
 
   // Funzione di ricerca singola per graffiti
   const searchGraffitiImages = async () => {
-    const richiesta = new Request(
-      "http://localhost:3001/api/graffiti/user-images",
-      {
-        method: "GET",
-        headers: new Headers({
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        }),
-      }
-    );
+    const richiesta = new Request(`${BASE_URL}/api/graffiti/user-images`, {
+      method: "GET",
+      headers: new Headers({
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      }),
+    });
 
     try {
       const response = await fetch(richiesta);
@@ -186,15 +184,12 @@ function Profile() {
 
   // Funzione per street art
   const searchStreetArtImages = async () => {
-    const richiesta = new Request(
-      "http://localhost:3001/api/streetart/user-images",
-      {
-        method: "GET",
-        headers: new Headers({
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        }),
-      }
-    );
+    const richiesta = new Request(`${BASE_URL}/api/streetart/user-images`, {
+      method: "GET",
+      headers: new Headers({
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      }),
+    });
 
     try {
       const response = await fetch(richiesta);
@@ -227,15 +222,12 @@ function Profile() {
 
   // Funzione per tag
   const searchTagImages = async () => {
-    const richiesta = new Request(
-      "http://localhost:3001/api/tags/user-images",
-      {
-        method: "GET",
-        headers: new Headers({
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        }),
-      }
-    );
+    const richiesta = new Request(`${BASE_URL}/api/tags/user-images`, {
+      method: "GET",
+      headers: new Headers({
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      }),
+    });
 
     try {
       const response = await fetch(richiesta);
@@ -308,15 +300,12 @@ function Profile() {
 
   // Fetch per le immagini personali di graffiti, street art e tag
   const fetchGraffitiImages = async () => {
-    const richiesta = new Request(
-      "http://localhost:3001/api/graffiti/user-images",
-      {
-        method: "GET",
-        headers: new Headers({
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        }),
-      }
-    );
+    const richiesta = new Request(`${BASE_URL}/api/graffiti/user-images`, {
+      method: "GET",
+      headers: new Headers({
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      }),
+    });
 
     try {
       const response = await fetch(richiesta);
@@ -333,15 +322,12 @@ function Profile() {
   };
 
   const fetchStreetArtImages = async () => {
-    const richiesta = new Request(
-      "http://localhost:3001/api/streetart/user-images",
-      {
-        method: "GET",
-        headers: new Headers({
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        }),
-      }
-    );
+    const richiesta = new Request(`${BASE_URL}/api/streetart/user-images`, {
+      method: "GET",
+      headers: new Headers({
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      }),
+    });
 
     try {
       const response = await fetch(richiesta);
@@ -360,15 +346,12 @@ function Profile() {
   };
 
   const fetchTagImages = async () => {
-    const richiesta = new Request(
-      "http://localhost:3001/api/tags/user-images",
-      {
-        method: "GET",
-        headers: new Headers({
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        }),
-      }
-    );
+    const richiesta = new Request(`${BASE_URL}/api/tags/user-images`, {
+      method: "GET",
+      headers: new Headers({
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      }),
+    });
 
     try {
       const response = await fetch(richiesta);
@@ -455,7 +438,7 @@ function Profile() {
       email: editedEmail,
     };
 
-    const richiesta = new Request("http://localhost:3001/api/users/me", {
+    const richiesta = new Request(`${BASE_URL}api/users/me`, {
       method: "PUT",
       headers: new Headers({
         "Content-Type": "application/json",

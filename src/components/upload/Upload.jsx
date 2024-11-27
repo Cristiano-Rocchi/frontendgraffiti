@@ -17,6 +17,7 @@ import LogoNero from "../../assets/register/LOGONERO.png";
 import ArrowStyle from "../../assets/icons/arrowStyle.png";
 import ArrowWhite from "../../assets/icons/white-line.png";
 import CloseIcon from "../../assets/icons/delete.png";
+import BASE_URL from "../config";
 
 function Upload() {
   const [formData, setFormData] = useState({
@@ -88,7 +89,7 @@ function Upload() {
           endpoint = "graffiti";
       }
 
-      const response = await fetch(`http://localhost:3001/api/${endpoint}`, {
+      const response = await fetch(`${BASE_URL}/api/${endpoint}`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -115,7 +116,7 @@ function Upload() {
       formDataToSend.append("img", formData.img);
 
       const responseImage = await fetch(
-        `http://localhost:3001/api/${endpoint}/${objectData.id}/img`,
+        `${BASE_URL}/${endpoint}/${objectData.id}/img`,
         {
           method: "POST",
           headers: {

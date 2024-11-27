@@ -19,6 +19,7 @@ import Track1 from "../../assets/music/The Notorious B.I.G. - Everyday Struggle 
 import Track2 from "../../assets/music/The Notorious B.I.G. - Friend of Mine (Official Audio) (128kbit_AAC).m4a";
 import Track3 from "../../assets/music/The Notorious B.I.G. - Gimme the Loot (Official Audio) (128kbit_AAC).m4a";
 import { Link } from "react-router-dom";
+import BASE_URL from "../config";
 
 // Icon imports
 import PlayIcon from "../../assets/icons/play.png";
@@ -57,16 +58,13 @@ const Streetart = () => {
 
   useEffect(() => {
     const fetchRandomImages = async () => {
-      const richiesta = new Request(
-        "http://localhost:3001/api/streetart/random",
-        {
-          method: "GET",
-          headers: new Headers({
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          }),
-        }
-      );
+      const richiesta = new Request(`${BASE_URL}/api/streetart/random`, {
+        method: "GET",
+        headers: new Headers({
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }),
+      });
 
       try {
         const response = await fetch(richiesta);
@@ -86,7 +84,7 @@ const Streetart = () => {
 
   useEffect(() => {
     const fetchImages = async () => {
-      const richiesta = new Request("http://localhost:3001/api/streetart", {
+      const richiesta = new Request(`${BASE_URL}/api/streetart`, {
         method: "GET",
         headers: new Headers({
           "Content-Type": "application/json",
