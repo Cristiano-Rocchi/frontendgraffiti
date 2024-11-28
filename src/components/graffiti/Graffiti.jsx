@@ -71,6 +71,7 @@ const Graffiti = () => {
         const response = await fetch(richiesta);
         if (response.ok) {
           const data = await response.json();
+          console.log("Immagini casuali (graffiti):", data); // Aggiungi questo log
           setRandomImages(data);
         } else {
           console.error("Errore nel caricamento delle immagini casuali");
