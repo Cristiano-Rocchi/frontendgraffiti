@@ -48,6 +48,17 @@ function Navbars() {
   const handleShowLogin = () => setShowLoginModal(true);
   const handleCloseLogin = () => setShowLoginModal(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isAdminDropdownOpen, setIsAdminDropdownOpen] = useState(false);
+
+  const [isNavbarOpen, setIsNavbarOpen] = useState(false); // Stato per gestire la navbar
+
+  const handleNavbarToggle = () => {
+    setIsNavbarOpen((prev) => !prev); // Toggle della navbar
+  };
+
+  const handleCloseNavbar = () => {
+    setIsNavbarOpen(false); // Chiudi la navbar
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -170,44 +181,45 @@ function Navbars() {
     <>
       <Navbar
         expand="lg"
-        className={`navbarBody custom-navbar-toggle ${
-          isGraffitiPage || isTagPage || isStreetArtPage
-            ? "fade-navbar"
-            : isProfilePage
-            ? "sticky-navbar"
-            : ""
-        }`}
-        style={{
-          opacity: isGraffitiPage || isTagPage || isStreetArtPage ? opacity : 1,
-          transition:
-            isGraffitiPage || isTagPage || isStreetArtPage
-              ? "opacity 0.5s ease"
-              : "none",
-        }}
+        className={`navbarBody custom-navbar-toggle`}
+        expanded={isNavbarOpen}
       >
         <Container>
-          <Link to={"/"}>
+          <Link to={"/"} onClick={handleCloseNavbar}>
             <img src={Logo} alt="logo" className="logoImg" />
           </Link>
 
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
+          <Navbar.Toggle
+            aria-controls="basic-navbar-nav"
+            onClick={handleNavbarToggle}
+          />
+          <Navbar.Collapse className="custom-navbar-collapse">
             <Nav className="me-auto">
-              <Link
-                to={"/"}
-                className="nav-link"
-                onClick={() => setIsDropdownOpen(false)}
-              >
+              <Link to={"/"} className="nav-link" onClick={handleCloseNavbar}>
                 Home
               </Link>
-              <Nav.Link onClick={handleShowInfo}>Info</Nav.Link>
+              <Nav.Link
+                onClick={() => {
+                  handleShowInfo();
+                  handleCloseNavbar();
+                }}
+              >
+                Info
+              </Nav.Link>
               {!username ? (
                 <>
-                  <Nav.Link onClick={handleShowLogin}>Login</Nav.Link>
+                  <Nav.Link
+                    onClick={() => {
+                      handleShowLogin();
+                      handleCloseNavbar();
+                    }}
+                  >
+                    Login
+                  </Nav.Link>
                   <Link
                     to={"/register"}
                     className="nav-link"
-                    onClick={() => setIsDropdownOpen(false)}
+                    onClick={handleCloseNavbar}
                   >
                     Registrati
                   </Link>
@@ -217,33 +229,42 @@ function Navbars() {
                   <Link
                     to={"/profile"}
                     className="nav-link"
-                    onClick={() => setIsDropdownOpen(false)}
+                    onClick={handleCloseNavbar}
                   >
                     Profilo
                   </Link>
                   <Link
                     to={"/upload"}
                     className="nav-link"
-                    onClick={() => setIsDropdownOpen(false)}
+                    onClick={handleCloseNavbar}
                   >
                     Upload
                   </Link>
-                  <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+                  <Nav.Link
+                    onClick={() => {
+                      handleLogout();
+                      handleCloseNavbar();
+                    }}
+                  >
+                    Logout
+                  </Nav.Link>
                 </>
               )}
+              {/* Dropdown "Esplora" */}
               <NavDropdown
                 title="ESPLORA"
-                id="basic-nav-dropdown"
-                show={isDropdownOpen} // Controlla se il dropdown è visibile
-                onToggle={() => setIsDropdownOpen(!isDropdownOpen)} // Gestisce l'apertura/chiusura
+                className="custom-nav-dropdown"
+                show={isDropdownOpen}
+                onToggle={(isOpen) => {
+                  setIsDropdownOpen(isOpen);
+                  setIsAdminDropdownOpen(false); // Chiudi il dropdown admin
+                }}
               >
                 <NavDropdown.Item
                   className="nav-link"
                   as={Link}
                   to="/graffiti"
-                  onClick={() => {
-                    setIsDropdownOpen(false); // Chiude il dropdown
-                  }}
+                  onClick={handleCloseNavbar}
                 >
                   Graffiti
                 </NavDropdown.Item>
@@ -251,9 +272,7 @@ function Navbars() {
                   className="nav-link"
                   as={Link}
                   to="/streetart"
-                  onClick={() => {
-                    setIsDropdownOpen(false); // Chiude il dropdown
-                  }}
+                  onClick={handleCloseNavbar}
                 >
                   STREET-ART
                 </NavDropdown.Item>
@@ -261,9 +280,7 @@ function Navbars() {
                   className="nav-link"
                   as={Link}
                   to="/tag"
-                  onClick={() => {
-                    setIsDropdownOpen(false); // Chiude il dropdown
-                  }}
+                  onClick={handleCloseNavbar}
                 >
                   TAGS
                 </NavDropdown.Item>
@@ -287,27 +304,27 @@ function Navbars() {
                         {username}
                       </>
                     }
-                    id="basic-nav-dropdown"
-                    show={isDropdownOpen} // Controlla lo stato visibile
-                    onToggle={() => setIsDropdownOpen(!isDropdownOpen)} // Toggle apertura/chiusura
+                    id="admin-nav-dropdown"
+                    className="custom-admin-dropdown"
+                    show={isAdminDropdownOpen}
+                    onToggle={(isOpen) => {
+                      setIsAdminDropdownOpen(isOpen);
+                      setIsDropdownOpen(false); // Chiudi il dropdown "Esplora"
+                    }}
                   >
                     <NavDropdown.Item
-                      className="text-white nav-link"
+                      className="nav-link"
                       as={Link}
                       to="/profile"
-                      onClick={() => {
-                        setIsDropdownOpen(false); // Chiude il dropdown
-                      }}
+                      onClick={handleCloseNavbar}
                     >
                       Profilo
                     </NavDropdown.Item>
                     <NavDropdown.Item
-                      className="text-white nav-link"
+                      className="nav-link"
                       as={Link}
                       to="/admin"
-                      onClick={() => {
-                        setIsDropdownOpen(false); // Chiude il dropdown
-                      }}
+                      onClick={handleCloseNavbar}
                     >
                       Admin
                     </NavDropdown.Item>
@@ -316,8 +333,8 @@ function Navbars() {
                   <Nav.Link
                     as={Link}
                     to="/profile"
-                    className="text-white"
-                    onClick={() => setIsDropdownOpen(false)}
+                    className="text-white custom-profile-link"
+                    onClick={handleCloseNavbar}
                   >
                     <img
                       src={SprayIcon}
