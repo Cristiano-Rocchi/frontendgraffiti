@@ -1,2 +1,2 @@
-const BASE_URL = "https://toxic-alina-graffitibench-c39e0907.koyeb.app";
+const BASE_URL = "http://localhost:3001";
 export default BASE_URL;

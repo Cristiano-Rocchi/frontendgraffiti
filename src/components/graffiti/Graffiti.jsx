@@ -2,6 +2,7 @@ import "../graffiti/Graffiti.css";
 import React, { useState, useEffect, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
+import { useNavigate } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 import GraffMonth from "../../assets/graffiti/img/graffiti_of_the_month.png";
@@ -29,6 +30,8 @@ import PrevIcon from "../../assets/icons/backward.png";
 import CloseOverlayIcon from "../../assets/icons/delete.png";
 
 const Graffiti = () => {
+  const navigate = useNavigate();
+
   const [loadedImages, setLoadedImages] = useState([]);
   const [randomImages, setRandomImages] = useState([]);
   const [visibleCount, setVisibleCount] = useState(20);
@@ -56,6 +59,17 @@ const Graffiti = () => {
 
   const containerRef = useRef(null);
   const currentYear = new Date().getFullYear();
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+
+  //controllo se l'utente è loggato
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const storedUsername = localStorage.getItem("username");
+
+    if (!token || !storedUsername) {
+      setShowRegisterModal(true); // Mostra il modal se l'utente non è loggato
+    }
+  }, []);
 
   useEffect(() => {
     const fetchRandomImages = async () => {
@@ -181,6 +195,10 @@ const Graffiti = () => {
     if (containerRef.current) {
       containerRef.current.scrollIntoView({ behavior: "smooth" });
     }
+  };
+  const handleCloseModal = () => {
+    setShowRegisterModal(false); // Chiudi il modal
+    navigate("/"); // Reindirizza alla home
   };
 
   const filteredImages = loadedImages.filter((image) => {
@@ -535,6 +553,34 @@ const Graffiti = () => {
               src={CloseIcon}
               alt="Close"
               onClick={handleClose}
+              className="close-modal-icon"
+              style={{ cursor: "pointer", width: "30px", height: "30px" }}
+            />
+          </Modal.Footer>
+        </Modal>
+
+        {/* Modal per chiedere la registrazione */}
+        <Modal
+          className="modal-register-page"
+          show={showRegisterModal}
+          onHide={() => setShowRegisterModal(false)}
+          centered
+        >
+          <Modal.Body className="text-center">
+            <h4>Per favore, registrati!</h4>
+            <p>
+              Per vedere i graffiti e interagire con il sito, registrati
+              utilizzando la tua email.
+            </p>
+            <Link to="/register">
+              <button className="btn btn-primary">Registrati</button>
+            </Link>
+          </Modal.Body>
+          <Modal.Footer>
+            <img
+              src={CloseIcon}
+              alt="Chiudi"
+              onClick={handleCloseModal}
               className="close-modal-icon"
               style={{ cursor: "pointer", width: "30px", height: "30px" }}
             />
