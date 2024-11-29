@@ -69,7 +69,7 @@ function Upload() {
       return;
     }
 
-    setLoading(true); // Mostra lo spinner
+    setLoading(true); // Mostra lo spinner per la prima parte (salvataggio del contenuto)
 
     try {
       const token = localStorage.getItem("token");
@@ -131,13 +131,16 @@ function Upload() {
           }
         }
 
-        setLoading(false);
+        setLoading(false); // Nasconde lo spinner della prima parte
         return; // Esci dalla funzione se c'è un errore
       }
 
       // Seconda chiamata: carica l'immagine
       const formDataToSend = new FormData();
       formDataToSend.append("img", formData.img);
+
+      // Imposta un altro stato di caricamento per il caricamento dell'immagine
+      setLoading(true);
 
       const responseImage = await fetch(
         `${BASE_URL}/api/${endpoint}/${objectData.id}/img`,
@@ -157,7 +160,7 @@ function Upload() {
             "L'immagine è stata caricata correttamente. Grazie per la condivisione.",
         });
         setShowModal(true);
-        setLoading(false);
+        setLoading(false); // Nasconde lo spinner dopo il caricamento dell'immagine
         setError(""); // Resetta l'errore dopo il caricamento
       } else {
         const errorImage = await responseImage.json();
@@ -166,7 +169,7 @@ function Upload() {
       }
     } catch (error) {
       console.error("Errore completo:", error);
-      setLoading(false);
+      setLoading(false); // Nasconde lo spinner in caso di errore
 
       if (error.message) {
         setError(error.message);
@@ -241,10 +244,9 @@ function Upload() {
 
                 {error && <Alert variant="danger">{error}</Alert>}
                 {loading && (
-                  <div className="text-center">
-                    <Spinner animation="border" role="status">
-                      <span className="visually-hidden">Caricamento...</span>
-                    </Spinner>
+                  <div className="spinner-overlay">
+                    <Spinner animation="border" role="status" />
+                    <span className="visually-hidden">Caricamento...</span>
                   </div>
                 )}
 
@@ -365,7 +367,7 @@ function Upload() {
               style={{ width: "200px", marginBottom: "10px" }}
             />
             <Modal.Title className="modal-upload-title p-2">
-              {modalContent.title || "Errore caricamento Immagine"}{" "}
+              {modalContent.title || "Errore caricamento Immagine"}
             </Modal.Title>
             <img
               src={CloseIcon}
@@ -376,8 +378,16 @@ function Upload() {
           </Modal.Header>
 
           <Modal.Body className="modal-upload-body">
-            {modalContent.message || "Errore caricamento Immagine"}{" "}
+            {/* Visualizza lo spinner solo quando loading è true */}
+            {loading && (
+              <div className="spinner-container">
+                <Spinner animation="border" role="status" />
+                <span className="visually-hidden">Caricamento...</span>
+              </div>
+            )}
+            {modalContent.message || "Errore caricamento Immagine"}
           </Modal.Body>
+
           <Modal.Footer className="modal-upload-footer">
             <Button
               className="modal-upload-home-button"

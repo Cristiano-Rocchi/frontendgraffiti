@@ -508,6 +508,16 @@
     height: 350px !important;
     border-radius: 10px !important;
   }
+  .headerStreetArt .d-flex {
+    flex-direction: column;
+    gap: 2rem !important;
+  }
+  .headerStreetArt .btn-style {
+    width: 50%;
+    margin: 0 auto;
+    padding: 0.5rem 0;
+    font-size: 1rem;
+  }
 }
 
 @media (min-width: 480px) and (max-width: 768px) {

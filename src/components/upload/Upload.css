@@ -74,13 +74,6 @@ body,
   right: 10px;
 }
 
-/* Corpo del Modale */
-.modal-upload-body {
-  padding: 20px;
-  font-size: 1rem;
-  text-align: center;
-}
-
 /* Footer del Modale */
 .modal-upload-footer {
   display: flex;
@@ -172,4 +165,24 @@ img {
 .error-message {
   font-family: "SpriteGraffiti", sans-serif; /* Font personalizzato */
   margin: 0; /* Nessun margine aggiuntivo */
+}
+/* Modal Body */
+.modal-upload-body {
+  padding: 20px;
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* Spinner centrato, ma posizionato sotto la scritta */
+.spinner-border {
+  color: black;
+  margin-top: 10px; /* Distanza dallo spinner dal titolo */
+}
+
+/* Titolo del Modale */
+.modal-upload-title {
+  margin-bottom: 20px; /* Spazio tra il titolo e lo spinner */
+}
+.spinner-overlay {
+  text-align: center;
 }
