@@ -59,7 +59,7 @@ const Graffiti = () => {
 
   useEffect(() => {
     const fetchRandomImages = async () => {
-      const richiesta = new Request(`${BASE_URL}/api/graffiti`, {
+      const richiesta = new Request(`${BASE_URL}/api/graffiti/random`, {
         method: "GET",
         headers: new Headers({
           "Content-Type": "application/json",
