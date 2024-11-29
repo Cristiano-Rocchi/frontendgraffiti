@@ -21,6 +21,7 @@ import Track2 from "../../assets/music/The Notorious B.I.G. - Friend of Mine (Of
 import Track3 from "../../assets/music/The Notorious B.I.G. - Gimme the Loot (Official Audio) (128kbit_AAC).m4a";
 import { Link } from "react-router-dom";
 import BASE_URL from "../../config";
+import registrati_modal from "../../assets/modale_register/registrati.png";
 
 // Icon imports
 import PlayIcon from "../../assets/icons/play.png";
@@ -58,7 +59,7 @@ const Streetart = () => {
   const containerRef = useRef(null);
   const currentYear = new Date().getFullYear();
   const [showRegisterModal, setShowRegisterModal] = useState(false);
-
+  // modal se l'utente non è loggato
   useEffect(() => {
     const token = localStorage.getItem("token");
     const storedUsername = localStorage.getItem("username");
@@ -562,15 +563,30 @@ const Streetart = () => {
           show={showRegisterModal}
           onHide={() => setShowRegisterModal(false)}
           centered
+          backdrop="static"
         >
           <Modal.Body className="text-center">
-            <h4>Per favore, registrati!</h4>
-            <p>
-              Per vedere i graffiti e interagire con il sito, registrati
-              utilizzando la tua email.
+            <img
+              src={registrati_modal}
+              alt="per favore registrati"
+              style={{
+                height: "100px",
+              }}
+            />
+            <p className="modal-register-text">
+              Gratis e in completo anonimato{" "}
             </p>
+            <p className="info-register">
+              <i className="bi bi-info-circle fs-6 me-2"></i>
+              Non chiediamo dati sensibili
+            </p>
+            <p className="info-register">
+              <i className="bi bi-info-circle fs-6 me-2"></i>
+              ti basta una email anche fittizia
+            </p>
+
             <Link to="/register">
-              <button className="btn btn-primary">Registrati</button>
+              <button className="btn btn-primary mt-3">Registrati</button>
             </Link>
           </Modal.Body>
           <Modal.Footer>

@@ -506,9 +506,7 @@
 
 /* modale registrazione*/
 .modal-register-page .modal-dialog {
-  display: flex;
-  align-items: center;
-  min-height: 60vh; /* Altezza del modal */
+  min-height: 60vh;
 }
 
 .modal-register-page .modal-content {
@@ -519,6 +517,8 @@
   border: 1px solid #c0c0c0;
   padding: 20px;
   border-radius: 10px;
+  font-family: "SpriteGraffiti", sans-serif;
+  letter-spacing: 2px;
 }
 
 .modal-register-page .modal-header {
@@ -527,6 +527,14 @@
 
 .modal-register-page .modal-body {
   font-size: 1.2rem;
+}
+.modal-register-page .modal-register-text {
+  font-size: 1.2em;
+  color: #ff5757;
+}
+.modal-register-page .info-register {
+  text-align: start;
+  font-size: 0.8em;
 }
 
 .modal-register-page .close-modal-icon {
@@ -542,6 +550,7 @@
   border-radius: 5px;
   font-size: 1rem;
   cursor: pointer;
+  animation: danceEffect 2s infinite ease-in-out;
 }
 
 .modal-register-page .btn-primary:hover {
