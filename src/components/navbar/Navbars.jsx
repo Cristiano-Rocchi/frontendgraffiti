@@ -193,23 +193,39 @@ function Navbars() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Link to={"/"} className="nav-link">
+              <Link
+                to={"/"}
+                className="nav-link"
+                onClick={() => setIsDropdownOpen(false)}
+              >
                 Home
               </Link>
               <Nav.Link onClick={handleShowInfo}>Info</Nav.Link>
               {!username ? (
                 <>
                   <Nav.Link onClick={handleShowLogin}>Login</Nav.Link>
-                  <Link to={"/register"} className="nav-link">
+                  <Link
+                    to={"/register"}
+                    className="nav-link"
+                    onClick={() => setIsDropdownOpen(false)}
+                  >
                     Registrati
                   </Link>
                 </>
               ) : (
                 <>
-                  <Link to={"/profile"} className="nav-link">
+                  <Link
+                    to={"/profile"}
+                    className="nav-link"
+                    onClick={() => setIsDropdownOpen(false)}
+                  >
                     Profilo
                   </Link>
-                  <Link to={"/upload"} className="nav-link">
+                  <Link
+                    to={"/upload"}
+                    className="nav-link"
+                    onClick={() => setIsDropdownOpen(false)}
+                  >
                     Upload
                   </Link>
                   <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
@@ -221,34 +237,36 @@ function Navbars() {
                 show={isDropdownOpen}
                 onToggle={() => setIsDropdownOpen((prev) => !prev)}
               >
-                <Link
+                <NavDropdown.Item
                   className="nav-link"
+                  as={Link}
                   to="/graffiti"
                   onClick={() => setIsDropdownOpen(false)}
                 >
                   Graffiti
-                </Link>
-                <Link
+                </NavDropdown.Item>
+                <NavDropdown.Item
                   className="nav-link"
+                  as={Link}
                   to="/streetart"
                   onClick={() => setIsDropdownOpen(false)}
                 >
                   STREET-ART
-                </Link>
-                <Link
+                </NavDropdown.Item>
+                <NavDropdown.Item
                   className="nav-link"
+                  as={Link}
                   to="/tag"
                   onClick={() => setIsDropdownOpen(false)}
                 >
                   TAGS
-                </Link>
+                </NavDropdown.Item>
               </NavDropdown>
             </Nav>
 
             {username && (
               <Nav className="ms-auto">
                 {role === "ADMIN" ? (
-                  // Se l'utente è admin, mostra il dropdown
                   <NavDropdown
                     title={
                       <>
@@ -269,6 +287,7 @@ function Navbars() {
                       className="text-white nav-link"
                       as={Link}
                       to="/profile"
+                      onClick={() => setIsDropdownOpen(false)}
                     >
                       Profilo
                     </NavDropdown.Item>
@@ -276,13 +295,18 @@ function Navbars() {
                       className="text-white nav-link"
                       as={Link}
                       to="/admin"
+                      onClick={() => setIsDropdownOpen(false)}
                     >
                       Admin
                     </NavDropdown.Item>
                   </NavDropdown>
                 ) : (
-                  // Se l'utente non è admin, mostra solo il nome come un link al profilo
-                  <Nav.Link as={Link} to="/profile" className="text-white">
+                  <Nav.Link
+                    as={Link}
+                    to="/profile"
+                    className="text-white"
+                    onClick={() => setIsDropdownOpen(false)}
+                  >
                     <img
                       src={SprayIcon}
                       alt="logo"
