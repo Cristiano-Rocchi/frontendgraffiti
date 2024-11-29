@@ -234,14 +234,16 @@ function Navbars() {
               <NavDropdown
                 title="ESPLORA"
                 id="basic-nav-dropdown"
-                show={isDropdownOpen}
-                onToggle={() => setIsDropdownOpen((prev) => !prev)}
+                show={isDropdownOpen} // Controlla se il dropdown è visibile
+                onToggle={() => setIsDropdownOpen(!isDropdownOpen)} // Gestisce l'apertura/chiusura
               >
                 <NavDropdown.Item
                   className="nav-link"
                   as={Link}
                   to="/graffiti"
-                  onClick={() => setIsDropdownOpen(false)}
+                  onClick={() => {
+                    setIsDropdownOpen(false); // Chiude il dropdown
+                  }}
                 >
                   Graffiti
                 </NavDropdown.Item>
@@ -249,7 +251,9 @@ function Navbars() {
                   className="nav-link"
                   as={Link}
                   to="/streetart"
-                  onClick={() => setIsDropdownOpen(false)}
+                  onClick={() => {
+                    setIsDropdownOpen(false); // Chiude il dropdown
+                  }}
                 >
                   STREET-ART
                 </NavDropdown.Item>
@@ -257,7 +261,9 @@ function Navbars() {
                   className="nav-link"
                   as={Link}
                   to="/tag"
-                  onClick={() => setIsDropdownOpen(false)}
+                  onClick={() => {
+                    setIsDropdownOpen(false); // Chiude il dropdown
+                  }}
                 >
                   TAGS
                 </NavDropdown.Item>
@@ -282,12 +288,16 @@ function Navbars() {
                       </>
                     }
                     id="basic-nav-dropdown"
+                    show={isDropdownOpen} // Controlla lo stato visibile
+                    onToggle={() => setIsDropdownOpen(!isDropdownOpen)} // Toggle apertura/chiusura
                   >
                     <NavDropdown.Item
                       className="text-white nav-link"
                       as={Link}
                       to="/profile"
-                      onClick={() => setIsDropdownOpen(false)}
+                      onClick={() => {
+                        setIsDropdownOpen(false); // Chiude il dropdown
+                      }}
                     >
                       Profilo
                     </NavDropdown.Item>
@@ -295,7 +305,9 @@ function Navbars() {
                       className="text-white nav-link"
                       as={Link}
                       to="/admin"
-                      onClick={() => setIsDropdownOpen(false)}
+                      onClick={() => {
+                        setIsDropdownOpen(false); // Chiude il dropdown
+                      }}
                     >
                       Admin
                     </NavDropdown.Item>
