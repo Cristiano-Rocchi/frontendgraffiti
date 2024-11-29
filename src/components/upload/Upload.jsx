@@ -89,17 +89,6 @@ function Upload() {
           endpoint = "graffiti";
       }
 
-      console.log("BASE_URL:", BASE_URL);
-      console.log("Endpoint:", endpoint);
-      console.log("Token:", token);
-      console.log("Dati inviati nella prima fetch:", {
-        immagineUrl: "http://example.com/image.jpg", // Temporaneo
-        stato: formData.stato,
-        artista: formData.artista || "Sconosciuto",
-        annoCreazione: formData.annoCreazione,
-        luogo: formData.luogo,
-      });
-
       const response = await fetch(`${BASE_URL}/api/${endpoint}`, {
         method: "POST",
         headers: {
@@ -119,13 +108,31 @@ function Upload() {
       let objectData;
       if (response.ok) {
         objectData = await response.json();
-        console.log("Risposta della prima fetch:", objectData);
       } else {
         const errorResponse = await response.json();
-        console.error("Errore nella prima fetch:", errorResponse);
-        throw new Error(
-          `Errore nella prima fetch: ${response.status} ${response.statusText}`
-        );
+
+        // Gestione degli errori di validazione
+        if (
+          errorResponse.errors &&
+          Object.keys(errorResponse.errors).length > 0
+        ) {
+          const errorMessages = Object.values(errorResponse.errors).join("\n");
+          setError(errorMessages);
+        } else if (errorResponse.message) {
+          // Controllo per errore dell'anno successivo
+          if (
+            errorResponse.message.includes(
+              "anno di creazione non può essere successivo"
+            )
+          ) {
+            setError(errorResponse.message); // Mostra il messaggio specifico
+          } else {
+            setError(errorResponse.message || "Errore nella richiesta.");
+          }
+        }
+
+        setLoading(false);
+        return; // Esci dalla funzione se c'è un errore
       }
 
       // Seconda chiamata: carica l'immagine
@@ -159,17 +166,13 @@ function Upload() {
       }
     } catch (error) {
       console.error("Errore completo:", error);
+      setLoading(false);
 
-      if (error.errors && Object.keys(error.errors).length > 0) {
-        const errorMessages = Object.values(error.errors).join("\n");
-        setError(errorMessages);
-      } else if (error.message) {
+      if (error.message) {
         setError(error.message);
       } else {
         setError("Errore sconosciuto.");
       }
-
-      setLoading(false);
     }
   };
 
